@@ -199,11 +199,6 @@ body.wtest .item.revealed .note{color:var(--ink-3);background:transparent;cursor
 .lcard{background:var(--surface);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);padding:17px 20px}
 .lcard h3{font-family:Newsreader,Georgia,serif;font-weight:600;font-size:18.5px;margin:0 0 4px}
 .lcard .what{margin:0;color:var(--ink-2);font-size:14.5px}
-.wordbank{display:flex;flex-wrap:wrap;gap:5px;margin-top:11px}
-.wb{font-family:Newsreader,Georgia,serif;font-size:14.5px;background:var(--surface-2);
-  border-radius:5px;padding:2px 8px}
-.keyline{margin:12px 0 0;padding:10px 13px;background:var(--ok-bg);border-radius:7px;font-size:14px;color:var(--ink-2)}
-.keyline::before{content:"Key · ";font-weight:600;color:var(--ok)}
 .oq{font-family:Newsreader,Georgia,serif;font-size:19px;font-weight:500;margin:0 0 3px}
 .uses{margin:11px 0 0;padding:0;list-style:none;display:grid;gap:4px}
 .uses li{font-family:Newsreader,Georgia,serif;font-size:15.5px;padding-left:15px;position:relative;color:var(--ink)}
@@ -337,7 +332,7 @@ tr.vgot .vinf{color:var(--ok)}
   <header class="mast">
     <p class="eyebrow">Danish to Go 3 · Kapitel 1–2 &nbsp;·&nbsp; Studieskolen modul 3.3</p>
     <h1>Prøve<span>klar</span></h1>
-    <p class="lede">Everything from the book's first two chapters and your class notes, in one place: the rules, the verbs, the words, what to listen for, and drills to prove you've got it.</p>
+    <p class="lede">Everything from the book's first two chapters and your class notes, in one place: the rules, the verbs, the words, the questions you will be asked out loud, and drills to prove you've got it.</p>
     <div class="figures">
       <div class="fig"><div class="n" id="fRules">0</div><div class="l">Rules</div></div>
       <div class="fig"><div class="n" id="fVerbs">0</div><div class="l">Verbs</div></div>
@@ -757,28 +752,16 @@ $('#wHide').addEventListener('click',e=>{
 $('#wReset').addEventListener('click',()=>{ S.known.clear(); saveW(); renderW(); syncProgress(); });
 
 /* ═══ LISTEN & SPEAK ═══ */
-/* Keyed by content string like everything else: listening by title, oral by question.
+/* Keyed by content string like everything else — the oral question itself.
    The index in L_KEYS is only a handle for the click target. */
-const L_KEYS = LISTENING.map(l=>l.title).concat(ORAL.map(o=>o.q));
+const L_KEYS = ORAL.map(o=>o.q);
 function markBtn(key){
   return '<button class="mark" type="button" data-lk="'+L_KEYS.indexOf(key)+
     '" aria-pressed="'+P.listen.has(key)+'" title="Jeg har været igennem den her">'+TICK+'</button>';
 }
 function renderL(){
   const out=$('#lOut');
-  let h='<section class="sec"><div class="sec-head"><h2>Lytteopgaver</h2>'+
-    '<span class="sec-count">'+LISTENING.length+'</span></div>'+
-    '<p class="sec-sub">What each recording is, the words to have ready before you press play, and the answer. '+
-    'The full transcripts are in the PDF at the back of each chapter — these are the pages to turn to.</p><div class="cards">';
-  LISTENING.forEach(l=>{
-    h+='<article class="lcard'+(P.listen.has(l.title)?' got':'')+'">'+
-      '<div class="lcard-top">'+markBtn(l.title)+'<h3>'+esc(l.title)+'</h3></div>'+
-      '<p class="what"><span class="ref">Kapitel '+l.ch+' · s. '+l.p+'</span> — '+esc(l.what)+'</p>';
-    if(l.words.length) h+='<div class="wordbank">'+l.words.map(w=>'<span class="wb">'+esc(w)+'</span>').join('')+'</div>';
-    h+='<p class="keyline">'+l.key+'</p></article>';
-  });
-  h+='</div></section>';
-  h+='<section class="sec"><div class="sec-head"><h2>Mundtlige spørgsmål</h2>'+
+  let h='<section class="sec"><div class="sec-head"><h2>Mundtlige spørgsmål</h2>'+
      '<span class="sec-count">'+ORAL.length+'</span></div>'+
      '<p class="sec-sub">The book\'s own <i>snak sammen</i> questions — the closest thing to the oral exam — '+
      'with the phrases to build an answer from.</p><div class="cards">';
@@ -983,7 +966,10 @@ function tabBadges(){
    shows) plus a bar per tab. Everything is derived from P and S.known, so the
    two localStorage keys stay the only place progress lives. */
 const LISTEN_TOTAL = L_KEYS.length;
-const listenPct = () => LISTEN_TOTAL ? P.listen.size/LISTEN_TOTAL : 0;
+/* Count against the live keys, never P.listen.size — a stale entry from a
+   removed card would otherwise push this over 100 %. */
+const listenDone = () => L_KEYS.reduce((n,k)=>n+(P.listen.has(k)?1:0),0);
+const listenPct = () => LISTEN_TOTAL ? listenDone()/LISTEN_TOTAL : 0;
 
 function setBar(pctSel, fillSel, cntSel, val, text){
   $(pctSel).textContent = pc(val)+'%';
@@ -1000,7 +986,7 @@ function updateBars(){
     P.verbs.size+' of '+VERBS.length+' conjugations marked');
   updateWProgress();
   setBar('#lPct','#lpFill','#lCnt', listenPct(),
-    P.listen.size+' of '+LISTEN_TOTAL+' worked through');
+    listenDone()+' of '+LISTEN_TOTAL+' worked through');
   setBar('#pPct','#ppFill','#pCnt', t.dPct,
     t.correct+' of '+DRILL_TOTAL+' right · '+t.attempted+' answered');
 }
@@ -1057,6 +1043,15 @@ document.addEventListener('keydown',e=>{
 });
 
 /* ── boot ── */
+/* The Lytteopgaver cards were removed; drop any tick left over from them so
+   the Lyt & tal bar counts only what is still on the page. Harmless to keep
+   running — it is a no-op once storage is clean. */
+(function(){
+  const live = new Set(L_KEYS);
+  let dropped = false;
+  P.listen.forEach(k=>{ if(!live.has(k)){ P.listen.delete(k); dropped = true; } });
+  if(dropped) saveH();
+})();
 applyTheme();
 document.body.classList.toggle('wtest',S.wTest);
 document.body.classList.toggle('vdrill',S.vDrill);

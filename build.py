@@ -29,7 +29,7 @@ MODULES = [
     "words2.js",    # chapter 2 vocabulary  -> WORDS_CH2
     "rules.js",     # grammar               -> RULE_GROUPS, RULES
     "verbs.js",     # conjugations          -> VERBS
-    "listen.js",    # listening + oral      -> LISTENING, ORAL
+    "listen.js",    # oral prompts          -> ORAL
     "practice.js",  # drills + writing      -> SETS, WRITING
 ]
 
@@ -40,7 +40,7 @@ SITE_ASSETS = ["icon.svg", "icon-32.png", "icon-180.png", "icon-192.png", "icon-
 
 DESCRIPTION = (
     "Danish to Go 3, chapters 1–2, cross-referenced with Studieskolen modul 3.3: "
-    "the grammar rules, the verb conjugations, the vocabulary, the listening tasks "
+    "the grammar rules, the verb conjugations, the vocabulary, the oral questions "
     "and drills — with progress tracking that stays in your own browser."
 )
 

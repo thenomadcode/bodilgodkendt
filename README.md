@@ -1,7 +1,7 @@
 # Prøveklar
 
 A single-page study hub for Danish **modul 3.3** — the grammar rules, the verb
-conjugations, the vocabulary, the listening tasks and a set of drills, all in
+conjugations, the vocabulary, the oral exam questions and a set of drills, all in
 one page that keeps track of what you have covered.
 
 **→ https://thenomadcode.github.io/proveklar/**
@@ -50,7 +50,7 @@ src/words1.js     chapter 1 vocabulary   -> WORDS, TIERS, CATS
 src/words2.js     chapter 2 vocabulary   -> WORDS_CH2
 src/rules.js      grammar                -> RULE_GROUPS, RULES
 src/verbs.js      conjugations           -> VERBS
-src/listen.js     listening + oral       -> LISTENING, ORAL
+src/listen.js     oral exam prompts      -> ORAL
 src/practice.js   drills + writing tasks -> SETS, WRITING
 assets/           app icons, generated once from assets/icon-square.svg
 dist/             build output — not tracked, do not edit by hand
