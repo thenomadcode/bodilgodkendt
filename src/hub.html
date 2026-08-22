@@ -1,0 +1,1071 @@
+<title>Prøveklar</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+
+<style>
+:root{
+  --ground:#F1EFEA; --surface:#FBFAF7; --surface-2:#E7E4DC;
+  --line:#DAD5CB; --line-soft:#E6E2D9;
+  --ink:#21242A; --ink-2:#5C626B; --ink-3:#8B9099;
+  --accent:#A8465C; --accent-soft:#F3DFE3;
+  --t1:#A8465C; --t2:#5F8A4E; --t3:#3E7180; --t4:#9C852F;
+  --t1-bg:#F3DFE3; --t2-bg:#E2EBDB; --t3-bg:#DBE8EB; --t4-bg:#EFE8D2;
+  --focus:#2F6FA8;
+  --ok:#3F7A4C; --ok-bg:#E3EFE4;
+  --shadow:0 1px 2px rgba(33,36,42,.05), 0 6px 20px -12px rgba(33,36,42,.28);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#141619; --surface:#1B1E22; --surface-2:#23272C;
+    --line:#2F343B; --line-soft:#262B31;
+    --ink:#E8E5DE; --ink-2:#A5ABB3; --ink-3:#767D86;
+    --accent:#E2899C; --accent-soft:#3A2229;
+    --t1:#E2899C; --t2:#9CC57E; --t3:#77B3C2; --t4:#D5B95F;
+    --t1-bg:#38222A; --t2-bg:#243020; --t3-bg:#1E3036; --t4-bg:#332C18;
+    --focus:#77AEE0;
+    --ok:#8FC49A; --ok-bg:#20301F;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -14px rgba(0,0,0,.8);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#141619; --surface:#1B1E22; --surface-2:#23272C;
+  --line:#2F343B; --line-soft:#262B31;
+  --ink:#E8E5DE; --ink-2:#A5ABB3; --ink-3:#767D86;
+  --accent:#E2899C; --accent-soft:#3A2229;
+  --t1:#E2899C; --t2:#9CC57E; --t3:#77B3C2; --t4:#D5B95F;
+  --t1-bg:#38222A; --t2-bg:#243020; --t3-bg:#1E3036; --t4-bg:#332C18;
+  --focus:#77AEE0;
+  --ok:#8FC49A; --ok-bg:#20301F;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -14px rgba(0,0,0,.8);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--ground); color:var(--ink);
+  font-family:"IBM Plex Sans","Helvetica Neue",Arial,sans-serif;
+  font-size:16px; line-height:1.55; -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1060px;margin:0 auto;padding:0 20px 110px}
+b,strong{font-weight:600}
+em,i{font-style:italic}
+
+/* ── Masthead ── */
+.mast{padding:44px 0 22px}
+.eyebrow{font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);font-weight:600;margin:0 0 13px}
+.mast h1{font-family:Newsreader,Georgia,serif;font-weight:500;font-size:clamp(36px,6.5vw,56px);line-height:1.04;letter-spacing:-.018em;margin:0}
+.mast h1 span{color:var(--accent)}
+.lede{margin:15px 0 0;max-width:58ch;color:var(--ink-2);font-size:16.5px}
+.figures{display:flex;flex-wrap:wrap;gap:26px;margin-top:24px;font-variant-numeric:tabular-nums}
+.fig .n{font-family:Newsreader,Georgia,serif;font-size:25px;font-weight:500;line-height:1}
+.fig .l{font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);font-weight:600;margin-top:5px}
+
+/* ── Tabs ── */
+.tabs{
+  position:sticky;top:0;z-index:30;margin:22px -20px 0;padding:0 20px;
+  background:color-mix(in srgb, var(--ground) 93%, transparent);
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--line);
+}
+.tabrow{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+.tabrow::-webkit-scrollbar{display:none}
+.tab{
+  font:inherit;font-size:14.5px;font-weight:500;color:var(--ink-3);
+  background:none;border:0;border-bottom:2px solid transparent;
+  padding:12px 13px;cursor:pointer;white-space:nowrap;
+}
+.tab:hover{color:var(--ink)}
+.tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent)}
+.tab:focus-visible{outline:2px solid var(--focus);outline-offset:-4px;border-radius:4px}
+
+/* ── Toolbar ── */
+.bar{display:flex;flex-wrap:wrap;gap:9px;align-items:center;padding:14px 0 2px}
+.search{flex:1 1 230px;min-width:0;position:relative;display:flex;align-items:center}
+.search svg{position:absolute;left:11px;width:15px;height:15px;color:var(--ink-3);pointer-events:none}
+.search input{width:100%;font:inherit;font-size:15px;color:var(--ink);background:var(--surface);
+  border:1px solid var(--line);border-radius:7px;padding:8px 12px 8px 33px}
+.search input::placeholder{color:var(--ink-3)}
+.search input:focus-visible{outline:2px solid var(--focus);outline-offset:1px;border-color:transparent}
+.btn{
+  font:inherit;font-size:13.5px;font-weight:500;color:var(--ink-2);
+  background:var(--surface);border:1px solid var(--line);border-radius:7px;
+  padding:8px 12px;cursor:pointer;white-space:nowrap;
+}
+.btn:hover{color:var(--ink);border-color:var(--ink-3)}
+.btn[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--surface)}
+.btn:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;padding:9px 0 0}
+.chip{font:inherit;font-size:12.5px;font-weight:500;color:var(--ink-2);background:transparent;
+  border:1px solid var(--line);border-radius:99px;padding:4px 11px;cursor:pointer;white-space:nowrap}
+.chip:hover{color:var(--ink);border-color:var(--ink-3)}
+.chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--ground)}
+.chip:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.linkish{background:none;border:0;padding:0;font:inherit;font-size:13px;color:var(--ink-3);
+  text-decoration:underline;text-underline-offset:2px;cursor:pointer}
+.linkish:hover{color:var(--accent)}
+.linkish:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+
+/* ── Panels ── */
+.panel{display:none;padding-top:8px}
+.panel.on{display:block}
+.sec{margin-top:40px}
+.sec-head{display:flex;gap:13px;align-items:baseline;flex-wrap:wrap}
+.sec-head h2{font-family:Newsreader,Georgia,serif;font-weight:500;font-size:25px;letter-spacing:-.012em;margin:0}
+.sec-sub{margin:6px 0 0;color:var(--ink-2);font-size:14.5px;max-width:64ch}
+.sec-count{font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);font-weight:600;font-variant-numeric:tabular-nums}
+
+/* ── Rule cards ── */
+.cards{display:grid;gap:14px;margin-top:18px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;
+  box-shadow:var(--shadow);padding:18px 20px}
+.card.star{border-color:var(--accent);box-shadow:var(--shadow),0 0 0 1px var(--accent) inset}
+.card-top{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;margin-bottom:8px}
+.card h3{font-family:Newsreader,Georgia,serif;font-weight:600;font-size:19.5px;margin:0;letter-spacing:-.008em;flex:1 1 auto}
+.tag{font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;font-weight:600;
+  border-radius:4px;padding:2px 7px;white-space:nowrap}
+.tag.both{background:var(--t1-bg);color:var(--t1)}
+.tag.notes{background:var(--t3-bg);color:var(--t3)}
+.tag.book{background:var(--t4-bg);color:var(--t4)}
+.ref{font-size:11.5px;color:var(--ink-3);white-space:nowrap;font-variant-numeric:tabular-nums}
+.card .rule{margin:0;color:var(--ink);font-size:15.5px}
+.gtable{width:100%;border-collapse:collapse;margin:13px 0 0;font-size:14.5px}
+.gtable td{border-top:1px solid var(--line-soft);padding:7px 10px 7px 0;vertical-align:top}
+.gtable tr:first-child td{border-top:0}
+.gtable td:first-child{white-space:nowrap;color:var(--ink-3);font-weight:600;font-size:12.5px;
+  letter-spacing:.04em;text-transform:uppercase;padding-right:18px;width:1%}
+.exs{margin:13px 0 0;padding:0;list-style:none;display:grid;gap:5px}
+.exs li{font-family:Newsreader,Georgia,serif;font-size:16px;color:var(--ink);padding-left:15px;position:relative}
+.exs li::before{content:"—";position:absolute;left:0;color:var(--ink-3)}
+.trap{margin:13px 0 0;padding:10px 13px;background:var(--surface-2);border-radius:7px;
+  font-size:14px;color:var(--ink-2)}
+.trap::before{content:"Trap · ";font-weight:600;color:var(--accent);letter-spacing:.03em}
+
+/* ── Verb table ── */
+.tablewrap{overflow-x:auto;margin-top:18px;background:var(--surface);border:1px solid var(--line);
+  border-radius:10px;box-shadow:var(--shadow)}
+table.vt{width:100%;border-collapse:collapse;font-size:14.5px;min-width:720px}
+table.vt th{
+  text-align:left;font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);
+  font-weight:600;padding:11px 14px;border-bottom:1px solid var(--line);position:sticky;top:0;
+  background:var(--surface);
+}
+table.vt td{padding:9px 14px;border-top:1px solid var(--line-soft);vertical-align:baseline}
+table.vt tr:first-child td{border-top:0}
+.vinf{font-family:Newsreader,Georgia,serif;font-size:17px;font-weight:500;white-space:nowrap}
+.vform{font-family:"IBM Plex Mono",monospace;font-size:13px;white-space:nowrap}
+.veng{color:var(--ink-2);font-size:13.5px}
+.grp{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:5px;
+  font-size:11.5px;font-weight:600;font-family:"IBM Plex Mono",monospace}
+.grp-1{background:var(--t2-bg);color:var(--t2)}
+.grp-2{background:var(--t3-bg);color:var(--t3)}
+.grp-U{background:var(--t1-bg);color:var(--t1)}
+.grp-M{background:var(--t4-bg);color:var(--t4)}
+body.vdrill .vform.hide{color:transparent;background:var(--surface-2);border-radius:4px;cursor:pointer}
+body.vdrill tr.shown .vform.hide{color:var(--ink);background:transparent;cursor:default}
+
+/* ── Word list (carried over) ── */
+.list{margin:18px 0 0;padding:0;list-style:none;background:var(--surface);border:1px solid var(--line);
+  border-radius:10px;box-shadow:var(--shadow);overflow:hidden}
+.item{display:grid;grid-template-columns:34px minmax(0,1fr) minmax(0,1.15fr) auto;gap:0 16px;
+  align-items:baseline;padding:11px 16px 11px 10px;border-top:1px solid var(--line-soft)}
+.item:first-child{border-top:0}
+.item.known .da,.item.known .en{opacity:.42}
+.tick{grid-column:1;align-self:center;width:19px;height:19px;margin:0;border:1.5px solid var(--line);
+  border-radius:5px;background:transparent;cursor:pointer;display:grid;place-items:center;padding:0;color:transparent}
+.tick:hover{border-color:var(--ink-3)}
+.tick[aria-pressed="true"]{background:var(--ink-3);border-color:var(--ink-3);color:var(--surface)}
+.tick:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.tick svg{width:11px;height:11px}
+.da{grid-column:2;font-family:Newsreader,Georgia,serif;font-size:19px;font-weight:500}
+.en{grid-column:3;color:var(--ink-2);font-size:14.5px}
+.meta{grid-column:4;display:flex;gap:6px;align-items:center;white-space:nowrap}
+.pos{font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
+.pg{font-size:11.5px;font-variant-numeric:tabular-nums;color:var(--ink-3);background:var(--surface-2);
+  border-radius:4px;padding:1px 6px}
+.note{grid-column:3 / -1;font-family:Newsreader,Georgia,serif;font-style:italic;font-size:14px;
+  color:var(--ink-3);margin-top:3px}
+body.wtest .en,body.wtest .note{color:transparent;background:var(--surface-2);border-radius:4px;
+  cursor:pointer;user-select:none}
+body.wtest .item.revealed .en{color:var(--ink-2);background:transparent;cursor:default}
+body.wtest .item.revealed .note{color:var(--ink-3);background:transparent;cursor:default}
+.progress{display:flex;align-items:center;gap:12px;padding:12px 0 0;font-size:13px;color:var(--ink-2)}
+.pbar{flex:1;height:5px;border-radius:99px;background:var(--surface-2);overflow:hidden}
+.pbar i{display:block;height:100%;background:var(--accent);width:0;transition:width .25s ease}
+.progress .cnt{font-variant-numeric:tabular-nums;white-space:nowrap}
+.tier-rank{font-family:Newsreader,Georgia,serif;font-size:15px;font-weight:600;width:26px;height:26px;
+  flex:none;border-radius:99px;display:grid;place-items:center}
+
+/* ── Listening / oral ── */
+.lcard{background:var(--surface);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);padding:17px 20px}
+.lcard h3{font-family:Newsreader,Georgia,serif;font-weight:600;font-size:18.5px;margin:0 0 4px}
+.lcard .what{margin:0;color:var(--ink-2);font-size:14.5px}
+.wordbank{display:flex;flex-wrap:wrap;gap:5px;margin-top:11px}
+.wb{font-family:Newsreader,Georgia,serif;font-size:14.5px;background:var(--surface-2);
+  border-radius:5px;padding:2px 8px}
+.keyline{margin:12px 0 0;padding:10px 13px;background:var(--ok-bg);border-radius:7px;font-size:14px;color:var(--ink-2)}
+.keyline::before{content:"Key · ";font-weight:600;color:var(--ok)}
+.oq{font-family:Newsreader,Georgia,serif;font-size:19px;font-weight:500;margin:0 0 3px}
+.uses{margin:11px 0 0;padding:0;list-style:none;display:grid;gap:4px}
+.uses li{font-family:Newsreader,Georgia,serif;font-size:15.5px;padding-left:15px;position:relative;color:var(--ink)}
+.uses li::before{content:"›";position:absolute;left:0;color:var(--accent)}
+
+/* ── Practice ── */
+.drill{margin-top:16px;background:var(--surface);border:1px solid var(--line);border-radius:10px;
+  box-shadow:var(--shadow);overflow:hidden}
+.drill-head{padding:16px 20px 13px;border-bottom:1px solid var(--line-soft);display:flex;
+  gap:12px;align-items:baseline;flex-wrap:wrap}
+.drill-head h3{font-family:Newsreader,Georgia,serif;font-weight:600;font-size:19px;margin:0;flex:1 1 auto}
+.drill-intro{padding:0 20px 12px;color:var(--ink-2);font-size:14px;margin:0}
+.qrow{display:grid;grid-template-columns:26px minmax(0,1fr);gap:0 12px;padding:11px 20px;
+  border-top:1px solid var(--line-soft);cursor:pointer}
+.qrow:hover{background:var(--surface-2)}
+.qnum{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--ink-3);padding-top:3px;font-variant-numeric:tabular-nums}
+.qtext{font-family:Newsreader,Georgia,serif;font-size:16.5px}
+.ans{grid-column:2;margin-top:6px;display:none}
+.qrow.open .ans{display:block}
+.ansval{font-family:Newsreader,Georgia,serif;font-size:16.5px;font-weight:600;color:var(--ok)}
+.answhy{font-size:13.5px;color:var(--ink-2);margin-top:2px}
+.wcard{background:var(--surface);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);padding:17px 20px}
+.wcard h3{font-family:Newsreader,Georgia,serif;font-weight:600;font-size:18.5px;margin:0 0 5px}
+.musts{margin:11px 0 0;padding:0;list-style:none;display:grid;gap:5px}
+.musts li{font-size:14.5px;color:var(--ink-2);padding-left:19px;position:relative}
+.musts li::before{content:"☐";position:absolute;left:0;color:var(--accent)}
+
+/* ── Status dashboard ── */
+.hero{display:flex;flex-wrap:wrap;gap:28px;align-items:flex-end;margin-top:20px;
+  background:var(--surface);border:1px solid var(--line);border-radius:10px;
+  box-shadow:var(--shadow);padding:22px 24px}
+.hero .big{font-family:Newsreader,Georgia,serif;font-size:clamp(48px,9vw,68px);line-height:.9;
+  font-weight:500;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.hero .big sup{font-size:.4em;font-weight:400;color:var(--ink-3);vertical-align:super;margin-left:2px}
+.hero .htext{flex:1 1 260px;min-width:0}
+.hero h2{font-family:Newsreader,Georgia,serif;font-weight:500;font-size:22px;margin:0 0 4px}
+.hero p{margin:0;color:var(--ink-2);font-size:14px;max-width:52ch}
+.dash{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(232px,1fr));margin-top:14px}
+.dcard{background:var(--surface);border:1px solid var(--line);border-radius:10px;
+  box-shadow:var(--shadow);padding:16px 18px}
+.dcard h3{font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);
+  font-weight:600;margin:0 0 9px}
+.dnum{font-family:Newsreader,Georgia,serif;font-size:29px;font-weight:500;line-height:1;
+  font-variant-numeric:tabular-nums}
+.dnum small{font-size:14px;color:var(--ink-3);font-weight:400;margin-left:5px}
+.meter{display:block;height:6px;border-radius:99px;background:var(--surface-2);overflow:hidden;margin-top:11px}
+.meter i{display:block;height:100%;border-radius:99px;transition:width .3s ease}
+.dhint{margin:9px 0 0;font-size:13px;color:var(--ink-2)}
+.weak{margin:14px 0 0;padding:0;list-style:none;display:grid;gap:7px}
+.weak li{display:flex;gap:10px;align-items:baseline;font-size:14.5px}
+.weak .wname{flex:1 1 auto;min-width:0}
+.weak .wval{font-variant-numeric:tabular-nums;color:var(--ink-3);font-size:13px;white-space:nowrap}
+.goto{font:inherit;font-size:13px;background:none;border:0;padding:0;color:var(--accent);
+  text-decoration:underline;text-underline-offset:2px;cursor:pointer}
+.goto:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.tabprog{font-size:10.5px;font-weight:600;color:var(--ink-3);margin-left:5px;font-variant-numeric:tabular-nums}
+
+/* ── Tab row furniture: theme switch + the global bar, both inside the sticky nav ── */
+.tabtop{display:flex;align-items:center;gap:12px}
+.tabtop .tabrow{flex:1 1 auto;min-width:0}
+.themebtn{flex:none;font:inherit;font-size:12.5px;font-weight:500;color:var(--ink-2);
+  background:var(--surface);border:1px solid var(--line);border-radius:99px;
+  padding:5px 11px;cursor:pointer;white-space:nowrap;display:inline-flex;align-items:center;gap:6px}
+.themebtn:hover{color:var(--ink);border-color:var(--ink-3)}
+.themebtn:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.themebtn svg{width:14px;height:14px;flex:none}
+.gprog{display:flex;align-items:center;gap:11px;padding:0 0 9px}
+.gprog .glabel{font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--ink-3);font-weight:600;white-space:nowrap}
+.gprog .gbar{flex:1;min-width:0;height:5px;border-radius:99px;background:var(--surface-2);overflow:hidden}
+.gprog .gbar i{display:block;height:100%;width:0;border-radius:99px;background:var(--accent);transition:width .3s ease}
+.gprog .gval{font-size:12.5px;font-weight:600;color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap}
+.progress .pct{font-weight:600;color:var(--ink)}
+@media (max-width:620px){
+  .themebtn .tlabel{display:none}
+  .themebtn{padding:5px 8px}
+  .gprog .glabel{display:none}
+  /* the count text cannot shrink, so give the bar its own row rather than
+     letting it shove the Reset button off the side */
+  .progress{flex-wrap:wrap;row-gap:7px}
+  .progress .pbar{order:-1;flex:1 1 100%}
+  .progress .cnt{white-space:normal;flex:1 1 auto;min-width:0}
+  .progress .pct{flex:0 0 auto}
+  .progress .linkish{flex:0 0 auto;margin-left:auto}
+}
+
+/* ── mark buttons ── */
+.mark{width:19px;height:19px;flex:none;border:1.5px solid var(--line);border-radius:5px;
+  background:transparent;cursor:pointer;display:grid;place-items:center;padding:0;color:transparent}
+.mark:hover{border-color:var(--ink-3)}
+.mark[aria-pressed="true"]{background:var(--ok);border-color:var(--ok);color:var(--surface)}
+.mark:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.mark svg{width:11px;height:11px}
+.card.got{border-color:var(--ok)}
+.lcard-top{display:flex;gap:10px;align-items:baseline;margin-bottom:5px}
+.lcard-top h3,.lcard-top .oq{margin:0;flex:1 1 auto;min-width:0}
+.lcard.got{border-color:var(--ok)}
+.card.got.star{border-color:var(--accent)}
+tr.vgot .vinf{color:var(--ok)}
+.scorebtns{display:flex;gap:7px;margin-top:9px}
+.sbtn{font:inherit;font-size:12.5px;font-weight:500;border-radius:6px;padding:3px 10px;cursor:pointer;
+  background:var(--surface);border:1px solid var(--line);color:var(--ink-2)}
+.sbtn:hover{border-color:var(--ink-3);color:var(--ink)}
+.sbtn.ok[aria-pressed="true"]{background:var(--ok);border-color:var(--ok);color:var(--surface)}
+.sbtn.no[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--surface)}
+.sbtn:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.qrow.ok{box-shadow:inset 3px 0 0 var(--ok)}
+.qrow.no{box-shadow:inset 3px 0 0 var(--accent)}
+
+.empty{padding:44px 16px;text-align:center;color:var(--ink-3);font-size:15px}
+.foot{margin-top:60px;padding-top:20px;border-top:1px solid var(--line);color:var(--ink-3);
+  font-size:13px;max-width:66ch}
+.foot code{font-size:12px;background:var(--surface-2);padding:1px 5px;border-radius:4px}
+.star-mark{color:var(--accent);font-size:14px}
+
+@media (max-width:760px){
+  .item{grid-template-columns:30px minmax(0,1fr) auto;row-gap:2px}
+  .da{grid-column:2}.meta{grid-column:3}.en{grid-column:2 / -1}.note{grid-column:2 / -1}
+  .card{padding:16px}
+}
+@media (prefers-reduced-motion: reduce){*{transition:none !important;animation:none !important}}
+</style>
+
+<script>
+/* Set the theme before anything paints, so a saved choice never flashes. */
+(function(){try{var t=localStorage.getItem('dtg3-theme-v1');
+  if(t==='light'||t==='dark') document.documentElement.setAttribute('data-theme',t);}catch(e){}})();
+</script>
+
+<div class="wrap">
+  <header class="mast">
+    <p class="eyebrow">Danish to Go 3 · Kapitel 1–2 &nbsp;·&nbsp; Studieskolen modul 3.3</p>
+    <h1>Prøve<span>klar</span></h1>
+    <p class="lede">Everything from the book's first two chapters and your class notes, in one place: the rules, the verbs, the words, what to listen for, and drills to prove you've got it.</p>
+    <div class="figures">
+      <div class="fig"><div class="n" id="fRules">0</div><div class="l">Rules</div></div>
+      <div class="fig"><div class="n" id="fVerbs">0</div><div class="l">Verbs</div></div>
+      <div class="fig"><div class="n" id="fWords">0</div><div class="l">Words</div></div>
+      <div class="fig"><div class="n" id="fDrills">0</div><div class="l">Drills</div></div>
+    </div>
+  </header>
+
+  <nav class="tabs">
+    <div class="tabtop">
+      <div class="tabrow" role="tablist">
+        <button class="tab" role="tab" data-p="status" aria-selected="true">Status</button>
+        <button class="tab" role="tab" data-p="grammar" aria-selected="false">Grammatik</button>
+        <button class="tab" role="tab" data-p="verbs" aria-selected="false">Verber</button>
+        <button class="tab" role="tab" data-p="words" aria-selected="false">Ord</button>
+        <button class="tab" role="tab" data-p="listen" aria-selected="false">Lyt &amp; tal</button>
+        <button class="tab" role="tab" data-p="practice" aria-selected="false">Øv dig</button>
+      </div>
+      <button class="themebtn" id="themeBtn" type="button">Tema</button>
+    </div>
+    <div class="gprog">
+      <span class="glabel">Samlet</span>
+      <span class="gbar"><i id="globFill"></i></span>
+      <span class="gval" id="globVal">0%</span>
+    </div>
+  </nav>
+
+  <!-- STATUS -->
+  <section class="panel on" id="p-status">
+    <div id="sOut"></div>
+  </section>
+
+  <!-- GRAMMAR -->
+  <section class="panel" id="p-grammar">
+    <div class="bar">
+      <label class="search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="qG" type="search" placeholder="Search the rules  (press /)" autocomplete="off" aria-label="Search grammar rules">
+      </label>
+      <button class="btn" id="starOnly" aria-pressed="false">★ Priority only</button>
+    </div>
+    <div class="chips" id="srcChips" role="group" aria-label="Filter by source"></div>
+    <div class="progress">
+      <span class="cnt pct" id="gPct">0%</span>
+      <span class="pbar"><i id="gpFill"></i></span>
+      <span class="cnt" id="gCnt">0 of 0 marked</span>
+      <button class="linkish" id="gReset">Reset</button>
+    </div>
+    <div id="gOut"></div>
+  </section>
+
+  <!-- VERBS -->
+  <section class="panel" id="p-verbs">
+    <div class="bar">
+      <label class="search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="qV" type="search" placeholder="Search Danish or English" autocomplete="off" aria-label="Search verbs">
+      </label>
+      <button class="btn" id="vDrill" aria-pressed="false">Hide the forms</button>
+    </div>
+    <div class="chips" id="grpChips" role="group" aria-label="Filter by conjugation group"></div>
+    <div class="progress">
+      <span class="cnt pct" id="vPct">0%</span>
+      <span class="pbar"><i id="vpFill"></i></span>
+      <span class="cnt" id="vCnt">0 of 0 marked</span>
+      <button class="linkish" id="vReset">Reset</button>
+    </div>
+    <div id="vOut"></div>
+  </section>
+
+  <!-- WORDS -->
+  <section class="panel" id="p-words">
+    <div class="bar">
+      <label class="search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="qW" type="search" placeholder="Search Danish or English" autocomplete="off" aria-label="Search vocabulary">
+      </label>
+      <button class="btn" id="wTest" aria-pressed="false">Hide translations</button>
+      <button class="btn" id="wHide" aria-pressed="false">Hide ticked</button>
+    </div>
+    <div class="chips" id="wChips" role="group" aria-label="Filter vocabulary"></div>
+    <div class="progress">
+      <span class="cnt pct" id="wPct">0%</span>
+      <span class="pbar"><i id="wFill"></i></span>
+      <span class="cnt" id="wKnown">0 of 0 ticked</span>
+      <button class="linkish" id="wReset">Reset</button>
+    </div>
+    <div id="wOut"></div>
+  </section>
+
+  <!-- LISTEN & SPEAK -->
+  <section class="panel" id="p-listen">
+    <div class="progress">
+      <span class="cnt pct" id="lPct">0%</span>
+      <span class="pbar"><i id="lpFill"></i></span>
+      <span class="cnt" id="lCnt">0 of 0 worked through</span>
+      <button class="linkish" id="lReset">Reset</button>
+    </div>
+    <div id="lOut"></div>
+  </section>
+
+  <!-- PRACTICE -->
+  <section class="panel" id="p-practice">
+    <div class="bar">
+      <button class="btn" id="pAll">Show every answer</button>
+      <button class="btn" id="pNone">Hide every answer</button>
+    </div>
+    <div class="progress">
+      <span class="cnt pct" id="pPct">0%</span>
+      <span class="pbar"><i id="ppFill"></i></span>
+      <span class="cnt" id="pCnt">0 of 0 right</span>
+      <button class="linkish" id="pReset">Reset</button>
+    </div>
+    <div id="pOut"></div>
+  </section>
+
+  <footer class="foot">
+    Page numbers are the printed pages of <i>Danish to Go 3</i> — the same numbers in the PDF in your <code>danish</code> folder and in the paper book. Rules tagged <b>Begge</b> appear in both the book and your Studieskolen notes. Everything you mark — rules, verbs, words, listening tasks and drill scores — is saved in this browser only, on this device.
+  </footer>
+</div>
+
+<script>
+/*DATA*/
+</script>
+
+<script>
+(function(){
+'use strict';
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+const KEY_W = 'dtg3-k1-v1';      // kept from the chapter-1 word list so ticks survive
+const KEY_H = 'dtg3-hub-v1';
+
+/* merge chapter 1 + 2 word lists */
+const ALL_WORDS = WORDS.map(w=>Object.assign({ch:1},w)).concat(WORDS_CH2.map(w=>Object.assign({ch:2},w)));
+const CATS2 = Object.assign({pron:"Pronoun"}, CATS);
+
+let S = {tab:'status', gTerm:'', gSrc:'all', gStar:false,
+         vTerm:'', vGrp:'all', vDrill:false,
+         wTerm:'', wCat:'all', wCh:'all', wTest:false, wHide:false,
+         known:new Set()};
+
+try{ const o=JSON.parse(localStorage.getItem(KEY_W)||'{}');
+     if(Array.isArray(o.known)) S.known=new Set(o.known);
+     S.wTest=!!o.test; S.wHide=!!o.hideKnown; }catch(e){}
+let P = {rules:new Set(), verbs:new Set(), listen:new Set(), drills:{}, last:null};
+try{ const o=JSON.parse(localStorage.getItem(KEY_H)||'{}');
+     if(o.tab) S.tab=o.tab; if(typeof o.vDrill==='boolean') S.vDrill=o.vDrill;
+     if(Array.isArray(o.rules)) P.rules=new Set(o.rules);
+     if(Array.isArray(o.verbs)) P.verbs=new Set(o.verbs);
+     if(Array.isArray(o.listen)) P.listen=new Set(o.listen);
+     if(o.drills && typeof o.drills==='object') P.drills=o.drills;
+     if(o.last) P.last=o.last; }catch(e){}
+
+function saveW(){ try{ localStorage.setItem(KEY_W, JSON.stringify(
+  {known:[...S.known], test:S.wTest, hideKnown:S.wHide})); }catch(e){} }
+function saveH(){ try{ localStorage.setItem(KEY_H, JSON.stringify(
+  {tab:S.tab, vDrill:S.vDrill, rules:[...P.rules], verbs:[...P.verbs],
+   listen:[...P.listen], drills:P.drills, last:P.last})); }catch(e){} }
+function touch(){ P.last = new Date().toISOString().slice(0,10); }
+
+/* ── figures ── */
+$('#fRules').textContent = RULES.length;
+$('#fVerbs').textContent = VERBS.length;
+$('#fWords').textContent = ALL_WORDS.length;
+$('#fDrills').textContent = SETS.reduce((n,s)=>n+s.items.length,0);
+
+/* ── tabs ── */
+const tabs = [...document.querySelectorAll('.tab')];
+function showTab(id){
+  S.tab=id; saveH();
+  tabs.forEach(t=>t.setAttribute('aria-selected', t.dataset.p===id));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('on', p.id==='p-'+id));
+}
+tabs.forEach(t=>t.addEventListener('click',()=>showTab(t.dataset.p)));
+
+const TICK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 12.5 5.2 5.2L20 7"/></svg>';
+
+/* ═══ GRAMMAR ═══ */
+const SRC_LABEL = {both:'Begge', notes:'Klassenoter', book:'Bogen'};
+const srcChips = $('#srcChips');
+[['all','Alle'],['both','Begge'],['notes','Klassenoter'],['book','Bogen']].forEach(([k,label])=>{
+  const b=document.createElement('button');
+  b.className='chip'; b.type='button'; b.dataset.k=k;
+  b.setAttribute('aria-pressed', k==='all');
+  const n = k==='all' ? RULES.length : RULES.filter(r=>r.src===k).length;
+  b.textContent = label+'  '+n;
+  b.addEventListener('click',()=>{
+    S.gSrc=k;
+    [...srcChips.children].forEach(c=>c.setAttribute('aria-pressed', c.dataset.k===k));
+    renderG();
+  });
+  srcChips.appendChild(b);
+});
+
+function ruleText(r){
+  return (r.title+' '+r.rule+' '+(r.trap||'')+' '+(r.ex||[]).join(' ')+' '+
+    (r.table||[]).map(x=>x.join(' ')).join(' ')).toLowerCase().replace(/<[^>]+>/g,'');
+}
+function renderG(){
+  const out=$('#gOut'); out.innerHTML='';
+  const shown = RULES.filter(r=>{
+    if(S.gSrc!=='all' && r.src!==S.gSrc) return false;
+    if(S.gStar && !r.star) return false;
+    if(S.gTerm && !ruleText(r).includes(S.gTerm)) return false;
+    return true;
+  });
+  if(!shown.length){ out.innerHTML='<p class="empty">No rule matches that.</p>'; return; }
+  RULE_GROUPS.forEach(grp=>{
+    const rs = shown.filter(r=>r.g===grp.id);
+    if(!rs.length) return;
+    const sec=document.createElement('section'); sec.className='sec';
+    sec.innerHTML = '<div class="sec-head"><h2>'+esc(grp.name)+'</h2>'+
+      '<span class="sec-count">'+rs.length+'</span></div>'+
+      '<p class="sec-sub">'+esc(grp.sub)+'</p>';
+    const cards=document.createElement('div'); cards.className='cards';
+    rs.forEach(r=>{
+      const c=document.createElement('article');
+      c.className='card'+(r.star?' star':'');
+      if(P.rules.has(r.title)) c.classList.add('got');
+      let h = '<div class="card-top">'+
+        '<button class="mark" type="button" aria-pressed="'+P.rules.has(r.title)+'" title="Jeg kan det her">'+TICK+'</button>'+
+        '<h3>'+r.title.replace('★','<span class="star-mark">★</span> ')+'</h3>'+
+        '<span class="tag '+r.src+'">'+SRC_LABEL[r.src]+'</span>'+
+        '<span class="ref">'+esc(r.ref)+'</span></div>'+
+        '<p class="rule">'+r.rule+'</p>';
+      if(r.table) h += '<table class="gtable"><tbody>'+r.table.map(row=>
+        '<tr><td>'+row[0]+'</td><td>'+row[1]+'</td></tr>').join('')+'</tbody></table>';
+      if(r.ex) h += '<ul class="exs">'+r.ex.map(e=>'<li>'+e+'</li>').join('')+'</ul>';
+      if(r.trap) h += '<p class="trap">'+r.trap+'</p>';
+      c.innerHTML=h;
+      const mk=c.querySelector('.mark');
+      mk.addEventListener('click',()=>{
+        const now=!P.rules.has(r.title);
+        if(now) P.rules.add(r.title); else P.rules.delete(r.title);
+        touch(); saveH();
+        c.classList.toggle('got',now); mk.setAttribute('aria-pressed',now);
+        syncProgress();
+      });
+      cards.appendChild(c);
+    });
+    sec.appendChild(cards); out.appendChild(sec);
+  });
+}
+$('#qG').addEventListener('input',e=>{ S.gTerm=e.target.value.trim().toLowerCase(); renderG(); });
+$('#starOnly').addEventListener('click',e=>{
+  S.gStar=!S.gStar; e.currentTarget.setAttribute('aria-pressed',S.gStar); renderG();
+});
+
+/* ═══ VERBS ═══ */
+const GRP_LABEL = {'1':'Gruppe 1 · -ede','2':'Gruppe 2 · -te','U':'Uregelmæssige','M':'Modalverber'};
+const grpChips = $('#grpChips');
+[['all','Alle'],['1','Gruppe 1'],['2','Gruppe 2'],['U','Uregelmæssige'],['M','Modal'],['sheet','Fra dit ark'],['book','Fra bogen']].forEach(([k,label])=>{
+  const b=document.createElement('button');
+  b.className='chip'; b.type='button'; b.dataset.k=k;
+  b.setAttribute('aria-pressed', k==='all');
+  const n = k==='all' ? VERBS.length
+          : (k==='sheet'||k==='book') ? VERBS.filter(v=>v.src===k).length
+          : VERBS.filter(v=>v.grp===k).length;
+  b.textContent = label+'  '+n;
+  b.addEventListener('click',()=>{
+    S.vGrp=k;
+    [...grpChips.children].forEach(c=>c.setAttribute('aria-pressed', c.dataset.k===k));
+    renderV();
+  });
+  grpChips.appendChild(b);
+});
+function renderV(){
+  const out=$('#vOut'); out.innerHTML='';
+  const shown = VERBS.filter(v=>{
+    if(S.vGrp!=='all'){
+      if(S.vGrp==='sheet'||S.vGrp==='book'){ if(v.src!==S.vGrp) return false; }
+      else if(v.grp!==S.vGrp) return false;
+    }
+    if(S.vTerm && !(v.i+' '+v.n+' '+v.d+' '+v.f+' '+v.e).toLowerCase().includes(S.vTerm)) return false;
+    return true;
+  });
+  if(!shown.length){ out.innerHTML='<p class="empty">No verb matches that.</p>'; return; }
+  const wrap=document.createElement('div'); wrap.className='tablewrap';
+  wrap.innerHTML = '<table class="vt"><thead><tr>'+
+    '<th></th><th>Infinitiv</th><th>Nutid</th><th>Datid</th><th>Førnutid</th><th>Imperativ</th><th>Engelsk</th><th></th>'+
+    '</tr></thead><tbody></tbody></table>';
+  const tb = wrap.querySelector('tbody');
+  shown.forEach(v=>{
+    const tr=document.createElement('tr');
+    if(P.verbs.has(v.i)) tr.classList.add('vgot');
+    tr.innerHTML =
+      '<td><button class="mark" type="button" aria-pressed="'+P.verbs.has(v.i)+'" title="Jeg kan bøje det her">'+TICK+'</button></td>'+
+      '<td class="vinf">'+esc(v.i)+'</td>'+
+      '<td class="vform">'+esc(v.n)+'</td>'+
+      '<td class="vform hide">'+esc(v.d)+'</td>'+
+      '<td class="vform hide">'+esc(v.f)+'</td>'+
+      '<td class="vform">'+esc(v.m)+'</td>'+
+      '<td class="veng">'+esc(v.e)+'</td>'+
+      '<td><span class="grp grp-'+v.grp+'" title="'+GRP_LABEL[v.grp]+'">'+v.grp+'</span></td>';
+    tr.addEventListener('click',ev=>{
+      if(ev.target.closest('.mark')) return;
+      if(S.vDrill) tr.classList.toggle('shown');
+    });
+    tr.querySelector('.mark').addEventListener('click',ev=>{
+      ev.stopPropagation();
+      const now=!P.verbs.has(v.i);
+      if(now) P.verbs.add(v.i); else P.verbs.delete(v.i);
+      touch(); saveH();
+      tr.classList.toggle('vgot',now);
+      ev.currentTarget.setAttribute('aria-pressed',now);
+      syncProgress();
+    });
+    tb.appendChild(tr);
+  });
+  const sec=document.createElement('section'); sec.className='sec';
+  sec.innerHTML='<div class="sec-head"><h2>Verber</h2><span class="sec-count">'+shown.length+' viser</span></div>'+
+    '<p class="sec-sub">Your 57-verb sheet, exactly as given, plus every verb worth knowing from chapters 1–2. Turn on <b>Hide the forms</b> and click a row to check yourself.</p>';
+  sec.appendChild(wrap); out.appendChild(sec);
+}
+$('#qV').addEventListener('input',e=>{ S.vTerm=e.target.value.trim().toLowerCase(); renderV(); });
+$('#vDrill').addEventListener('click',e=>{
+  S.vDrill=!S.vDrill;
+  e.currentTarget.setAttribute('aria-pressed',S.vDrill);
+  e.currentTarget.textContent = S.vDrill ? 'Show the forms' : 'Hide the forms';
+  document.body.classList.toggle('vdrill',S.vDrill); saveH(); renderV();
+});
+
+/* ═══ WORDS ═══ */
+const wChips = $('#wChips');
+const wFilters = [['all','Alle'],['ch1','Kapitel 1'],['ch2','Kapitel 2'],
+                  ['verb','Verb'],['phrase','Phrase'],['noun','Noun'],['adj','Adjective'],['adv','Adverb'],['time','Time']];
+wFilters.forEach(([k,label])=>{
+  const b=document.createElement('button');
+  b.className='chip'; b.type='button'; b.dataset.k=k;
+  b.setAttribute('aria-pressed', k==='all');
+  const n = k==='all' ? ALL_WORDS.length
+          : k==='ch1' ? ALL_WORDS.filter(w=>w.ch===1).length
+          : k==='ch2' ? ALL_WORDS.filter(w=>w.ch===2).length
+          : ALL_WORDS.filter(w=>w.c===k).length;
+  b.textContent = label+'  '+n;
+  b.addEventListener('click',()=>{
+    if(k==='ch1'||k==='ch2'){ S.wCh = (S.wCh===k)?'all':k; S.wCat='all'; }
+    else { S.wCat = k; if(k==='all') S.wCh='all'; }
+    [...wChips.children].forEach(c=>{
+      const kk=c.dataset.k;
+      c.setAttribute('aria-pressed', kk===S.wCh || (kk===S.wCat && kk!=='all') ||
+        (kk==='all' && S.wCat==='all' && S.wCh==='all'));
+    });
+    renderW();
+  });
+  wChips.appendChild(b);
+});
+function renderW(){
+  const out=$('#wOut'); out.innerHTML='';
+  const shown = ALL_WORDS.filter(w=>{
+    if(S.wCh!=='all' && w.ch!==(S.wCh==='ch1'?1:2)) return false;
+    if(S.wCat!=='all' && w.c!==S.wCat) return false;
+    if(S.wHide && S.known.has(w.da)) return false;
+    if(S.wTerm && !(w.da+' '+w.en+' '+(w.n||'')).toLowerCase().includes(S.wTerm)) return false;
+    return true;
+  });
+  updateWProgress();
+  if(!shown.length){ out.innerHTML='<p class="empty">Nothing matches that.</p>'; return; }
+  TIERS.forEach(tier=>{
+    const items = shown.filter(w=>w.t===tier.id);
+    if(!items.length) return;
+    const sec=document.createElement('section'); sec.className='sec';
+    sec.innerHTML='<div class="sec-head">'+
+      '<span class="tier-rank" style="background:var(--t'+tier.id+'-bg);color:var(--t'+tier.id+')">'+tier.id+'</span>'+
+      '<h2>'+esc(tier.name)+'</h2><span class="sec-count">'+items.length+'</span></div>'+
+      '<p class="sec-sub">'+esc(tier.blurb)+'</p>';
+    const ul=document.createElement('ul'); ul.className='list';
+    items.forEach(w=>{
+      const li=document.createElement('li');
+      li.className='item'+(S.known.has(w.da)?' known':'');
+      li.innerHTML =
+        '<button class="tick" type="button" aria-pressed="'+S.known.has(w.da)+'" aria-label="Mark as known">'+TICK+'</button>'+
+        '<span class="da">'+esc(w.da)+'</span>'+
+        '<span class="en">'+esc(w.en)+'</span>'+
+        '<span class="meta"><span class="pos">'+(CATS2[w.c]||w.c)+'</span><span class="pg">p.'+w.p+'</span></span>'+
+        (w.n?'<span class="note">'+esc(w.n)+'</span>':'');
+      const tick=li.querySelector('.tick');
+      tick.addEventListener('click',ev=>{
+        ev.stopPropagation();
+        const now = !S.known.has(w.da);
+        if(now) S.known.add(w.da); else S.known.delete(w.da);
+        saveW();
+        touch(); saveH();
+        if(S.wHide && now){ renderW(); syncProgress(); return; }
+        li.classList.toggle('known',now);
+        tick.setAttribute('aria-pressed',now);
+        updateWProgress(); syncProgress();
+      });
+      li.addEventListener('click',ev=>{
+        if(S.wTest && !ev.target.closest('.tick')) li.classList.toggle('revealed');
+      });
+      ul.appendChild(li);
+    });
+    sec.appendChild(ul); out.appendChild(sec);
+  });
+}
+function updateWProgress(){
+  /* Headline is tier 1–2 only, so it matches the tab badge and the Status card.
+     Tiers 3–4 are optional, so they are reported but not counted. */
+  const done12 = TIER12.filter(w=>S.known.has(w.da)).length;
+  const pct = TIER12.length ? done12/TIER12.length : 0;
+  $('#wPct').textContent = pc(pct)+'%';
+  $('#wFill').style.width = pc(pct)+'%';
+  $('#wKnown').textContent = done12+' of '+TIER12.length+' in tier 1–2 · '+
+    S.known.size+' of '+ALL_WORDS.length+' ticked in all';
+}
+$('#qW').addEventListener('input',e=>{ S.wTerm=e.target.value.trim().toLowerCase(); renderW(); });
+$('#wTest').addEventListener('click',e=>{
+  S.wTest=!S.wTest; e.currentTarget.setAttribute('aria-pressed',S.wTest);
+  e.currentTarget.textContent = S.wTest?'Show translations':'Hide translations';
+  document.body.classList.toggle('wtest',S.wTest); saveW(); renderW();
+});
+$('#wHide').addEventListener('click',e=>{
+  S.wHide=!S.wHide; e.currentTarget.setAttribute('aria-pressed',S.wHide); saveW(); renderW();
+});
+$('#wReset').addEventListener('click',()=>{ S.known.clear(); saveW(); renderW(); syncProgress(); });
+
+/* ═══ LISTEN & SPEAK ═══ */
+/* Keyed by content string like everything else: listening by title, oral by question.
+   The index in L_KEYS is only a handle for the click target. */
+const L_KEYS = LISTENING.map(l=>l.title).concat(ORAL.map(o=>o.q));
+function markBtn(key){
+  return '<button class="mark" type="button" data-lk="'+L_KEYS.indexOf(key)+
+    '" aria-pressed="'+P.listen.has(key)+'" title="Jeg har været igennem den her">'+TICK+'</button>';
+}
+function renderL(){
+  const out=$('#lOut');
+  let h='<section class="sec"><div class="sec-head"><h2>Lytteopgaver</h2>'+
+    '<span class="sec-count">'+LISTENING.length+'</span></div>'+
+    '<p class="sec-sub">What each recording is, the words to have ready before you press play, and the answer. '+
+    'The full transcripts are in the PDF at the back of each chapter — these are the pages to turn to.</p><div class="cards">';
+  LISTENING.forEach(l=>{
+    h+='<article class="lcard'+(P.listen.has(l.title)?' got':'')+'">'+
+      '<div class="lcard-top">'+markBtn(l.title)+'<h3>'+esc(l.title)+'</h3></div>'+
+      '<p class="what"><span class="ref">Kapitel '+l.ch+' · s. '+l.p+'</span> — '+esc(l.what)+'</p>';
+    if(l.words.length) h+='<div class="wordbank">'+l.words.map(w=>'<span class="wb">'+esc(w)+'</span>').join('')+'</div>';
+    h+='<p class="keyline">'+l.key+'</p></article>';
+  });
+  h+='</div></section>';
+  h+='<section class="sec"><div class="sec-head"><h2>Mundtlige spørgsmål</h2>'+
+     '<span class="sec-count">'+ORAL.length+'</span></div>'+
+     '<p class="sec-sub">The book\'s own <i>snak sammen</i> questions — the closest thing to the oral exam — '+
+     'with the phrases to build an answer from.</p><div class="cards">';
+  ORAL.forEach(o=>{
+    h+='<article class="lcard'+(P.listen.has(o.q)?' got':'')+'">'+
+      '<div class="lcard-top">'+markBtn(o.q)+'<p class="oq">'+esc(o.q)+'</p></div>'+
+      '<p class="what"><span class="ref">Kapitel '+o.ch+', lektion '+o.les+' · s. '+o.p+'</span></p>'+
+      '<ul class="uses">'+o.use.map(u=>'<li>'+esc(u)+'</li>').join('')+'</ul>'+
+      (o.note?'<p class="trap">'+o.note+'</p>':'')+'</article>';
+  });
+  h+='</div></section>';
+  out.innerHTML=h;
+  out.querySelectorAll('.mark[data-lk]').forEach(b=>{
+    b.addEventListener('click',()=>{
+      const key=L_KEYS[+b.dataset.lk], now=!P.listen.has(key);
+      if(now) P.listen.add(key); else P.listen.delete(key);
+      touch(); saveH();
+      b.setAttribute('aria-pressed',now);
+      b.closest('.lcard').classList.toggle('got',now);
+      syncProgress();
+    });
+  });
+}
+
+/* ═══ PRACTICE ═══ */
+function renderP(){
+  const out=$('#pOut'); let h='';
+  SETS.forEach(set=>{
+    h+='<section class="drill"><div class="drill-head"><h3>'+esc(set.name)+'</h3>'+
+      '<span class="sec-count">'+set.items.length+' spørgsmål</span></div>'+
+      '<p class="drill-intro">'+esc(set.intro)+'</p>';
+    set.items.forEach((it,i)=>{
+      const id=set.id+':'+i, mark=P.drills[id];
+      h+='<div class="qrow'+(mark?' '+mark:'')+'" data-id="'+id+'" role="button" tabindex="0">'+
+        '<span class="qnum">'+(i+1)+'</span>'+
+        '<span class="qtext">'+esc(it.q)+'</span>'+
+        '<span class="ans"><span class="ansval">'+esc(it.a)+'</span>'+
+        '<span class="answhy">'+it.w+'</span>'+
+        '<span class="scorebtns">'+
+          '<button class="sbtn ok" type="button" data-v="ok" aria-pressed="'+(mark==='ok')+'">Jeg havde ret</button>'+
+          '<button class="sbtn no" type="button" data-v="no" aria-pressed="'+(mark==='no')+'">Jeg tog fejl</button>'+
+        '</span></span></div>';
+    });
+    h+='</section>';
+  });
+  h+='<section class="sec"><div class="sec-head"><h2>Skriveopgaver</h2>'+
+     '<span class="sec-count">'+WRITING.length+'</span></div>'+
+     '<p class="sec-sub">The book\'s written tasks, each with a checklist of the grammar to get into it. '+
+     'Tick them off mentally as you write — that is what the marker is looking for.</p><div class="cards">';
+  WRITING.forEach(w=>{
+    h+='<article class="wcard"><h3>'+esc(w.title)+'</h3>'+
+      '<p class="what"><span class="ref">s. '+w.p+'</span> — '+esc(w.task)+'</p>'+
+      '<ul class="musts">'+w.must.map(m=>'<li>'+m+'</li>').join('')+'</ul></article>';
+  });
+  h+='</div></section>';
+  out.innerHTML=h;
+  out.querySelectorAll('.qrow').forEach(r=>{
+    const t=()=>r.classList.toggle('open');
+    r.addEventListener('click',e=>{ if(!e.target.closest('.sbtn')) t(); });
+    r.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); t(); }});
+    r.querySelectorAll('.sbtn').forEach(b=>{
+      b.addEventListener('click',e=>{
+        e.stopPropagation();
+        const id=r.dataset.id, v=b.dataset.v;
+        if(P.drills[id]===v) delete P.drills[id]; else P.drills[id]=v;
+        touch(); saveH();
+        r.classList.remove('ok','no');
+        if(P.drills[id]) r.classList.add(P.drills[id]);
+        r.querySelectorAll('.sbtn').forEach(x=>x.setAttribute('aria-pressed', P.drills[id]===x.dataset.v));
+        syncProgress();
+      });
+    });
+  });
+}
+$('#pAll').addEventListener('click',()=>document.querySelectorAll('.qrow').forEach(r=>r.classList.add('open')));
+$('#pNone').addEventListener('click',()=>document.querySelectorAll('.qrow').forEach(r=>r.classList.remove('open')));
+
+
+/* ═══ STATUS ═══ */
+const TIER12 = ALL_WORDS.filter(w=>w.t<=2);
+const DRILL_TOTAL = SETS.reduce((n,x)=>n+x.items.length,0);
+const STAR_RULES = RULES.filter(r=>r.star);
+
+function stats(){
+  const rulesPct = RULES.length ? P.rules.size/RULES.length : 0;
+  const starDone = STAR_RULES.filter(r=>P.rules.has(r.title)).length;
+  const starPct  = STAR_RULES.length ? starDone/STAR_RULES.length : 0;
+  const verbsPct = VERBS.length ? P.verbs.size/VERBS.length : 0;
+  const w12Done  = TIER12.filter(w=>S.known.has(w.da)).length;
+  const w12Pct   = TIER12.length ? w12Done/TIER12.length : 0;
+  const vals     = Object.values(P.drills);
+  const attempted= vals.length;
+  const correct  = vals.filter(v=>v==='ok').length;
+  const dPct     = DRILL_TOTAL ? correct/DRILL_TOTAL : 0;
+  const accuracy = attempted ? correct/attempted : null;
+  const gScore   = .5*starPct + .5*rulesPct;
+  const ready    = .30*gScore + .20*verbsPct + .25*w12Pct + .25*dPct;
+  return {rulesPct,starDone,starPct,verbsPct,w12Done,w12Pct,attempted,correct,dPct,accuracy,gScore,ready};
+}
+const pc = x => Math.round(x*100);
+function meter(val,color){
+  return '<span class="meter"><i style="width:'+pc(val)+'%;background:'+color+'"></i></span>';
+}
+function verdict(r){
+  if(r>=.85) return ['Du er klar.','Everything is marked off and the drills are going your way. Keep it ticking over rather than cramming.'];
+  if(r>=.6)  return ['Godt på vej.','The bones are there. Spend what is left on whatever sits lowest below — that is where the marks are.'];
+  if(r>=.3)  return ['I gang.','A solid start. The ★ priority rules and the tier 1–2 words are worth more than anything else right now.'];
+  if(r>0)    return ['Lige begyndt.','Nothing wrong with that. Start with the ten ★ rules in Grammatik — they are the ones covered by both the book and your class.'];
+  return ['Ikke begyndt endnu.','Mark a rule as known, tick a word, or score yourself on a drill, and this page starts keeping track.'];
+}
+function renderStatus(){
+  const t = stats(), out = $('#sOut');
+  const [vTitle,vText] = verdict(t.ready);
+  const areas = [
+    {k:'grammar', name:'Grammatik', val:t.gScore, color:'var(--t1)',
+     detail:P.rules.size+' af '+RULES.length+' regler · '+t.starDone+' af '+STAR_RULES.length+' ★'},
+    {k:'verbs', name:'Verber', val:t.verbsPct, color:'var(--t2)',
+     detail:P.verbs.size+' af '+VERBS.length+' bøjninger'},
+    {k:'words', name:'Ord', val:t.w12Pct, color:'var(--t3)',
+     detail:t.w12Done+' af '+TIER12.length+' i niveau 1–2'},
+    {k:'practice', name:'Øv dig', val:t.dPct, color:'var(--t4)',
+     detail:t.correct+' rigtige af '+DRILL_TOTAL+' opgaver'},
+  ];
+  let h = '<section class="sec" style="margin-top:24px">'+
+    '<div class="hero">'+
+      '<div class="big">'+pc(t.ready)+'<sup>%</sup></div>'+
+      '<div class="htext"><h2>'+vTitle+'</h2><p>'+vText+'</p></div>'+
+    '</div><div class="dash">';
+  areas.forEach(a=>{
+    h += '<article class="dcard"><h3>'+a.name+'</h3>'+
+      '<div class="dnum">'+pc(a.val)+'<small>%</small></div>'+
+      meter(a.val,a.color)+
+      '<p class="dhint">'+a.detail+'</p>'+
+      '<button class="goto" data-go="'+a.k+'">Gå til '+a.name.toLowerCase()+' →</button></article>';
+  });
+  h += '</div>';
+
+  /* weakest drill sets */
+  const setRows = SETS.map(set=>{
+    let att=0, ok=0;
+    set.items.forEach((_,i)=>{ const v=P.drills[set.id+':'+i]; if(v){att++; if(v==='ok') ok++;} });
+    return {name:set.name, att, ok, n:set.items.length, acc: att?ok/att:null};
+  });
+  const done = setRows.filter(r=>r.att>0).sort((a,b)=>a.acc-b.acc);
+  h += '<section class="sec"><div class="sec-head"><h2>Hvor du står svagest</h2></div>';
+  if(!done.length){
+    h += '<p class="sec-sub">Score yourself on a few drills in <b>Øv dig</b> and the weakest sets show up here, worst first.</p>';
+  } else {
+    h += '<p class="sec-sub">Your own scoring on the drill sets you have attempted, worst first. '+
+         'Overall accuracy so far: <b>'+pc(t.accuracy)+' %</b> across '+t.attempted+' answered.</p>'+
+         '<div class="dash" style="grid-template-columns:1fr"><article class="dcard"><ul class="weak">';
+    done.forEach(r=>{
+      h += '<li><span class="wname">'+esc(r.name)+'</span>'+
+           '<span class="wval">'+r.ok+'/'+r.att+' rigtige</span>'+
+           '<span style="flex:0 0 88px;display:block">'+meter(r.acc,r.acc<.6?'var(--accent)':'var(--ok)')+'</span></li>';
+    });
+    h += '</ul></article></div>';
+  }
+  h += '</section>';
+
+  h += '<section class="sec"><div class="sec-head"><h2>Sådan tælles det</h2></div>'+
+    '<p class="sec-sub">This is <b>self-reported</b> — it counts what you have marked, not what you actually know. '+
+    'It is a checklist that keeps score, not a mock exam. The headline weighs grammar 30 % (half of that the ★ rules), '+
+    'words 25 % (tier 1–2 only — tiers 3 and 4 are optional), drills 25 %, verbs 20 %. '+
+    'Lyt &amp; tal has its own bar but is not weighed into the headline.'+
+    (P.last?' Last marked: <b>'+esc(P.last)+'</b>.':'')+'</p>'+
+    '<p style="margin-top:14px"><button class="linkish" id="sReset">Nulstil alt (rules, verbs, words, drills)</button></p>'+
+    '</section>';
+
+  out.innerHTML = h;
+  out.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>showTab(b.dataset.go)));
+  const rb = $('#sReset');
+  if(rb) rb.addEventListener('click',()=>{
+    if(!confirmReset()) return;
+    P.rules.clear(); P.verbs.clear(); P.listen.clear(); P.drills={}; S.known.clear();
+    saveH(); saveW(); renderG(); renderV(); renderW(); renderL(); renderP(); syncProgress();
+  });
+}
+let resetArmed=false, resetTimer=null;
+function confirmReset(){
+  const b=$('#sReset');
+  if(resetArmed){ resetArmed=false; clearTimeout(resetTimer); return true; }
+  resetArmed=true; b.textContent='Sikker? Klik igen for at slette alt.';
+  resetTimer=setTimeout(()=>{ resetArmed=false; const x=$('#sReset');
+    if(x) x.textContent='Nulstil alt (rules, verbs, words, drills)'; },4000);
+  return false;
+}
+function tabBadges(){
+  const t=stats();
+  const map={grammar:t.gScore, verbs:t.verbsPct, words:t.w12Pct,
+             listen:listenPct(), practice:t.dPct};
+  tabs.forEach(tb=>{
+    const k=tb.dataset.p; if(!(k in map)) return;
+    let sp=tb.querySelector('.tabprog');
+    if(!sp){ sp=document.createElement('span'); sp.className='tabprog'; tb.appendChild(sp); }
+    sp.textContent = pc(map[k])+'%';
+  });
+}
+
+/* ═══ PROGRESS BARS ═══ */
+/* One global bar in the sticky nav (the same readiness number the Status hero
+   shows) plus a bar per tab. Everything is derived from P and S.known, so the
+   two localStorage keys stay the only place progress lives. */
+const LISTEN_TOTAL = L_KEYS.length;
+const listenPct = () => LISTEN_TOTAL ? P.listen.size/LISTEN_TOTAL : 0;
+
+function setBar(pctSel, fillSel, cntSel, val, text){
+  $(pctSel).textContent = pc(val)+'%';
+  $(fillSel).style.width = pc(val)+'%';
+  $(cntSel).textContent = text;
+}
+function updateBars(){
+  const t = stats();
+  $('#globFill').style.width = pc(t.ready)+'%';
+  $('#globVal').textContent  = pc(t.ready)+'%';
+  setBar('#gPct','#gpFill','#gCnt', t.gScore,
+    P.rules.size+' of '+RULES.length+' rules marked · '+t.starDone+' of '+STAR_RULES.length+' ★');
+  setBar('#vPct','#vpFill','#vCnt', t.verbsPct,
+    P.verbs.size+' of '+VERBS.length+' conjugations marked');
+  updateWProgress();
+  setBar('#lPct','#lpFill','#lCnt', listenPct(),
+    P.listen.size+' of '+LISTEN_TOTAL+' worked through');
+  setBar('#pPct','#ppFill','#pCnt', t.dPct,
+    t.correct+' of '+DRILL_TOTAL+' right · '+t.attempted+' answered');
+}
+function syncProgress(){ renderStatus(); tabBadges(); updateBars(); }
+
+$('#gReset').addEventListener('click',()=>{ P.rules.clear();  saveH(); renderG(); syncProgress(); });
+$('#vReset').addEventListener('click',()=>{ P.verbs.clear();  saveH(); renderV(); syncProgress(); });
+$('#lReset').addEventListener('click',()=>{ P.listen.clear(); saveH(); renderL(); syncProgress(); });
+$('#pReset').addEventListener('click',()=>{ P.drills={};      saveH(); renderP(); syncProgress(); });
+
+/* ═══ THEME ═══ */
+const KEY_T = 'dtg3-theme-v1';
+const THEMES = ['auto','light','dark'];
+const THEME_LABEL = {auto:'Auto', light:'Lys', dark:'Mørk'};
+const SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" '+
+            'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">';
+const THEME_ICON = {
+  auto: SVG+'<circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18Z" fill="currentColor" stroke="none"/></svg>',
+  light:SVG+'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4'+
+            'M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>',
+  dark: SVG+'<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>'
+};
+let theme = 'auto';
+try{ const t=localStorage.getItem(KEY_T); if(THEMES.indexOf(t)>-1) theme=t; }catch(e){}
+const prefersDark = () => { try{ return matchMedia('(prefers-color-scheme: dark)').matches; }catch(e){ return false; } };
+function applyTheme(){
+  if(theme==='auto') document.documentElement.removeAttribute('data-theme');
+  else document.documentElement.setAttribute('data-theme', theme);
+  /* Only the site build carries this meta; the Artifact build has no <head>. */
+  const tc = document.querySelector('meta[name="theme-color"]');
+  if(tc) tc.setAttribute('content',
+    (theme==='dark' || (theme==='auto' && prefersDark())) ? '#141619' : '#F1EFEA');
+  const b=$('#themeBtn');
+  b.innerHTML = THEME_ICON[theme]+'<span class="tlabel">'+THEME_LABEL[theme]+'</span>';
+  b.setAttribute('aria-label','Tema: '+THEME_LABEL[theme]+' — klik for at skifte');
+  b.title = 'Tema: '+THEME_LABEL[theme]+' — klik for at skifte';
+}
+$('#themeBtn').addEventListener('click',()=>{
+  theme = THEMES[(THEMES.indexOf(theme)+1)%THEMES.length];
+  try{ localStorage.setItem(KEY_T, theme); }catch(e){}
+  applyTheme();
+});
+/* On Auto, follow the OS if it flips while the page is open. */
+try{ matchMedia('(prefers-color-scheme: dark)')
+       .addEventListener('change',()=>{ if(theme==='auto') applyTheme(); }); }catch(e){}
+
+/* ── keyboard ── */
+document.addEventListener('keydown',e=>{
+  if(e.key==='/' && !/^(INPUT|TEXTAREA)$/.test(document.activeElement.tagName)){
+    e.preventDefault();
+    const map={grammar:'#qG',verbs:'#qV',words:'#qW'};
+    const el = map[S.tab] && $(map[S.tab]); if(el) el.focus();
+  }
+});
+
+/* ── boot ── */
+applyTheme();
+document.body.classList.toggle('wtest',S.wTest);
+document.body.classList.toggle('vdrill',S.vDrill);
+$('#wTest').setAttribute('aria-pressed',S.wTest);
+$('#wTest').textContent = S.wTest?'Show translations':'Hide translations';
+$('#wHide').setAttribute('aria-pressed',S.wHide);
+$('#vDrill').setAttribute('aria-pressed',S.vDrill);
+$('#vDrill').textContent = S.vDrill?'Show the forms':'Hide the forms';
+renderG(); renderV(); renderW(); renderL(); renderP(); syncProgress();
+showTab(S.tab);
+})();
+</script>
