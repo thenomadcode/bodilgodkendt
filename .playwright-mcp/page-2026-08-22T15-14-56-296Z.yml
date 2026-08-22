@@ -1,0 +1,88 @@
+- generic [ref=f5e2]:
+  - banner [ref=f5e3]:
+    - paragraph [ref=f5e4]: Danish to Go 3 · Kapitel 1–2 · Studieskolen modul 3.3
+    - heading "Bodilgodkendt" [level=1] [ref=f5e5]
+    - paragraph [ref=f5e6]: "Everything from the book's first two chapters and your class notes, in one place: the rules, the verbs, the words, the questions you will be asked out loud, and drills to prove you've got it."
+    - generic [ref=f5e7]:
+      - generic [ref=f5e8]:
+        - generic [ref=f5e9]: "34"
+        - generic [ref=f5e10]: Rules
+      - generic [ref=f5e11]:
+        - generic [ref=f5e12]: "133"
+        - generic [ref=f5e13]: Verbs
+      - generic [ref=f5e14]:
+        - generic [ref=f5e15]: "385"
+        - generic [ref=f5e16]: Words
+      - generic [ref=f5e17]:
+        - generic [ref=f5e18]: "67"
+        - generic [ref=f5e19]: Drills
+  - navigation [ref=f5e20]:
+    - generic [ref=f5e21]:
+      - tablist [ref=f5e22]:
+        - tab "Status" [selected] [ref=f5e23] [cursor=pointer]
+        - tab "Grammatik0%" [ref=f5e24] [cursor=pointer]
+        - tab "Verber0%" [ref=f5e25] [cursor=pointer]
+        - tab "Ord0%" [ref=f5e26] [cursor=pointer]
+        - tab "Lyt & tal0%" [ref=f5e27] [cursor=pointer]
+        - tab "Øv dig0%" [ref=f5e28] [cursor=pointer]
+      - 'button "Tema: Auto — klik for at skifte" [ref=f5e29] [cursor=pointer]':
+        - generic [ref=f5e33]: Auto
+    - generic [ref=f5e34]:
+      - generic [ref=f5e35]: Samlet
+      - generic [ref=f5e37]: 0%
+  - generic [ref=f5e40]:
+    - generic [ref=f5e41]:
+      - generic [ref=f5e42]:
+        - text: "0"
+        - superscript [ref=f5e43]: "%"
+      - generic [ref=f5e44]:
+        - heading "Ikke begyndt endnu." [level=2] [ref=f5e45]
+        - paragraph [ref=f5e46]: Mark a rule as known, tick a word, or score yourself on a drill, and this page starts keeping track.
+    - generic [ref=f5e47]:
+      - article [ref=f5e48]:
+        - heading "Grammatik" [level=3] [ref=f5e49]
+        - generic [ref=f5e50]: 0%
+        - paragraph [ref=f5e52]: 0 af 34 regler · 0 af 10 ★
+        - button "Gå til grammatik →" [ref=f5e53] [cursor=pointer]
+      - article [ref=f5e54]:
+        - heading "Verber" [level=3] [ref=f5e55]
+        - generic [ref=f5e56]: 0%
+        - paragraph [ref=f5e58]: 0 af 133 bøjninger
+        - button "Gå til verber →" [ref=f5e59] [cursor=pointer]
+      - article [ref=f5e60]:
+        - heading "Ord" [level=3] [ref=f5e61]
+        - generic [ref=f5e62]: 0%
+        - paragraph [ref=f5e64]: 0 af 219 i niveau 1–2
+        - button "Gå til ord →" [ref=f5e65] [cursor=pointer]
+      - article [ref=f5e66]:
+        - heading "Øv dig" [level=3] [ref=f5e67]
+        - generic [ref=f5e68]: 0%
+        - paragraph [ref=f5e70]: 0 rigtige af 67 opgaver
+        - button "Gå til øv dig →" [ref=f5e71] [cursor=pointer]
+    - generic [ref=f5e72]:
+      - heading "Træning" [level=2] [ref=f5e74]
+      - paragraph [ref=f5e75]: Twelve questions from everything on this page — words both ways, the fill-in-the-blank drills, verb forms, and Danish you read. Get a word or a verb right twice and it ticks itself off in the notebook.
+      - generic [ref=f5e76]:
+        - heading "Start your first round" [level=3] [ref=f5e77]
+        - paragraph [ref=f5e78]: Nothing is stored anywhere but this browser, and the notebook stays exactly as it is.
+        - generic [ref=f5e79]:
+          - button "Train now" [ref=f5e80] [cursor=pointer]
+          - button "Words only" [ref=f5e81] [cursor=pointer]
+          - button "Verbs only" [ref=f5e82] [cursor=pointer]
+        - generic [ref=f5e83]:
+          - generic [ref=f5e84]: Eksamensdato
+          - textbox "Eksamensdato" [ref=f5e85]
+          - generic [ref=f5e86]: Set the date and the page counts down to it.
+    - generic [ref=f5e87]:
+      - heading "Hvor du står svagest" [level=2] [ref=f5e89]
+      - paragraph [ref=f5e90]: Score yourself on a few drills in Øv dig and the weakest sets show up here, worst first.
+    - generic [ref=f5e91]:
+      - heading "Sådan tælles det" [level=2] [ref=f5e93]
+      - paragraph [ref=f5e94]: "This is self-reported — it counts what you have marked, not what you actually know. It is a checklist that keeps score, not a mock exam. The headline weighs grammar 30 % (half of that the ★ rules), words 25 % (tier 1–2 only — tiers 3 and 4 are optional), drills 25 %, verbs 20 %. Lyt & tal has its own bar but is not weighed into the headline. Training is not weighed in either, and does not need to be: getting a word or a verb right twice ticks it off in the notebook, and a drill answered in training scores that drill — so it reaches the same four numbers through the same door as marking things by hand."
+      - paragraph [ref=f5e95]:
+        - button "Nulstil alt (rules, verbs, words, drills, training)" [ref=f5e96] [cursor=pointer]
+  - text: — — — — Trap · — — — — — — — — — Trap · Trap · — — — — — Trap · — — — — Trap · — — — — — — — — Trap · — — — — — — — — — — — — Trap · — — — — — — — — — — — — Trap · — — — — — — — — — — — — — — — — — — Trap · — — — — — Trap · — — — — — — — — Trap · — — — — Trap · — — — — — — — Trap · — — — — — — — — — — — › › › › › › › › › › › Trap · › › › › › › Trap · › › › › › › Trap · › › › › › › Trap · › › › › › › Trap · › › › › › Trap · ☐ ☐ ☐ ☐ ☐ ☐ ☐ ☐ ☐ ☐ ☐ ☐ ☐ ☐ ☐ ☐ ☐ ☐ ☐ ☐
+  - contentinfo [ref=f5e97]:
+    - text: Page numbers are the printed pages of Danish to Go 3 — the same numbers in the PDF in your
+    - code [ref=f5e98]: danish
+    - text: folder and in the paper book. Rules tagged Begge appear in both the book and your Studieskolen notes. Everything you mark — rules, verbs, words, listening tasks, drill scores and your training results — is saved in this browser only, on this device. The Danish you hear is your own browser's speech engine, so it needs a Danish voice installed; where there is none, the speaker buttons do not appear.

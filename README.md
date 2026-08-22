@@ -11,6 +11,16 @@ bar on each, a global readiness bar in the nav, and a light/dark switch.
 Everything you tick is stored in your own browser's `localStorage`; nothing is
 sent anywhere and there is no backend.
 
+There is also a **trainer**: twelve questions a round, built out of the same
+data the notebook shows. Danish to English on four buttons, English to Danish
+typed, listen and pick the meaning, the fill-in-the-blank drills, and verb
+forms. Whatever you get wrong goes on a list and comes back. Get a word or a
+verb right twice and it ticks itself off in the notebook.
+
+Danish is spoken by your own browser's speech engine — no service, no key,
+nothing sent anywhere. Where a device has no Danish voice installed, the
+speaker buttons do not appear and the listening questions are not asked.
+
 Add it to your phone's home screen and it opens fullscreen like an app.
 
 ## Build

@@ -338,6 +338,102 @@ tr.vgot .vinf{color:var(--ok)}
 .qrow.ok{box-shadow:inset 3px 0 0 var(--ok)}
 .qrow.no{box-shadow:inset 3px 0 0 var(--accent)}
 
+/* ── Speaker buttons ──
+   Hidden until a da-DK voice is confirmed present. The page never shows a
+   control for audio it cannot play — same rule that removed Lytteopgaver. */
+.say{flex:none;width:25px;height:25px;border-radius:6px;border:1px solid var(--line);
+  background:var(--surface);color:var(--ink-3);cursor:pointer;display:none;place-items:center;padding:0}
+body.has-tts .say{display:inline-grid;vertical-align:-6px}
+.say:hover{color:var(--accent);border-color:var(--ink-3)}
+.say:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.say svg{width:13px;height:13px}
+.say.big{width:38px;height:38px;border-radius:9px}
+.say.big svg{width:18px;height:18px}
+.vm{display:flex;gap:6px;align-items:center}
+
+/* ── Trainer overlay ── */
+[hidden]{display:none !important}
+.tr{position:fixed;inset:0;z-index:80;background:var(--ground);display:flex;
+  flex-direction:column;overflow-y:auto;overscroll-behavior:contain}
+.tr-in{width:100%;max-width:620px;margin:0 auto;padding:0 20px 40px;display:flex;
+  flex-direction:column;flex:1 1 auto;min-height:0}
+.tr-top{display:flex;align-items:center;gap:14px;padding:16px 0 18px;position:sticky;top:0;
+  background:var(--ground);z-index:2}
+.dots{display:flex;gap:4px;flex:1 1 auto;flex-wrap:wrap}
+.dots i{display:block;width:100%;max-width:26px;flex:1 1 8px;height:4px;border-radius:99px;background:var(--surface-2)}
+.dots i.ok{background:var(--ok)}
+.dots i.no{background:var(--accent)}
+.dots i.now{background:var(--ink-3)}
+.tr-x{flex:none;font:inherit;font-size:18px;line-height:1;width:32px;height:32px;border-radius:8px;
+  border:1px solid var(--line);background:var(--surface);color:var(--ink-2);cursor:pointer}
+.tr-x:hover{color:var(--ink);border-color:var(--ink-3)}
+.tr-x:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.tr-body{flex:1 1 auto;display:flex;flex-direction:column}
+.qhead{display:flex;gap:11px;align-items:center;margin-bottom:4px}
+.qkind{font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
+.qprompt{font-family:Newsreader,Georgia,serif;font-weight:500;font-size:clamp(26px,6vw,36px);
+  line-height:1.15;letter-spacing:-.015em;margin:6px 0 0}
+.qprompt.small{font-size:clamp(19px,4.4vw,24px);line-height:1.4}
+.qsub{margin:9px 0 0;color:var(--ink-2);font-size:14.5px}
+.opts{display:grid;gap:9px;margin-top:22px}
+.opt{font:inherit;font-size:16px;text-align:left;color:var(--ink);background:var(--surface);
+  border:1px solid var(--line);border-radius:10px;padding:13px 15px;cursor:pointer;
+  display:flex;gap:11px;align-items:baseline;box-shadow:var(--shadow)}
+.opt:hover:not(:disabled){border-color:var(--ink-3)}
+.opt:disabled{cursor:default}
+.opt .k{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--ink-3);flex:none;width:12px}
+.opt.right{border-color:var(--ok);background:var(--ok-bg)}
+.opt.wrong{border-color:var(--accent);background:var(--accent-soft)}
+.opt:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.typed{margin-top:22px;display:flex;flex-direction:column;gap:10px}
+.typed input{font:inherit;font-family:Newsreader,Georgia,serif;font-size:22px;color:var(--ink);
+  background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px;width:100%}
+.typed input:focus-visible{outline:2px solid var(--focus);outline-offset:1px;border-color:transparent}
+.typed input:disabled{opacity:1}
+.dachars{display:flex;gap:7px}
+.dachars button{font:inherit;font-family:Newsreader,Georgia,serif;font-size:18px;width:44px;height:38px;
+  border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);cursor:pointer}
+.dachars button:hover{border-color:var(--ink-3)}
+.dachars button:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.fb{margin-top:20px;border-radius:10px;padding:15px 17px;border:1px solid var(--line);background:var(--surface)}
+.fb.right{border-color:var(--ok);background:var(--ok-bg)}
+.fb.wrong{border-color:var(--accent);background:var(--accent-soft)}
+.fb .verdict{font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;margin:0 0 6px}
+.fb.right .verdict{color:var(--ok)}
+.fb.wrong .verdict{color:var(--accent)}
+.fb .sol{display:flex;gap:10px;align-items:center;font-family:Newsreader,Georgia,serif;
+  font-size:21px;font-weight:600;margin:0}
+.fb .why{margin:8px 0 0;font-size:14px;color:var(--ink-2)}
+.tr-foot{margin-top:auto;padding-top:24px;display:flex;gap:9px;align-items:center;flex-wrap:wrap}
+.pbtn{font:inherit;font-size:15px;font-weight:500;color:var(--surface);background:var(--accent);
+  border:1px solid var(--accent);border-radius:9px;padding:11px 20px;cursor:pointer}
+.pbtn:hover{filter:brightness(1.08)}
+.pbtn:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.pbtn.ghost{background:var(--surface);border-color:var(--line);color:var(--ink-2)}
+.pbtn.ghost:hover{color:var(--ink);border-color:var(--ink-3);filter:none}
+.tr-hint{font-size:12.5px;color:var(--ink-3)}
+.score{font-family:Newsreader,Georgia,serif;font-size:clamp(46px,11vw,64px);line-height:1;
+  font-weight:500;letter-spacing:-.03em;font-variant-numeric:tabular-nums;margin:10px 0 0}
+.score small{font-size:.34em;color:var(--ink-3);margin-left:4px}
+.recap{margin:22px 0 0;padding:0;list-style:none;display:grid;gap:9px}
+.recap li{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--accent);
+  border-radius:8px;padding:11px 14px;font-size:14.5px}
+.recap .rq{color:var(--ink-2)}
+.recap .ra{font-family:Newsreader,Georgia,serif;font-size:17px;font-weight:600;display:block;margin-top:2px}
+
+/* ── Training card on Status ── */
+.trcard{background:var(--surface);border:1px solid var(--accent);border-radius:10px;
+  box-shadow:var(--shadow);padding:20px 22px;margin-top:14px}
+.trcard h3{font-family:Newsreader,Georgia,serif;font-weight:500;font-size:21px;margin:0 0 5px}
+.trcard p{margin:0;color:var(--ink-2);font-size:14px;max-width:56ch}
+.trrow{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:15px}
+.exam{display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin-top:15px;
+  padding-top:14px;border-top:1px solid var(--line-soft);font-size:13.5px;color:var(--ink-2)}
+.exam input{font:inherit;font-size:13.5px;color:var(--ink);background:var(--ground);
+  border:1px solid var(--line);border-radius:7px;padding:5px 9px}
+.exam input:focus-visible{outline:2px solid var(--focus);outline-offset:1px}
+.days{font-family:Newsreader,Georgia,serif;font-size:19px;font-weight:600;color:var(--accent)}
+
 .empty{padding:44px 16px;text-align:center;color:var(--ink-3);font-size:15px}
 .foot{margin-top:60px;padding-top:20px;border-top:1px solid var(--line);color:var(--ink-3);
   font-size:13px;max-width:66ch}
@@ -422,6 +518,7 @@ tr.vgot .vinf{color:var(--ok)}
         <input id="qV" type="search" placeholder="Search Danish or English" autocomplete="off" aria-label="Search verbs">
       </label>
       <button class="btn" id="vDrill" aria-pressed="false">Hide the forms</button>
+      <button class="btn" data-train="verbs">Train the conjugations</button>
     </div>
     <div class="chips" id="grpChips" role="group" aria-label="Filter by conjugation group"></div>
     <div class="progress">
@@ -442,6 +539,7 @@ tr.vgot .vinf{color:var(--ok)}
       </label>
       <button class="btn" id="wTest" aria-pressed="false">Hide translations</button>
       <button class="btn" id="wHide" aria-pressed="false">Hide ticked</button>
+      <button class="btn" data-train="words">Train the words</button>
     </div>
     <div class="chips" id="wChips" role="group" aria-label="Filter vocabulary"></div>
     <div class="progress">
@@ -469,6 +567,7 @@ tr.vgot .vinf{color:var(--ok)}
     <div class="bar">
       <button class="btn" id="pAll">Show every answer</button>
       <button class="btn" id="pNone">Hide every answer</button>
+      <button class="btn" data-train="drills">Train these drills</button>
     </div>
     <div class="progress">
       <span class="cnt pct" id="pPct">0%</span>
@@ -480,8 +579,19 @@ tr.vgot .vinf{color:var(--ok)}
   </section>
 
   <footer class="foot">
-    Page numbers are the printed pages of <i>Danish to Go 3</i> — the same numbers in the PDF in your <code>danish</code> folder and in the paper book. Rules tagged <b>Begge</b> appear in both the book and your Studieskolen notes. Everything you mark — rules, verbs, words, listening tasks and drill scores — is saved in this browser only, on this device.
+    Page numbers are the printed pages of <i>Danish to Go 3</i> — the same numbers in the PDF in your <code>danish</code> folder and in the paper book. Rules tagged <b>Begge</b> appear in both the book and your Studieskolen notes. Everything you mark — rules, verbs, words, listening tasks, drill scores and your training results — is saved in this browser only, on this device. The Danish you hear is your own browser's speech engine, so it needs a Danish voice installed; where there is none, the speaker buttons do not appear.
   </footer>
+</div>
+
+<!-- TRAINER -->
+<div class="tr" id="tr" hidden role="dialog" aria-modal="true" aria-label="Træning">
+  <div class="tr-in">
+    <header class="tr-top">
+      <div class="dots" id="trDots" aria-hidden="true"></div>
+      <button class="tr-x" id="trX" type="button" aria-label="Close the trainer">&#10005;</button>
+    </header>
+    <div class="tr-body" id="trBody"></div>
+  </div>
 </div>
 
 <script>
@@ -508,20 +618,33 @@ let S = {tab:'status', gTerm:'', gSrc:'all', gStar:false,
 try{ const o=JSON.parse(localStorage.getItem(KEY_W)||'{}');
      if(Array.isArray(o.known)) S.known=new Set(o.known);
      S.wTest=!!o.test; S.wHide=!!o.hideKnown; }catch(e){}
-let P = {rules:new Set(), verbs:new Set(), listen:new Set(), drills:{}, last:null};
+/* miss  — the wrong-answer queue, [{t:type, k:key}], newest first, capped.
+   hits  — right-answers-in-a-row per question key; two in a row ticks the
+           word or verb off in the notebook, which is how training feeds the
+           existing 25 % / 20 % without any reweighting.
+   sess  — the last few session results, for the Status card.
+   exam  — the exam date, 'YYYY-MM-DD'. All four are additive: older saved
+           progress loads unchanged. */
+let P = {rules:new Set(), verbs:new Set(), listen:new Set(), drills:{}, last:null,
+         miss:[], hits:{}, sess:[], exam:null};
 try{ const o=JSON.parse(localStorage.getItem(KEY_H)||'{}');
      if(o.tab) S.tab=o.tab; if(typeof o.vDrill==='boolean') S.vDrill=o.vDrill;
      if(Array.isArray(o.rules)) P.rules=new Set(o.rules);
      if(Array.isArray(o.verbs)) P.verbs=new Set(o.verbs);
      if(Array.isArray(o.listen)) P.listen=new Set(o.listen);
      if(o.drills && typeof o.drills==='object') P.drills=o.drills;
+     if(Array.isArray(o.miss)) P.miss=o.miss.filter(m=>m&&m.t&&m.k);
+     if(o.hits && typeof o.hits==='object') P.hits=o.hits;
+     if(Array.isArray(o.sess)) P.sess=o.sess;
+     if(typeof o.exam==='string') P.exam=o.exam;
      if(o.last) P.last=o.last; }catch(e){}
 
 function saveW(){ try{ localStorage.setItem(KEY_W, JSON.stringify(
   {known:[...S.known], test:S.wTest, hideKnown:S.wHide})); }catch(e){} }
 function saveH(){ try{ localStorage.setItem(KEY_H, JSON.stringify(
   {tab:S.tab, vDrill:S.vDrill, rules:[...P.rules], verbs:[...P.verbs],
-   listen:[...P.listen], drills:P.drills, last:P.last})); }catch(e){} }
+   listen:[...P.listen], drills:P.drills, last:P.last,
+   miss:P.miss, hits:P.hits, sess:P.sess, exam:P.exam})); }catch(e){} }
 function touch(){ P.last = new Date().toISOString().slice(0,10); }
 
 /* ── figures ── */
@@ -540,6 +663,51 @@ function showTab(id){
 tabs.forEach(t=>t.addEventListener('click',()=>showTab(t.dataset.p)));
 
 const TICK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 12.5 5.2 5.2L20 7"/></svg>';
+
+/* ═══ SPEECH ═══ */
+/* The browser's own engine, no network and no key. Voices load asynchronously
+   in Chrome, so the buttons are always rendered and CSS keeps them hidden
+   until body.has-tts confirms a Danish voice exists. Where the device has
+   none — most Linux desktops — nothing appears and the listening question
+   type is never drawn, rather than shipping a control that does nothing. */
+const SPEAKER='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" '+
+  'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+
+  '<path d="M11 5 6.5 9H3v6h3.5L11 19z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/>'+
+  '<path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>';
+let DA_VOICE=null, TTS=false;
+function sayBtn(text, cls){
+  return '<button class="say'+(cls?' '+cls:'')+'" type="button" data-say="'+
+    esc(text).replace(/"/g,'&quot;')+'" aria-label="Hear it in Danish" title="Hear it in Danish">'+SPEAKER+'</button>';
+}
+function speak(text){
+  if(!TTS || !text) return;
+  try{
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(String(text));
+    u.lang='da-DK'; u.voice=DA_VOICE; u.rate=.88;
+    speechSynthesis.speak(u);
+  }catch(e){}
+}
+function findVoice(){
+  try{
+    const vs = speechSynthesis.getVoices() || [];
+    DA_VOICE = vs.find(v=>/^da\b|^da[-_]/i.test(v.lang)) || null;
+  }catch(e){ DA_VOICE=null; }
+  const had = TTS;
+  TTS = !!DA_VOICE;
+  document.body.classList.toggle('has-tts', TTS);
+  return had !== TTS;
+}
+/* One delegated listener covers every speaker button on the page, including
+   the ones the trainer writes into the overlay. It runs on the capture phase
+   so the row handlers underneath — reveal a word, show a verb form — never
+   see the click, without every one of them having to know about .say. */
+document.addEventListener('click',e=>{
+  const b = e.target.closest('[data-say]');
+  if(!b) return;
+  e.preventDefault(); e.stopPropagation();
+  speak(b.dataset.say);
+}, true);
 
 /* ═══ GRAMMAR ═══ */
 const SRC_LABEL = {both:'Begge', notes:'Klassenoter', book:'Bogen'};
@@ -650,7 +818,8 @@ function renderV(){
     const tr=document.createElement('tr');
     if(P.verbs.has(v.i)) tr.classList.add('vgot');
     tr.innerHTML =
-      '<td class="vmark"><button class="mark" type="button" aria-pressed="'+P.verbs.has(v.i)+'" title="Jeg kan bøje det her">'+TICK+'</button></td>'+
+      '<td class="vmark"><span class="vm"><button class="mark" type="button" aria-pressed="'+P.verbs.has(v.i)+'" title="Jeg kan bøje det her">'+TICK+'</button>'+
+        sayBtn(v.i+', '+v.n+', '+v.d+', '+v.f)+'</span></td>'+
       '<td class="vinf">'+esc(v.i)+'</td>'+
       '<td class="vform" data-l="Nutid">'+esc(v.n)+'</td>'+
       '<td class="vform hide" data-l="Datid">'+esc(v.d)+'</td>'+
@@ -738,7 +907,7 @@ function renderW(){
         '<button class="tick" type="button" aria-pressed="'+S.known.has(w.da)+'" aria-label="Mark as known">'+TICK+'</button>'+
         '<span class="da">'+esc(w.da)+'</span>'+
         '<span class="en">'+esc(w.en)+'</span>'+
-        '<span class="meta"><span class="pos">'+(CATS2[w.c]||w.c)+'</span><span class="pg">p.'+w.p+'</span></span>'+
+        '<span class="meta">'+sayBtn(w.da)+'<span class="pos">'+(CATS2[w.c]||w.c)+'</span><span class="pg">p.'+w.p+'</span></span>'+
         (w.n?'<span class="note">'+esc(w.n)+'</span>':'');
       const tick=li.querySelector('.tick');
       tick.addEventListener('click',ev=>{
@@ -797,9 +966,9 @@ function renderL(){
      'with the phrases to build an answer from.</p><div class="cards">';
   ORAL.forEach(o=>{
     h+='<article class="lcard'+(P.listen.has(o.q)?' got':'')+'">'+
-      '<div class="lcard-top">'+markBtn(o.q)+'<p class="oq">'+esc(o.q)+'</p></div>'+
+      '<div class="lcard-top">'+markBtn(o.q)+'<p class="oq">'+esc(o.q)+'</p>'+sayBtn(o.q)+'</div>'+
       '<p class="what"><span class="ref">Kapitel '+o.ch+', lektion '+o.les+' · s. '+o.p+'</span></p>'+
-      '<ul class="uses">'+o.use.map(u=>'<li>'+esc(u)+'</li>').join('')+'</ul>'+
+      '<ul class="uses">'+o.use.map(u=>'<li>'+esc(u)+' '+sayBtn(u)+'</li>').join('')+'</ul>'+
       (o.note?'<p class="trap">'+o.note+'</p>':'')+'</article>';
   });
   h+='</div></section>';
@@ -870,6 +1039,348 @@ $('#pAll').addEventListener('click',()=>document.querySelectorAll('.qrow').forEa
 $('#pNone').addEventListener('click',()=>document.querySelectorAll('.qrow').forEach(r=>r.classList.remove('open')));
 
 
+/* ═══ TRAINER ═══ */
+/* A session is twelve questions built out of the data already on the page.
+   Nothing new is authored: the words drive three question types, the 67 drill
+   items are already fill-in-the-blank, and the verb table is five forms per
+   verb. Everything is keyed by content string, the same rule as the notebook —
+   words by `da`, verbs by `i`, drills by setId:index — so a trainer answer
+   marks the very same entry the notebook does. */
+const SESSION_N = 12;
+const MISS_CAP  = 60;
+const VFORMS = [['n','nutid'],['d','datid'],['f','førnutid'],['m','imperativ']];
+const SCOPE_NAME = {all:'Blandet træning', words:'Ord', verbs:'Bøjninger',
+                    drills:'Opgaver', miss:'Mine fejl'};
+
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1));
+  const t=a[i]; a[i]=a[j]; a[j]=t; } return a; }
+const wordByDa = da => ALL_WORDS.find(w=>w.da===da);
+
+/* ── the wrong-answer queue ── */
+function addMiss(q){
+  P.miss = P.miss.filter(m=>!(m.t===q.t && m.k===q.k));
+  P.miss.unshift({t:q.t, k:q.k});
+  if(P.miss.length>MISS_CAP) P.miss.length=MISS_CAP;
+}
+function dropMiss(q){ P.miss = P.miss.filter(m=>m.k!==q.k); }
+const inMiss = k => P.miss.some(m=>m.k===k);
+
+/* ── question builders ── */
+/* Wrong options come from the same word class and the same tier, or they give
+   themselves away — a noun among three verbs needs no Danish at all. */
+function distractors(w,n){
+  const same = ALL_WORDS.filter(x=>x.c===w.c && x.t===w.t && x.en!==w.en);
+  const cat  = ALL_WORDS.filter(x=>x.c===w.c && x.en!==w.en);
+  const any  = ALL_WORDS.filter(x=>x.en!==w.en);
+  const src  = same.length>=n ? same : (cat.length>=n ? cat : any);
+  const out=[], seen=new Set([w.en]);
+  shuffle(src.slice()).forEach(x=>{ if(out.length<n && !seen.has(x.en)){ seen.add(x.en); out.push(x.en); } });
+  return out;
+}
+function qWord(type,w){
+  const q={t:type, k:'w:'+w.da, area:'words', audio:w.da, why:w.n||'', da:w.da};
+  if(type==='en2da'){
+    q.kind='Engelsk → dansk'; q.prompt=w.en; q.typed=true; q.answer=w.da;
+    q.sub = w.c==='noun' ? 'Write it in Danish — the en or et counts.' : 'Write it in Danish.';
+  } else if(type==='listen'){
+    q.kind='Lyt'; q.prompt=null; q.answer=w.en;
+    q.sub='What does it mean? Tap the speaker again to hear it once more.';
+    q.choices=shuffle(distractors(w,3).concat([w.en]));
+  } else {
+    q.kind='Dansk → engelsk'; q.prompt=w.da; q.answer=w.en; q.sub=CATS2[w.c]||w.c;
+    q.choices=shuffle(distractors(w,3).concat([w.en]));
+  }
+  return q;
+}
+function qVerb(v,fk){
+  const f = VFORMS.find(x=>x[0]===fk) || VFORMS[1];
+  return {t:'verb', k:'v:'+v.i+':'+f[0], area:'verbs', kind:'Bøjning', vkey:v.i,
+    prompt:v.i, sub:'Give the '+f[1]+' form.', typed:true, answer:v[f[0]], audio:v[f[0]],
+    why:'Gruppe '+v.grp+' — '+v.i+' · '+v.n+' · '+v.d+' · '+v.f};
+}
+function qBlank(set,i){
+  const it=set.items[i];
+  return {t:'blank', k:set.id+':'+i, area:'drills', kind:set.name, small:true,
+    prompt:it.q, sub:'Put the right form in.', typed:true, answer:it.a,
+    audio:it.a, why:it.w||'', whyRaw:true};
+}
+
+/* ── picking what to ask ──
+   Weight 5 if you got it wrong before, 3 if you have never ticked it off,
+   1 if you have. Not spaced repetition, just "you don't know this one yet". */
+function weightedPick(cands, weight, used, keyOf){
+  const pool = cands.filter(x=>!used.has(keyOf(x)));
+  if(!pool.length) return null;
+  const ws=[]; let total=0;
+  pool.forEach(x=>{ const w=Math.max(.2,weight(x)); ws.push(w); total+=w; });
+  let r=Math.random()*total;
+  for(let i=0;i<pool.length;i++){ r-=ws[i]; if(r<=0){ used.add(keyOf(pool[i])); return pool[i]; } }
+  const last=pool[pool.length-1]; used.add(keyOf(last)); return last;
+}
+function makeOne(type, used){
+  if(type==='listen' && !TTS) type='da2en';
+  if(type==='blank'){
+    const items=[];
+    SETS.forEach(set=>set.items.forEach((_,i)=>items.push({set,i,k:set.id+':'+i})));
+    const c=weightedPick(items,x=>inMiss(x.k)?5:(P.drills[x.k]==='ok'?1:3),used,x=>x.k);
+    return c ? qBlank(c.set,c.i) : null;
+  }
+  if(type==='verb'){
+    const items=[];
+    VERBS.forEach(v=>VFORMS.forEach(f=>{
+      if(v[f[0]] && v[f[0]]!=='–') items.push({v,f,k:'v:'+v.i+':'+f[0]});
+    }));
+    /* blocked by the verb, not the form, so one session never asks the same
+       verb twice in two tenses */
+    const c=weightedPick(items,x=>inMiss(x.k)?5:(P.verbs.has(x.v.i)?1:3),used,x=>'v:'+x.v.i);
+    return c ? qVerb(c.v,c.f[0]) : null;
+  }
+  const pool = ALL_WORDS.filter(w=>w.t<=2);
+  const c = weightedPick(pool,w=>inMiss('w:'+w.da)?5:(S.known.has(w.da)?1:3),used,w=>'w:'+w.da);
+  return c ? qWord(type,c) : null;
+}
+function rebuildMiss(m){
+  if(m.t==='blank'){
+    const cut=m.k.lastIndexOf(':');
+    const set=SETS.find(s=>s.id===m.k.slice(0,cut)), ix=+m.k.slice(cut+1);
+    return (set && set.items[ix]) ? qBlank(set,ix) : null;
+  }
+  if(m.t==='verb'){
+    const cut=m.k.lastIndexOf(':');
+    const v=VERBS.find(x=>x.i===m.k.slice(2,cut)), f=m.k.slice(cut+1);
+    return (v && v[f] && v[f]!=='–') ? qVerb(v,f) : null;
+  }
+  const w=wordByDa(m.k.slice(2));
+  return w ? qWord((m.t==='listen'&&!TTS)?'da2en':m.t, w) : null;
+}
+function planFor(scope){
+  if(scope==='words')  return ['da2en','en2da','listen','da2en','en2da','listen',
+                               'da2en','en2da','listen','en2da','da2en','en2da'];
+  if(scope==='verbs')  return Array(SESSION_N).fill('verb');
+  if(scope==='drills') return Array(SESSION_N).fill('blank');
+  const base=['da2en','en2da','blank','verb','listen','da2en',
+              'en2da','blank','verb','listen','da2en','en2da'];
+  /* lean the mixed session toward whatever is weakest right now */
+  const t=stats();
+  const weakest=[['en2da',t.w12Pct],['verb',t.verbsPct],['blank',t.dPct]]
+    .sort((a,b)=>a[1]-b[1])[0][0];
+  base[3]=weakest; base[9]=weakest;
+  return base;
+}
+function buildSession(scope){
+  const used=new Set(), qs=[];
+  if(scope==='miss'){
+    P.miss.slice(0,SESSION_N).forEach(m=>{
+      const q=rebuildMiss(m);
+      if(q && !used.has(q.k)){ used.add(q.k); qs.push(q); }
+    });
+    return shuffle(qs);
+  }
+  planFor(scope).forEach(type=>{ const q=makeOne(type,used); if(q) qs.push(q); });
+  const order=['da2en','en2da','blank','verb','listen'];
+  let guard=0;
+  while(qs.length<SESSION_N && guard<60){
+    const q=makeOne(order[guard%order.length],used);
+    if(q) qs.push(q);
+    guard++;
+  }
+  return qs.slice(0,SESSION_N);
+}
+
+/* ── grading ──
+   Case, spacing and punctuation are ignored, ae/oe/aa are accepted for æøå
+   so a phone keyboard is never the reason you got it wrong, and a missing
+   article or "at" counts as right with a nudge rather than as a failure. */
+const FOLD  = s => String(s).toLowerCase().replace(/[.,!?;:"'’…]/g,' ').replace(/\s+/g,' ').trim();
+const ASCII = s => s.replace(/æ/g,'ae').replace(/ø/g,'oe').replace(/å/g,'aa');
+const BARE  = s => s.replace(/^(at|en|et|den|det)\s+/,'');
+function grade(given,q){
+  const g=FOLD(given);
+  if(!g) return 'no';
+  /* answers with two right forms are written "der / som" — take either, or
+     the whole string if that is what got typed */
+  const alts=String(q.answer).split(/\s*\/\s*/).map(FOLD).concat([FOLD(q.answer)]);
+  /* several Danish words share one English gloss, so any word carrying the
+     same English is a fair answer to an English → Danish prompt */
+  if(q.t==='en2da') ALL_WORDS.forEach(w=>{ if(w.en===q.prompt) alts.push(FOLD(w.da)); });
+  if(alts.some(a=>a===g || ASCII(a)===ASCII(g))) return 'ok';
+  if(alts.some(a=>BARE(a)===BARE(g) || ASCII(BARE(a))===ASCII(BARE(g)))) return 'near';
+  return 'no';
+}
+
+/* ── running a session ── */
+let T=null;
+function openTrainer(scope){
+  const qs=buildSession(scope);
+  if(!qs.length) return;
+  T={scope, qs, i:0, res:[], answered:false, done:false};
+  $('#tr').hidden=false;
+  document.body.style.overflow='hidden';
+  drawQ();
+}
+function closeTrainer(){
+  try{ speechSynthesis.cancel(); }catch(e){}
+  $('#tr').hidden=true;
+  document.body.style.overflow='';
+  T=null;
+  renderW(); renderV(); renderP(); syncProgress();
+}
+function drawDots(){
+  $('#trDots').innerHTML = T.qs.map((q,i)=>
+    '<i class="'+(T.res[i] || (i===T.i?'now':''))+'"></i>').join('');
+}
+function record(q,good){
+  if(good){
+    P.hits[q.k]=(P.hits[q.k]||0)+1;
+    dropMiss(q);
+    if(q.t==='blank') P.drills[q.k]='ok';
+    /* two right in a row ticks it off in the notebook — that is how training
+       reaches the readiness score, without reweighting anything */
+    if(P.hits[q.k]>=2){
+      if(q.area==='words' && !S.known.has(q.da)){ S.known.add(q.da); saveW(); }
+      if(q.area==='verbs') P.verbs.add(q.vkey);
+    }
+  } else {
+    P.hits[q.k]=0;
+    addMiss(q);
+    if(q.t==='blank') P.drills[q.k]='no';
+  }
+  touch(); saveH();
+}
+function drawQ(){
+  const q=T.qs[T.i];
+  T.answered=false;
+  drawDots();
+  let h='<div class="qhead"><span class="qkind">'+esc(q.kind)+'</span>'+
+        '<span class="qkind" style="margin-left:auto">'+(T.i+1)+' / '+T.qs.length+'</span></div>';
+  h += q.t==='listen'
+     ? '<p class="qprompt">'+sayBtn(q.audio,'big')+'</p>'
+     : '<p class="qprompt'+(q.small?' small':'')+'">'+esc(q.prompt)+'</p>';
+  h += '<p class="qsub">'+esc(q.sub)+'</p>';
+  if(q.choices){
+    h+='<div class="opts">'+q.choices.map((c,i)=>
+      '<button class="opt" type="button" data-c="'+i+'"><span class="k">'+(i+1)+
+      '</span><span>'+esc(c)+'</span></button>').join('')+'</div>';
+  } else {
+    h+='<div class="typed"><input id="trIn" type="text" autocomplete="off" autocapitalize="off" '+
+       'autocorrect="off" spellcheck="false" enterkeyhint="go" aria-label="Your answer in Danish">'+
+       '<div class="dachars"><button type="button" data-ch="æ">æ</button>'+
+       '<button type="button" data-ch="ø">ø</button>'+
+       '<button type="button" data-ch="å">å</button></div></div>';
+  }
+  h+='<div id="trFb"></div>'+
+     '<div class="tr-foot"><button class="pbtn" id="trGo">'+(q.choices?'I don&rsquo;t know':'Answer')+'</button>'+
+     '<span class="tr-hint">'+(q.choices?'1–4 picks an answer':'Enter answers')+'</span></div>';
+  $('#trBody').innerHTML=h;
+
+  const body=$('#trBody');
+  body.querySelectorAll('.opt').forEach(b=>
+    b.addEventListener('click',()=>answer(q.choices[+b.dataset.c])));
+  const inp=$('#trIn');
+  if(inp){
+    inp.focus();
+    inp.addEventListener('keydown',e=>{ if(e.key==='Enter'){ e.preventDefault(); answer(inp.value); }});
+    body.querySelectorAll('[data-ch]').forEach(b=>b.addEventListener('click',()=>{
+      const s=inp.selectionStart ?? inp.value.length, e2=inp.selectionEnd ?? s;
+      inp.value = inp.value.slice(0,s)+b.dataset.ch+inp.value.slice(e2);
+      inp.focus(); inp.setSelectionRange(s+1,s+1);
+    }));
+  }
+  $('#trGo').addEventListener('click',()=>answer(inp?inp.value:''));
+  if(q.t==='listen') speak(q.audio);
+}
+function answer(given){
+  if(T.answered) return;
+  const q=T.qs[T.i];
+  const verdict = q.choices ? (given===q.answer?'ok':'no') : grade(given,q);
+  const good = verdict==='ok' || verdict==='near';
+  T.answered=true;
+  T.res[T.i]= good?'ok':'no';
+  record(q,good);
+  drawDots();
+
+  const body=$('#trBody');
+  body.querySelectorAll('.opt').forEach(b=>{
+    const txt=q.choices[+b.dataset.c];
+    b.disabled=true;
+    if(txt===q.answer) b.classList.add('right');
+    else if(txt===given) b.classList.add('wrong');
+  });
+  const inp=$('#trIn');
+  if(inp) inp.disabled=true;
+
+  /* The one-word verdict stays Danish — it is three words worth learning and
+     you see them every question. Everything that explains is in English. */
+  const head = verdict==='near' ? 'Næsten &middot; counts as right'
+             : good ? 'Rigtigt' : 'Forkert';
+  let fb='<div class="fb '+(good?'right':'wrong')+'"><p class="verdict">'+head+'</p>'+
+    '<p class="sol">'+esc(q.answer)+(q.audio?' '+sayBtn(q.audio):'')+'</p>';
+  if(verdict==='near') fb+='<p class="why">You wrote <b>'+esc(given)+'</b>. The article and the <i>at</i> are part of the word.</p>';
+  if(q.why) fb+='<p class="why">'+(q.whyRaw?q.why:esc(q.why))+'</p>';
+  fb+='</div>';
+  $('#trFb').innerHTML=fb;
+
+  const last = T.i>=T.qs.length-1;
+  const go=$('#trGo');
+  go.textContent = last?'See the score':'Next';
+  go.replaceWith(go.cloneNode(true));
+  $('#trGo').addEventListener('click',next);
+  $('#trGo').focus();
+  if(good && q.audio && q.t!=='listen') speak(q.audio);
+}
+function next(){
+  if(T.i>=T.qs.length-1){ drawEnd(); return; }
+  T.i++; drawQ();
+}
+function drawEnd(){
+  if(!T.done){
+    T.done=true;
+    const ok=T.res.filter(r=>r==='ok').length;
+    P.sess.unshift({d:new Date().toISOString().slice(0,10), n:T.qs.length, ok:ok});
+    if(P.sess.length>20) P.sess.length=20;
+    touch(); saveH();
+  }
+  const ok=T.res.filter(r=>r==='ok').length, n=T.qs.length;
+  $('#trDots').innerHTML='';
+  let h='<div class="qhead"><span class="qkind">'+esc(SCOPE_NAME[T.scope]||'Træning')+' &middot; done</span></div>'+
+    '<p class="score">'+ok+'<small>/ '+n+'</small></p>'+
+    '<p class="qsub">'+(ok===n ? 'All correct. Run another, or leave it until tomorrow.'
+      : ok>=n*.7 ? 'Good run. The ones you missed come back next time.'
+      : 'What you missed is now in Mine fejl, and it will come round again.')+'</p>';
+  const wrong=T.qs.filter((q,i)=>T.res[i]==='no');
+  if(wrong.length){
+    h+='<ul class="recap">'+wrong.map(q=>
+      '<li><span class="rq">'+esc(q.t==='listen'?q.audio:q.prompt)+'</span>'+
+      '<span class="ra">'+esc(q.answer)+(q.audio?' '+sayBtn(q.audio):'')+'</span></li>').join('')+'</ul>';
+  }
+  h+='<div class="tr-foot"><button class="pbtn" id="trAgain">Again</button>'+
+     (P.miss.length?'<button class="pbtn ghost" id="trMiss">Train my mistakes ('+P.miss.length+')</button>':'')+
+     '<button class="pbtn ghost" id="trClose">Close</button></div>';
+  $('#trBody').innerHTML=h;
+  const scope=T.scope;
+  $('#trAgain').addEventListener('click',()=>{ closeTrainer(); openTrainer(scope); });
+  const mb=$('#trMiss');
+  if(mb) mb.addEventListener('click',()=>{ closeTrainer(); openTrainer('miss'); });
+  $('#trClose').addEventListener('click',closeTrainer);
+}
+$('#trX').addEventListener('click',closeTrainer);
+document.addEventListener('click',e=>{
+  const b=e.target.closest('[data-train]');
+  if(b) openTrainer(b.dataset.train);
+});
+document.addEventListener('keydown',e=>{
+  if(!T) return;
+  if(e.key==='Escape'){ e.preventDefault(); closeTrainer(); return; }
+  if(T.done) return;
+  const q=T.qs[T.i];
+  if(!T.answered && q.choices && /^[1-4]$/.test(e.key)){
+    const c=q.choices[+e.key-1];
+    if(c!==undefined){ e.preventDefault(); answer(c); }
+    return;
+  }
+  if(T.answered && e.key==='Enter'){ e.preventDefault(); next(); }
+});
+
 /* ═══ STATUS ═══ */
 const TIER12 = ALL_WORDS.filter(w=>w.t<=2);
 const DRILL_TOTAL = SETS.reduce((n,x)=>n+x.items.length,0);
@@ -902,6 +1413,13 @@ function verdict(r){
   if(r>0)    return ['Lige begyndt.','Nothing wrong with that. Start with the ten ★ rules in Grammatik — they are the ones covered by both the book and your class.'];
   return ['Ikke begyndt endnu.','Mark a rule as known, tick a word, or score yourself on a drill, and this page starts keeping track.'];
 }
+function examDays(){
+  if(!P.exam) return null;
+  const d=new Date(P.exam+'T00:00:00');
+  if(isNaN(d.getTime())) return null;
+  const now=new Date(); now.setHours(0,0,0,0);
+  return Math.round((d-now)/86400000);
+}
 function renderStatus(){
   const t = stats(), out = $('#sOut');
   const [vTitle,vText] = verdict(t.ready);
@@ -928,6 +1446,45 @@ function renderStatus(){
       '<button class="goto" data-go="'+a.k+'">Gå til '+a.name.toLowerCase()+' →</button></article>';
   });
   h += '</div>';
+
+  /* ── training ── */
+  const lastS = P.sess[0];
+  const seen7 = P.sess.slice(0,7);
+  const seenOk = seen7.reduce((n,x)=>n+x.ok,0), seenN = seen7.reduce((n,x)=>n+x.n,0);
+  h += '<section class="sec"><div class="sec-head"><h2>Træning</h2></div>'+
+    '<p class="sec-sub">Twelve questions from everything on this page — words both ways, '+
+    'the fill-in-the-blank drills, verb forms, and'+(TTS?' Danish you listen to.':' Danish you read.')+
+    ' Get a word or a verb right twice and it ticks itself off in the notebook.</p>'+
+    '<div class="trcard"><h3>'+(lastS?'Run another round':'Start your first round')+'</h3>'+
+    '<p>'+(seenN
+      ? 'Your last '+seen7.length+' rounds: <b>'+seenOk+' right out of '+seenN+'</b>'+
+        (lastS?' &middot; most recently '+esc(lastS.d)+' ('+lastS.ok+'/'+lastS.n+')':'')+'.'
+      : 'Nothing is stored anywhere but this browser, and the notebook stays exactly as it is.')+'</p>'+
+    '<div class="trrow"><button class="pbtn" data-train="all">Train now</button>'+
+    (P.miss.length?'<button class="pbtn ghost" data-train="miss">My mistakes ('+P.miss.length+')</button>':'')+
+    '<button class="pbtn ghost" data-train="words">Words only</button>'+
+    '<button class="pbtn ghost" data-train="verbs">Verbs only</button></div>'+
+    '<div class="exam"><label for="examDate">Eksamensdato</label>'+
+    '<input type="date" id="examDate" value="'+esc(P.exam||'')+'">'+
+    (examDays()===null ? '<span>Set the date and the page counts down to it.</span>'
+      : examDays()>=0 ? '<span><span class="days">'+examDays()+'</span> days to go</span>'
+      : '<span>That date has passed. Hope it went well.</span>')+
+    '</div></div></section>';
+
+  /* ── the misses ── */
+  if(P.miss.length){
+    const rows = P.miss.slice(0,8).map(m=>rebuildMiss(m)).filter(Boolean);
+    if(rows.length){
+      h += '<section class="sec"><div class="sec-head"><h2>Mine fejl</h2>'+
+        '<span class="sec-count">'+P.miss.length+'</span></div>'+
+        '<p class="sec-sub">Everything you have got wrong in training, newest first. '+
+        'They come back weighted heavily in every session, and drop off this list once you get them right.</p>'+
+        '<ul class="recap">'+rows.map(q=>
+          '<li><span class="rq">'+esc(q.t==='listen'?q.audio:q.prompt)+'</span>'+
+          '<span class="ra">'+esc(q.answer)+(q.audio?' '+sayBtn(q.audio):'')+'</span></li>').join('')+
+        '</ul></section>';
+    }
+  }
 
   /* weakest drill sets */
   const setRows = SETS.map(set=>{
@@ -956,17 +1513,23 @@ function renderStatus(){
     '<p class="sec-sub">This is <b>self-reported</b> — it counts what you have marked, not what you actually know. '+
     'It is a checklist that keeps score, not a mock exam. The headline weighs grammar 30 % (half of that the ★ rules), '+
     'words 25 % (tier 1–2 only — tiers 3 and 4 are optional), drills 25 %, verbs 20 %. '+
-    'Lyt &amp; tal has its own bar but is not weighed into the headline.'+
+    'Lyt &amp; tal has its own bar but is not weighed into the headline. '+
+    'Training is not weighed in either, and does not need to be: getting a word or a verb right '+
+    'twice ticks it off in the notebook, and a drill answered in training scores that drill — '+
+    'so it reaches the same four numbers through the same door as marking things by hand.'+
     (P.last?' Last marked: <b>'+esc(P.last)+'</b>.':'')+'</p>'+
-    '<p style="margin-top:14px"><button class="linkish" id="sReset">Nulstil alt (rules, verbs, words, drills)</button></p>'+
+    '<p style="margin-top:14px"><button class="linkish" id="sReset">Nulstil alt (rules, verbs, words, drills, training)</button></p>'+
     '</section>';
 
   out.innerHTML = h;
   out.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>showTab(b.dataset.go)));
+  const ed = $('#examDate');
+  if(ed) ed.addEventListener('change',()=>{ P.exam = ed.value || null; saveH(); renderStatus(); });
   const rb = $('#sReset');
   if(rb) rb.addEventListener('click',()=>{
     if(!confirmReset()) return;
     P.rules.clear(); P.verbs.clear(); P.listen.clear(); P.drills={}; S.known.clear();
+    P.miss=[]; P.hits={}; P.sess=[];
     saveH(); saveW(); renderG(); renderV(); renderW(); renderL(); renderP(); syncProgress();
   });
 }
@@ -976,7 +1539,7 @@ function confirmReset(){
   if(resetArmed){ resetArmed=false; clearTimeout(resetTimer); return true; }
   resetArmed=true; b.textContent='Sikker? Klik igen for at slette alt.';
   resetTimer=setTimeout(()=>{ resetArmed=false; const x=$('#sReset');
-    if(x) x.textContent='Nulstil alt (rules, verbs, words, drills)'; },4000);
+    if(x) x.textContent='Nulstil alt (rules, verbs, words, drills, træning)'; },4000);
   return false;
 }
 function tabBadges(){
@@ -1082,6 +1645,19 @@ document.addEventListener('keydown',e=>{
   P.listen.forEach(k=>{ if(!live.has(k)){ P.listen.delete(k); dropped = true; } });
   if(dropped) saveH();
 })();
+/* Same rule for the wrong-answer queue: drop anything whose word, verb or
+   drill item is no longer in the data, so the "Mine fejl" count never claims
+   more than the trainer can actually ask you. */
+(function(){
+  const before=P.miss.length;
+  P.miss = P.miss.filter(m=>rebuildMiss(m));
+  if(P.miss.length!==before) saveH();
+})();
+/* Voices load asynchronously in Chrome, so check once now and again when the
+   list arrives. Until one is found, body.has-tts is absent and every speaker
+   button stays hidden. */
+findVoice();
+try{ speechSynthesis.addEventListener('voiceschanged',()=>{ if(findVoice()) syncProgress(); }); }catch(e){}
 applyTheme();
 document.body.classList.toggle('wtest',S.wTest);
 document.body.classList.toggle('vdrill',S.vDrill);

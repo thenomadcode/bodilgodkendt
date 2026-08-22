@@ -59,7 +59,9 @@ source/           the two PDFs this was built from — gitignored, local only
 dist/             build output — untracked, do not edit by hand
 ```
 
-The page has six tabs: Status, Grammatik, Verber, Ord, Lyt & tal, Øv dig.
+The page has six tabs: Status, Grammatik, Verber, Ord, Lyt & tal, Øv dig —
+plus the trainer, which is a full-screen overlay rather than a seventh tab. The
+phone nav is already at capacity; see the `@media (max-width:620px)` block.
 
 A global progress bar sits in the sticky nav under the tab row, next to a
 theme switch that cycles Auto → Lys → Mørk. Each tab except Status carries its
@@ -114,7 +116,7 @@ Progress lives in the viewer's browser only. Three keys:
 | Key | Holds |
 |---|---|
 | `dtg3-k1-v1` | ticked words (`known`), plus the words-tab toggles |
-| `dtg3-hub-v1` | marked rules, verbs and oral questions, drill scores, active tab, last-marked date |
+| `dtg3-hub-v1` | marked rules, verbs and oral questions, drill scores, active tab, last-marked date, plus `miss` `hits` `sess` `exam` (see Trainer) |
 | `dtg3-theme-v1` | `auto`, `light` or `dark` — the theme switch only |
 
 **These are keyed by content strings, not ids:**
@@ -156,7 +158,9 @@ and note that the Ord bar reports the tier 1–2 figure, not all 385 words.
    (`const ALL_WORDS = …`).
 3. Add a `ch3` chip to `wFilters` in `hub.html`.
 4. Append to `RULES`, `VERBS`, `ORAL`, `SETS` as needed — those
-   render straight from the arrays and need no other change.
+   render straight from the arrays and need no other change. The trainer picks
+   up new words, verbs and drill items on its own; no question type has a list
+   of its own to update.
 5. Update the masthead eyebrow (`Kapitel 1–2`) and the lede.
 
 ## Republishing
@@ -176,8 +180,71 @@ updates `theme-color` at runtime and no-ops when the meta is absent.
 Republishing the Artifact and deploying the website are independent: `git push`
 updates the website only.
 
+## The trainer
+
+Opened from `[data-train]` buttons — one per scope, on Status and in the Ord,
+Verber and Øv dig toolbars. Twelve questions a round, drawn from data that is
+already on the page; nothing new is authored for it.
+
+| Type | Source | Shape |
+|---|---|---|
+| `da2en` | words, tier 1–2 | four-option multiple choice |
+| `en2da` | words, tier 1–2 | typed |
+| `listen` | words, tier 1–2 | speaks the Danish, four-option meaning |
+| `blank` | the 67 `SETS` items | typed — they are already `Jeg ___ (flytte)` |
+| `verb` | `VERBS` × the four forms | typed |
+
+Scopes are `all`, `words`, `verbs`, `drills` and `miss`. `planFor()` decides the
+type mix; the mixed plan gives two of its twelve slots to whichever of words,
+verbs or drills `stats()` says is weakest.
+
+**It writes to the same keys the notebook does.** Question keys are content
+strings, exactly like everything else: words `w:` + `da`, verbs `v:` + `i` + `:`
++ form letter, drills `setId:index` — the drill key *is* the `P.drills` key, so
+answering a drill in the trainer scores that drill. Renaming a word, verb or
+drill orphans its trainer history the same way it orphans a tick.
+
+- `P.miss` — `[{t,k}]`, newest first, capped at 60. Wrong answers go on, right
+  answers come off. Weighted 5× when picking questions; also rendered as the
+  *Mine fejl* section on Status. Pruned at boot against the live data, the same
+  way `P.listen` is.
+- `P.hits` — right-answers-in-a-row per key, reset to 0 on a wrong one. **Two in
+  a row ticks the word into `S.known` or the verb into `P.verbs`.** That is the
+  whole reason training needs no weight of its own in the readiness score: it
+  reaches the existing four numbers through the same door as marking by hand.
+  If you change that rule, the "Sådan tælles det" copy has to change with it.
+- `P.sess` — `[{d,n,ok}]`, last 20, for the Status card only.
+- `P.exam` — the exam date, `YYYY-MM-DD`, drives the countdown. Nothing else.
+
+`grade()` is deliberately forgiving: case, spacing and punctuation are ignored,
+`ae`/`oe`/`aa` are accepted for `æøå` so a phone keyboard is never the reason an
+answer is wrong, `a / b` answers take either or both, and a missing article or
+`at` returns `near` — which counts as correct but says so. `en2da` also accepts
+any other word carrying the same English gloss. Keep that generosity; a trainer
+that fails you on typing is a trainer you stop opening.
+
+## Speech
+
+Browser `speechSynthesis`, `da-DK`. No service, no key, nothing leaves the page.
+`findVoice()` looks for a Danish voice at boot and again on `voiceschanged`
+(Chrome loads them asynchronously), and toggles `body.has-tts`. Every `.say`
+button is always rendered but CSS-hidden until that class is present, and the
+`listen` question type is swapped for `da2en` when it is absent — so a device
+with no Danish voice, which is most Linux desktops, shows no audio controls at
+all rather than dead ones. That is the same call as commit `f475bfb`, which
+deleted the Lytteopgaver cards rather than promise audio the page cannot play.
+
+One delegated `click` listener on `document`, **capture phase**, handles every
+speaker button. Capture is what stops the click also reaching the row
+underneath and revealing a word or a verb form.
+
 ## House rules
 
+- **Danish for headings and labels, English for anything that explains.** The
+  tab names, section headings, the one-word verdicts and the grammatical terms
+  (`datid`, `førnutid`) are Danish, because they are the material. Every
+  instruction, hint, button and piece of feedback prose is English. The point of
+  the page is to teach Danish, not to be in Danish.
 - Danish content is checked before it ships. Every form in `verbs.js` marked
   `src:"sheet"` was diffed against `source/verbs.pdf` programmatically; the
   rest was reviewed against Retskrivningsordbogen. Keep that bar.
