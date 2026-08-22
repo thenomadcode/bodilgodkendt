@@ -1,4 +1,4 @@
-<title>Prøveklar</title>
+<title>Bodilgodkendt</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -9,9 +9,9 @@
   --ground:#F1EFEA; --surface:#FBFAF7; --surface-2:#E7E4DC;
   --line:#DAD5CB; --line-soft:#E6E2D9;
   --ink:#21242A; --ink-2:#5C626B; --ink-3:#8B9099;
-  --accent:#A8465C; --accent-soft:#F3DFE3;
-  --t1:#A8465C; --t2:#5F8A4E; --t3:#3E7180; --t4:#9C852F;
-  --t1-bg:#F3DFE3; --t2-bg:#E2EBDB; --t3-bg:#DBE8EB; --t4-bg:#EFE8D2;
+  --accent:#C8102E; --accent-soft:#F8DEE2;
+  --t1:#C8102E; --t2:#5F8A4E; --t3:#3E7180; --t4:#9C852F;
+  --t1-bg:#F8DEE2; --t2-bg:#E2EBDB; --t3-bg:#DBE8EB; --t4-bg:#EFE8D2;
   --focus:#2F6FA8;
   --ok:#3F7A4C; --ok-bg:#E3EFE4;
   --shadow:0 1px 2px rgba(33,36,42,.05), 0 6px 20px -12px rgba(33,36,42,.28);
@@ -21,9 +21,9 @@
     --ground:#141619; --surface:#1B1E22; --surface-2:#23272C;
     --line:#2F343B; --line-soft:#262B31;
     --ink:#E8E5DE; --ink-2:#A5ABB3; --ink-3:#767D86;
-    --accent:#E2899C; --accent-soft:#3A2229;
-    --t1:#E2899C; --t2:#9CC57E; --t3:#77B3C2; --t4:#D5B95F;
-    --t1-bg:#38222A; --t2-bg:#243020; --t3-bg:#1E3036; --t4-bg:#332C18;
+    --accent:#E8697C; --accent-soft:#3A1F24;
+    --t1:#E8697C; --t2:#9CC57E; --t3:#77B3C2; --t4:#D5B95F;
+    --t1-bg:#3A1F24; --t2-bg:#243020; --t3-bg:#1E3036; --t4-bg:#332C18;
     --focus:#77AEE0;
     --ok:#8FC49A; --ok-bg:#20301F;
     --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -14px rgba(0,0,0,.8);
@@ -33,9 +33,9 @@
   --ground:#141619; --surface:#1B1E22; --surface-2:#23272C;
   --line:#2F343B; --line-soft:#262B31;
   --ink:#E8E5DE; --ink-2:#A5ABB3; --ink-3:#767D86;
-  --accent:#E2899C; --accent-soft:#3A2229;
-  --t1:#E2899C; --t2:#9CC57E; --t3:#77B3C2; --t4:#D5B95F;
-  --t1-bg:#38222A; --t2-bg:#243020; --t3-bg:#1E3036; --t4-bg:#332C18;
+  --accent:#E8697C; --accent-soft:#3A1F24;
+  --t1:#E8697C; --t2:#9CC57E; --t3:#77B3C2; --t4:#D5B95F;
+  --t1-bg:#3A1F24; --t2-bg:#243020; --t3-bg:#1E3036; --t4-bg:#332C18;
   --focus:#77AEE0;
   --ok:#8FC49A; --ok-bg:#20301F;
   --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -14px rgba(0,0,0,.8);
@@ -361,7 +361,7 @@ tr.vgot .vinf{color:var(--ok)}
 <div class="wrap">
   <header class="mast">
     <p class="eyebrow">Danish to Go 3 · Kapitel 1–2 &nbsp;·&nbsp; Studieskolen modul 3.3</p>
-    <h1>Prøve<span>klar</span></h1>
+    <h1>Bodil<span>godkendt</span></h1>
     <p class="lede">Everything from the book's first two chapters and your class notes, in one place: the rules, the verbs, the words, the questions you will be asked out loud, and drills to prove you've got it.</p>
     <div class="figures">
       <div class="fig"><div class="n" id="fRules">0</div><div class="l">Rules</div></div>
@@ -896,7 +896,7 @@ function meter(val,color){
   return '<span class="meter"><i style="width:'+pc(val)+'%;background:'+color+'"></i></span>';
 }
 function verdict(r){
-  if(r>=.85) return ['Du er klar.','Everything is marked off and the drills are going your way. Keep it ticking over rather than cramming.'];
+  if(r>=.85) return ['Bodilgodkendt.','Everything is marked off and the drills are going your way. Keep it ticking over rather than cramming.'];
   if(r>=.6)  return ['Godt på vej.','The bones are there. Spend what is left on whatever sits lowest below — that is where the marks are.'];
   if(r>=.3)  return ['I gang.','A solid start. The ★ priority rules and the tier 1–2 words are worth more than anything else right now.'];
   if(r>0)    return ['Lige begyndt.','Nothing wrong with that. Start with the ten ★ rules in Grammatik — they are the ones covered by both the book and your class.'];

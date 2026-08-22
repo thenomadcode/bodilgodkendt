@@ -1,11 +1,11 @@
-# Prøveklar — Danish study hub
+# Bodilgodkendt — Danish study hub
 
 A single-page study tool for Chris's Danish course: **Danish to Go 3**, chapters 1–2,
 cross-referenced with his **Studieskolen modul 3.3** class notes.
 
 Published in two places, from the same source:
 
-- **Website** — https://thenomadcode.github.io/proveklar/ (GitHub Pages, deployed by CI)
+- **Website** — https://thenomadcode.github.io/bodilgodkendt/ (GitHub Pages, deployed by CI)
 - **Claude Artifact** — https://claude.ai/code/artifact/5bcabe74-e2ff-4b2e-bf70-6e3e96b237cb
 
 ## Build

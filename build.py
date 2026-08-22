@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the Prøveklar study hub.
+"""Build the Bodilgodkendt study hub.
 
     python3 build.py
 
@@ -34,7 +34,7 @@ MODULES = [
 ]
 
 # Copied verbatim into dist/site/. Every icon href in HEAD_EXTRA is relative,
-# so the site works at any path — thenomadcode.github.io/proveklar/ or a
+# so the site works at any path — thenomadcode.github.io/bodilgodkendt/ or a
 # custom domain root — with no rewriting.
 SITE_ASSETS = ["icon.svg", "icon-32.png", "icon-180.png", "icon-192.png", "icon-512.png"]
 
@@ -54,21 +54,21 @@ HEAD_EXTRA = f"""<meta name="description" content="{DESCRIPTION}">
 <meta name="theme-color" content="#F1EFEA">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Prøveklar">
+<meta name="apple-mobile-web-app-title" content="Bodilgodkendt">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 """
 
 # start_url and the icon srcs are relative for the same reason.
 MANIFEST = """{
-  "name": "Prøveklar — dansk modul 3.3",
-  "short_name": "Prøveklar",
+  "name": "Bodilgodkendt — dansk modul 3.3",
+  "short_name": "Bodilgodkendt",
   "description": "Danish to Go 3 chapters 1–2 and Studieskolen modul 3.3 in one study hub.",
   "start_url": ".",
   "scope": ".",
   "display": "standalone",
   "orientation": "portrait-primary",
   "background_color": "#F1EFEA",
-  "theme_color": "#A8465C",
+  "theme_color": "#C8102E",
   "icons": [
     { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
     { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" },

@@ -1,10 +1,10 @@
-# Prøveklar
+# Bodilgodkendt
 
 A single-page study hub for Danish **modul 3.3** — the grammar rules, the verb
 conjugations, the vocabulary, the oral exam questions and a set of drills, all in
 one page that keeps track of what you have covered.
 
-**→ https://thenomadcode.github.io/proveklar/**
+**→ https://thenomadcode.github.io/bodilgodkendt/**
 
 Six tabs — Status, Grammatik, Verber, Ord, Lyt & tal, Øv dig — with a progress
 bar on each, a global readiness bar in the nav, and a light/dark switch.
