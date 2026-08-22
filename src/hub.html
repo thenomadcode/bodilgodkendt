@@ -276,6 +276,36 @@ body.wtest .item.revealed .note{color:var(--ink-3);background:transparent;cursor
   .themebtn .tlabel{display:none}
   .themebtn{padding:5px 8px}
   .gprog .glabel{display:none}
+  /* Wrap the tabs instead of scrolling them. The scrollbar is hidden, so a
+     scrolling row silently puts half the tabs out of reach on a phone —
+     at 360px four of the six were unreachable. Wrapping cannot hide one. */
+  .tabrow{flex-wrap:wrap;overflow-x:visible;row-gap:0}
+  .tab{padding:9px 8px;font-size:13.5px}
+  /* The sticky nav is permanent screen cost on a phone, so drop the per-tab
+     percentages there — every panel already carries the same number in its
+     own bar, and Status shows all four. */
+  .tabprog{display:none}
+  .gprog{padding-bottom:7px}
+  /* The verb table is 8 columns / ~990px. In a 350px window that hides two
+     thirds of it, so the tense comparison — the point of this tab — is lost
+     behind a sideways scroll. Stack each verb into a labelled card instead. */
+  .tablewrap{overflow-x:visible}
+  table.vt{min-width:0;display:block}
+  table.vt thead{display:none}
+  table.vt tbody{display:block}
+  table.vt tr{display:grid;grid-template-columns:auto minmax(0,1fr) auto;
+    align-items:baseline;gap:4px 10px;padding:13px 15px;border-top:1px solid var(--line)}
+  table.vt tr:first-child{border-top:0}
+  table.vt td{display:block;padding:0;border:0}
+  table.vt td.vmark{grid-column:1;grid-row:1;align-self:center}
+  table.vt td.vinf{grid-column:2;grid-row:1;white-space:normal}
+  table.vt td.vgrp{grid-column:3;grid-row:1}
+  table.vt td.veng{grid-column:2 / -1;grid-row:2;margin-bottom:4px}
+  table.vt td.vform{grid-column:2 / -1;display:flex;gap:9px;white-space:normal}
+  table.vt td.vform::before{
+    content:attr(data-l);flex:0 0 68px;color:var(--ink-3);font-family:"IBM Plex Sans",sans-serif;
+    font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;font-weight:600;line-height:1.7;
+  }
   /* the count text cannot shrink, so give the bar its own row rather than
      letting it shove the Reset button off the side */
   .progress{flex-wrap:wrap;row-gap:7px}
@@ -620,14 +650,14 @@ function renderV(){
     const tr=document.createElement('tr');
     if(P.verbs.has(v.i)) tr.classList.add('vgot');
     tr.innerHTML =
-      '<td><button class="mark" type="button" aria-pressed="'+P.verbs.has(v.i)+'" title="Jeg kan bøje det her">'+TICK+'</button></td>'+
+      '<td class="vmark"><button class="mark" type="button" aria-pressed="'+P.verbs.has(v.i)+'" title="Jeg kan bøje det her">'+TICK+'</button></td>'+
       '<td class="vinf">'+esc(v.i)+'</td>'+
-      '<td class="vform">'+esc(v.n)+'</td>'+
-      '<td class="vform hide">'+esc(v.d)+'</td>'+
-      '<td class="vform hide">'+esc(v.f)+'</td>'+
-      '<td class="vform">'+esc(v.m)+'</td>'+
+      '<td class="vform" data-l="Nutid">'+esc(v.n)+'</td>'+
+      '<td class="vform hide" data-l="Datid">'+esc(v.d)+'</td>'+
+      '<td class="vform hide" data-l="Førnutid">'+esc(v.f)+'</td>'+
+      '<td class="vform" data-l="Imperativ">'+esc(v.m)+'</td>'+
       '<td class="veng">'+esc(v.e)+'</td>'+
-      '<td><span class="grp grp-'+v.grp+'" title="'+GRP_LABEL[v.grp]+'">'+v.grp+'</span></td>';
+      '<td class="vgrp"><span class="grp grp-'+v.grp+'" title="'+GRP_LABEL[v.grp]+'">'+v.grp+'</span></td>';
     tr.addEventListener('click',ev=>{
       if(ev.target.closest('.mark')) return;
       if(S.vDrill) tr.classList.toggle('shown');
