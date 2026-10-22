@@ -451,6 +451,40 @@ body.has-tts .say,.say.rec{display:inline-grid;vertical-align:-6px}
 #intro .tr-foot .pbtn{flex:1 1 0}
 #intro .tr-foot .pbtn:last-child{flex-grow:2}
 
+/* ── Streak, badges and celebrations ── */
+.streak{flex:none;font:inherit;font-size:12.5px;font-weight:600;color:var(--accent);
+  background:var(--accent-soft);border:1px solid transparent;border-radius:99px;
+  padding:2px 9px 2px 6px;cursor:pointer;display:inline-flex;align-items:center;gap:3px;
+  font-variant-numeric:tabular-nums}
+.streak svg{width:14px;height:14px}
+.streak.cold{color:var(--ink-3);background:var(--surface-2)}
+.streak:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+#badges{scroll-margin-top:150px}
+.streakline{display:flex;align-items:center;gap:8px;margin:6px 0 0;font-size:14.5px;color:var(--ink-2)}
+.streakline svg{width:18px;height:18px;color:var(--accent);flex:none}
+.bgrid{margin:16px 0 0;padding:0;list-style:none;display:grid;gap:9px;
+  grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+.badge{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 12px 11px;
+  display:flex;flex-direction:column;align-items:center;text-align:center;gap:3px}
+.badge .be{font-size:30px;line-height:1.15;filter:grayscale(1);opacity:.35}
+.badge b{font-size:13.5px;color:var(--ink-3)}
+.badge small{font-size:12px;line-height:1.35;color:var(--ink-3)}
+.badge.on{border-color:var(--t4);box-shadow:var(--shadow)}
+.badge.on .be{filter:none;opacity:1}
+.badge.on b{color:var(--ink)}
+.badge.fresh{animation:pop .5s ease}
+@keyframes pop{0%{transform:scale(.8)}60%{transform:scale(1.06)}100%{transform:none}}
+@media (max-width:620px){ .bgrid{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+  .badge{padding:10px 6px 9px} .badge .be{font-size:26px} .badge b{font-size:12.5px} .badge small{font-size:11px} }
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:95;
+  max-width:min(440px,calc(100vw - 32px));width:max-content;background:var(--ink);color:var(--ground);
+  border-radius:12px;padding:11px 18px;font-size:15px;font-weight:500;line-height:1.4;text-align:center;
+  box-shadow:0 10px 30px -10px rgba(0,0,0,.5);animation:toastin .3s ease}
+@keyframes toastin{from{opacity:0;transform:translate(-50%,14px)}to{opacity:1;transform:translate(-50%,0)}}
+.toast svg{width:16px;height:16px;vertical-align:-2px;color:var(--accent-soft)}
+.confetti{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:90}
+@media (prefers-reduced-motion:reduce){.toast,.badge.fresh{animation:none}}
+
 /* ── Training card on Status ── */
 .trcard{background:var(--surface);border:1px solid var(--accent);border-radius:10px;
   box-shadow:var(--shadow);padding:20px 22px;margin-top:14px}
@@ -745,6 +779,7 @@ textarea.wtxt:focus-visible{outline:2px solid var(--focus);outline-offset:1px;bo
       <span class="glabel" id="gLabel">Samlet</span>
       <span class="gbar"><i id="globFill"></i></span>
       <span class="gval" id="globVal">0%</span>
+      <button class="streak" id="streakBtn" type="button" hidden></button>
     </div>
   </nav>
 
@@ -877,6 +912,9 @@ textarea.wtxt:focus-visible{outline:2px solid var(--focus);outline-offset:1px;bo
   </div>
 </div>
 
+<!-- celebrations: one short line at the bottom of the screen -->
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
 <!-- TOUR: opens by itself on a first visit; "How this page works" reopens it -->
 <div class="tr" id="intro" hidden role="dialog" aria-modal="true" aria-label="Sådan virker siden">
   <div class="tr-in">
@@ -960,7 +998,8 @@ try{ const o=JSON.parse(localStorage.getItem(KEY_W)||'{}');
    exam  — the exam date, 'YYYY-MM-DD'. All four are additive: older saved
            progress loads unchanged. */
 let P = {rules:new Set(), verbs:new Set(), listen:new Set(), drills:{}, last:null,
-         miss:[], hits:{}, sess:[], exam:null, slow:false};
+         miss:[], hits:{}, sess:[], exam:null, slow:false,
+         streak:{n:0, last:'', best:0}, badges:{}};
 try{ const o=JSON.parse(localStorage.getItem(KEY_H)||'{}');
      if(o.tab) S.tab=o.tab; if(typeof o.vDrill==='boolean') S.vDrill=o.vDrill;
      if(Array.isArray(o.rules)) P.rules=new Set(o.rules);
@@ -972,6 +1011,8 @@ try{ const o=JSON.parse(localStorage.getItem(KEY_H)||'{}');
      if(Array.isArray(o.sess)) P.sess=o.sess;
      if(typeof o.exam==='string') P.exam=o.exam;
      if(typeof o.slow==='boolean') P.slow=o.slow;
+     if(o.streak && typeof o.streak==='object') P.streak=Object.assign(P.streak, o.streak);
+     if(o.badges && typeof o.badges==='object') P.badges=o.badges;
      if(o.last) P.last=o.last;
      if(Array.isArray(o.scope)){ const sc=o.scope.filter(n=>CHAPTERS.includes(n)); if(sc.length) SCOPE=new Set(sc); }
    }catch(e){}
@@ -982,7 +1023,8 @@ function saveW(){ try{ localStorage.setItem(KEY_W, JSON.stringify(
 function saveH(){ try{ localStorage.setItem(KEY_H, JSON.stringify(
   {tab:S.tab, vDrill:S.vDrill, rules:[...P.rules], verbs:[...P.verbs],
    listen:[...P.listen], drills:P.drills, last:P.last,
-   miss:P.miss, hits:P.hits, sess:P.sess, exam:P.exam, scope:[...SCOPE], slow:P.slow})); }catch(e){} }
+   miss:P.miss, hits:P.hits, sess:P.sess, exam:P.exam, scope:[...SCOPE], slow:P.slow,
+   streak:P.streak, badges:P.badges})); }catch(e){} }
 function touch(){ P.last = new Date().toISOString().slice(0,10); }
 
 /* ── figures ── */
@@ -1401,6 +1443,7 @@ function srsAnswer(g){
     if(r.ivl>=LEARNED && !S.known.has(da)){ S.known.add(da); saveW(); Q.learned++; }
   }
   saveR(); touch(); saveH();
+  if(!Q.queue.length){ studied(); cheer({say:'Godt gået!', msg:'Dagens ord: færdig for i dag'}); }
   renderSrs(); syncProgress();
 }
 
@@ -1874,6 +1917,9 @@ function drawEnd(){
     P.sess.unshift({d:new Date().toISOString().slice(0,10), n:T.qs.length, ok:ok});
     if(P.sess.length>20) P.sess.length=20;
     touch(); saveH();
+    studied();
+    if(ok===T.qs.length && ok>=10) cheer({say:'Flot!', msg:'Alle '+ok+' rigtige!'});
+    checkBadges();
   }
   const ok=T.res.filter(r=>r==='ok').length, n=T.qs.length;
   $('#trDots').innerHTML='';
@@ -2134,7 +2180,10 @@ function nextOfType(t){
 function recordRead(X){
   const id=X.t.id, s=scoreX(X), n=nItems(X.t), b=M.best[id]||{s:-1,k:0};
   M.best[id]={s:Math.max(b.s,s), n, k:(b.k||0)+1, d:today(), last:s};
-  saveM();
+  saveM(); studied();
+  /* inside a mock the verdict is the moment, not each task */
+  if(MT && MT.kind==='read' && s===n) cheer({say:'Flot!'});
+  checkBadges();
 }
 $('#mtBody').addEventListener('change',e=>{
   const s=e.target.closest('select.gap'); if(!s || !MT) return;
@@ -2176,7 +2225,7 @@ function logWrite(t, text, ticks){
   if(!wordsIn(text)) return;
   const o=M.wlog[t.id]||{k:0};
   M.wlog[t.id]={k:o.k+1, d:today(), ok:writeComplete(t,text,ticks), n:wordsIn(text)};
-  saveM();
+  saveM(); studied(); checkBadges();
 }
 function writeAuto(t, text){
   const lines = String(text).split('\n').map(s=>s.trim()).filter(Boolean);
@@ -2345,6 +2394,8 @@ function finishMock(){
   M.mocks = M.mocks.slice(0,20); saveM();
   MT.result={rs,rn,readOk,wres,pass};
   drawMockDone();
+  if(pass) cheer({say:'Godkendt!', big:true});
+  checkBadges();
 }
 function drawMockDone(){
   const R=MT.result;
@@ -2486,6 +2537,7 @@ function openOral2(id){
 function oralDone(key, title, ok, text){
   stopClock(); setClock('');
   const o=M.oral[key]||{n:0}; M.oral[key]={n:o.n+1, d:new Date().toISOString().slice(0,10)}; saveM();
+  studied(); checkBadges();
   body('<p class="qkind">Mundtlig</p><div class="mtres landed" style="margin-top:8px">'+stamp(ok)+'</div>'+
     '<h2 class="mt-h">'+esc(title)+'</h2><p class="sit">'+esc(text)+'</p>'+
     '<p class="sit">The oral test is judged as a whole, bestået or ikke bestået. What counts is that you keep talking, '+
@@ -2633,6 +2685,121 @@ document.addEventListener('keydown',e=>{
   if(e.key==='Escape'){ e.preventDefault(); requestClose(); }
 });
 
+/* ═══ STREAK & BADGES ═══
+   Fun on top of the real progress, never part of it: nothing here touches
+   stats().ready. A day counts for the streak when a piece of work is finished
+   — Dagens ord done, a training round, a Modultest task — not for a single
+   tick (studied() is called from those hooks only). Badges are worked out
+   from what is already stored, so they can be earned retroactively; the date
+   is kept on first unlock and a badge is never taken back. The "every X"
+   badges read the full arrays, not SC, or narrowing the chapter scope would
+   hand them out for free. */
+let BOOTING = true;   // badges earned while the page loads are awarded quietly
+const FLAME = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">'+
+  '<path d="M12 2c.6 3.2-1.2 5-2.7 6.6C7.7 10.3 6 12.1 6 15a6 6 0 0 0 12 0c0-2.6-1.3-4.4-2.4-5.6-.2 1.5-.9 2.6-2 3.1.4-3.9-.6-7.6-1.6-10.5Z"/></svg>';
+const streakNow = () => { const s=P.streak; return (s.last===today() || s.last===inDays(-1)) ? s.n : 0; };
+function studied(){
+  const s=P.streak, t=today();
+  if(s.last===t) return;
+  s.n = s.last===inDays(-1) ? s.n+1 : 1;
+  s.last = t; s.best = Math.max(s.best||0, s.n);
+  saveH(); drawStreak();
+  if(s.n>=2) cheer({msg:FLAME+' '+s.n+' dage i træk', quiet:true});
+}
+function drawStreak(){
+  const b=$('#streakBtn'), n=streakNow(), hot=P.streak.last===today();
+  b.hidden = !n;
+  if(!n) return;
+  b.classList.toggle('cold', !hot);
+  b.innerHTML = FLAME+n;
+  const t = n+(n===1?' dag':' dage')+' i træk'+(hot?'':' — finish something today to keep it');
+  b.title=t; b.setAttribute('aria-label',t);
+}
+
+const oralAll = () => ORAL_T.topics.every(t=>M.oral['o1:'+t.id]) && ORAL_T.pics.every(p=>M.oral['o2:'+p.id]);
+const BADGES = [
+  {id:'start',  e:'👣', n:'Første skridt',  how:'Finish anything: Dagens ord, a training round or a test task', ok:()=>P.streak.best>=1 || P.sess.length>0},
+  {id:'d3',     e:'🔥', n:'Tre i træk',     how:'Study three days in a row',    ok:()=>P.streak.best>=3},
+  {id:'d7',     e:'📅', n:'En hel uge',     how:'Study seven days in a row',    ok:()=>P.streak.best>=7},
+  {id:'d14',    e:'🏃', n:'Ustoppelig',     how:'Study fourteen days in a row', ok:()=>P.streak.best>=14},
+  {id:'perfect',e:'🎯', n:'Fejlfri',        how:'Get every question right in a training round', ok:()=>P.sess.some(x=>x.n>=10 && x.ok===x.n)},
+  {id:'w100',   e:'📚', n:'Hundrede ord',   how:'Know 100 words', ok:()=>S.known.size>=100},
+  {id:'verbs',  e:'💪', n:'Verbemester',    how:'Tick every verb', ok:()=>VERBS.every(v=>P.verbs.has(v.i))},
+  {id:'stars',  e:'⭐', n:'Stjerneelev',    how:'Mark every ★ rule', ok:()=>RULES.filter(r=>r.star).every(r=>P.rules.has(r.title))},
+  {id:'full',   e:'💯', n:'Fuld plade',     how:'Get a reading task 100 % right', ok:()=>Object.values(M.best).some(b=>b.n && b.s===b.n)},
+  {id:'read',   e:'📖', n:'Læsehest',       how:'Do all '+READ_T.length+' reading tasks', ok:()=>READ_T.every(readDone)},
+  {id:'write',  e:'✍️', n:'Skribent',       how:'Write 10 different letters and emails', ok:()=>Object.keys(M.wlog).length>=10},
+  {id:'talk',   e:'🗣️', n:'Snakkesalig',    how:'Practise every oral topic and picture', ok:oralAll},
+  {id:'mock',   e:'🏅', n:'Godkendt',       how:'Pass a full mock test', ok:()=>M.mocks.some(m=>m.pass && m.mode==='full')},
+  {id:'half',   e:'🚀', n:'Halvvejs',       how:'Reach 50 % on Status', ok:()=>stats().ready>=.5},
+  {id:'bodil',  e:'👑', n:'Bodilgodkendt',  how:'Reach 85 % on Status', ok:()=>stats().ready>=.85},
+];
+let FRESH = new Set();   // unlocked this visit, for the pop on Status
+function checkBadges(quiet){
+  const got = BADGES.filter(b=>!P.badges[b.id] && b.ok());
+  if(!got.length) return;
+  got.forEach(b=>{ P.badges[b.id]=today(); if(!quiet) FRESH.add(b.id); });
+  saveH();
+  if(!quiet) cheer({say:'Godt gået!', big:true,
+    msg:(got.length>1?'Nye mærker: ':'Nyt mærke: ')+got.map(b=>b.e+' '+b.n).join(', ')});
+}
+function badgesHTML(){
+  const n=streakNow(), best=P.streak.best||0, have=BADGES.filter(b=>P.badges[b.id]).length;
+  const fresh=new Set(FRESH); if(S.tab==='status') FRESH.clear();   // pop once, where it is seen
+  return '<section class="sec" id="badges"><div class="sec-head"><h2>Mærker</h2>'+
+    '<span class="sec-count">'+have+' af '+BADGES.length+'</span></div>'+
+    '<p class="streakline">'+FLAME+(n
+      ? '<span><b>'+n+(n===1?' dag':' dage')+' i træk</b>'+(best>n?' · best '+best:'')+
+        (P.streak.last===today()?' — today counts.':' — finish something today to keep it.')+'</span>'
+      : '<span>Finish Dagens ord, a training round or a test task to start a streak.</span>')+'</p>'+
+    '<ul class="bgrid">'+BADGES.map(b=>{ const d=P.badges[b.id];
+      return '<li class="badge'+(d?' on':'')+(fresh.has(b.id)?' fresh':'')+'"><span class="be" aria-hidden="true">'+b.e+'</span>'+
+        '<b>'+b.n+'</b><small>'+(d?fmtD(d):b.how)+'</small></li>'; }).join('')+
+    '</ul></section>';
+}
+
+/* A celebration: an optional line at the bottom, confetti unless it is a quiet
+   one, and a recorded "Godt gået!" or "Flot!". They queue, so a badge earned
+   by a perfect round follows the round's own cheer instead of talking over it. */
+const CHEERS = [];
+function cheer(c){
+  CHEERS.push(c);
+  if(CHEERS.length===1) nextCheer();
+}
+function nextCheer(){
+  const c=CHEERS[0]; if(!c) return;
+  if(!c.quiet) confetti(c.big);
+  if(c.say && canSpeak()) speak(c.say);
+  const t=$('#toast');
+  if(c.msg){ t.innerHTML=c.msg; t.hidden=false; t.style.animation='none'; void t.offsetWidth; t.style.animation=''; }
+  setTimeout(()=>{ CHEERS.shift(); if(!CHEERS.length) t.hidden=true; nextCheer(); }, c.msg ? 2600 : 1400);
+}
+function confetti(big){
+  try{ if(matchMedia('(prefers-reduced-motion: reduce)').matches) return; }catch(e){}
+  if(document.querySelector('.confetti')) return;
+  const c=document.createElement('canvas'); c.className='confetti'; document.body.appendChild(c);
+  const W=innerWidth, H=innerHeight, dpr=Math.min(2, devicePixelRatio||1);
+  c.width=W*dpr; c.height=H*dpr;
+  const x=c.getContext('2d'); x.scale(dpr,dpr);
+  const cols=['#C8102E','#FFFFFF','#C8102E','#E3A72F'];   // the flag, and a little gold
+  const ps=Array.from({length:big?150:70},(_,i)=>({
+    x:W/2+(Math.random()-.5)*W*.4, y:H*.42, vx:(Math.random()-.5)*(big?15:10), vy:-5-Math.random()*(big?13:9),
+    r:Math.random()*6.3, vr:(Math.random()-.5)*.35, w:6+Math.random()*6, h:4+Math.random()*4, c:cols[i%cols.length]}));
+  const T=1900; let t0=0;
+  (function frame(t){
+    if(!t0) t0=t;
+    const dt=t-t0;
+    x.clearRect(0,0,W,H); x.globalAlpha=Math.max(0, 1-Math.max(0,dt-T*.6)/(T*.4));
+    ps.forEach(p=>{
+      p.vy+=.32; p.vx*=.985; p.x+=p.vx; p.y+=p.vy; p.r+=p.vr;
+      x.save(); x.translate(p.x,p.y); x.rotate(p.r); x.fillStyle=p.c; x.fillRect(-p.w/2,-p.h/2,p.w,p.h);
+      if(p.c==='#FFFFFF'){ x.strokeStyle='rgba(0,0,0,.18)'; x.lineWidth=.6; x.strokeRect(-p.w/2,-p.h/2,p.w,p.h); }
+      x.restore();
+    });
+    if(dt<T) requestAnimationFrame(frame); else c.remove();
+  })(performance.now());
+}
+
 /* ═══ STATUS ═══ */
 /* Counts are taken over the scoped arrays, never P.*.size — that way a stale
    mark, or one from a chapter outside the scope, can't inflate a number. */
@@ -2731,6 +2898,8 @@ function renderStatus(){
     '<div class="trrow"><button class="pbtn" data-mock="full">Tag en prøveprøve</button>'+
     '<button class="pbtn ghost" data-go="test">Gå til modultest →</button></div></div>';
 
+  h += badgesHTML();
+
   /* ── training ── */
   const lastS = P.sess[0];
   const seen7 = P.sess.slice(0,7);
@@ -2802,7 +2971,7 @@ function renderStatus(){
     'Modultest is kept apart on purpose: its reading is marked by the page rather than by you, '+
     'and the real test is pass or fail, so it gets a verdict of its own instead of a share of this number.'+
     (P.last?' Last marked: <b>'+esc(P.last)+'</b>.':'')+'</p>'+
-    '<p style="margin-top:14px"><button class="linkish" id="sReset">Nulstil alt (rules, verbs, words, drills, training, Dagens ord, Modultest)</button></p>'+
+    '<p style="margin-top:14px"><button class="linkish" id="sReset">Nulstil alt (rules, verbs, words, drills, training, Dagens ord, Modultest, streak, mærker)</button></p>'+
     '</section>';
 
   out.innerHTML = h;
@@ -2822,7 +2991,7 @@ function renderStatus(){
   if(rb) rb.addEventListener('click',()=>{
     if(!confirmReset()) return;
     P.rules.clear(); P.verbs.clear(); P.listen.clear(); P.drills={}; S.known.clear();
-    P.miss=[]; P.hits={}; P.sess=[];
+    P.miss=[]; P.hits={}; P.sess=[]; P.streak={n:0, last:'', best:0}; P.badges={};
     R.cards={}; R.newDay={d:'',n:0}; saveR(); Q=null;
     M=M0(); saveM();
     saveH(); saveW(); renderG(); renderV(); renderW(); renderL(); renderP(); renderSrs(); renderM(); syncProgress();
@@ -2834,7 +3003,7 @@ function confirmReset(){
   if(resetArmed){ resetArmed=false; clearTimeout(resetTimer); return true; }
   resetArmed=true; b.textContent='Sikker? Klik igen for at slette alt.';
   resetTimer=setTimeout(()=>{ resetArmed=false; const x=$('#sReset');
-    if(x) x.textContent='Nulstil alt (rules, verbs, words, drills, training, Dagens ord, Modultest)'; },4000);
+    if(x) x.textContent='Nulstil alt (rules, verbs, words, drills, training, Dagens ord, Modultest, streak, mærker)'; },4000);
   return false;
 }
 function tabBadges(){
@@ -2878,7 +3047,7 @@ function updateBars(){
     t.correct+' of '+SC.drillTotal+' right · '+t.attempted+' answered');
   $('#gLabel').textContent = SCOPE.size===CHAPTERS.length ? 'Samlet' : 'Kap. '+chRange(SCOPE);
 }
-function syncProgress(){ renderStatus(); tabBadges(); updateBars(); }
+function syncProgress(){ checkBadges(BOOTING); renderStatus(); tabBadges(); updateBars(); drawStreak(); }
 function setScope(){
   computeScope(); saveH(); Q=null;
   /* a chapter chip in Ord that has just left the scope would filter to nothing */
@@ -3090,6 +3259,10 @@ $('#vDrill').setAttribute('aria-pressed',S.vDrill);
 $('#vDrill').textContent = S.vDrill?'Show the forms':'Hide the forms';
 setScope();
 showTab(S.tab);
+/* Anything already earned before badges existed is awarded quietly. */
+checkBadges(true); BOOTING=false; drawStreak();
+$('#streakBtn').addEventListener('click',()=>{ showTab('status');
+  const b=$('#badges'); if(b) b.scrollIntoView({behavior:'smooth', block:'start'}); });
 if(FIRST_VISIT) openTour();
 })();
 </script>

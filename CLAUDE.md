@@ -174,7 +174,7 @@ Progress lives in the viewer's browser only. Five keys:
 | Key | Holds |
 |---|---|
 | `dtg3-k1-v1` | ticked words (`known`), plus the words-tab toggles |
-| `dtg3-hub-v1` | marked rules, verbs and oral questions, drill scores, active tab, last-marked date, plus `miss` `hits` `sess` `exam` (see Trainer) and `scope` (chosen chapters) |
+| `dtg3-hub-v1` | marked rules, verbs and oral questions, drill scores, active tab, last-marked date, plus `miss` `hits` `sess` `exam` (see Trainer), `scope` (chosen chapters), `streak` (`n`, `last`, `best`) and `badges` (badge id → date earned) |
 | `dtg3-theme-v1` | `auto`, `light` or `dark` — the theme switch only |
 | `dtg3-srs-v1` | the Dagens ord schedule: `cards` keyed by `da` (`ivl`, `ease`, `reps`, `lapses`, `due`), plus `dir`, `perDay`, `tiers` and today's new-word count |
 | `dtg3-test-v1` | Modultest: `best` reading score per task id (`s` best, `last`, `n`, `k` tries, `d` last date), `wlog` writing attempts per prompt id (`k`, `d`, `ok`, `n` words — practice and mock alike), `mocks` (last 20, each with the `items` and `writes` it contained), `drafts` and `checks` per writing id, `topics` (the two chosen oral topics), `maps` (mindmap keywords per topic), `oral` (`o1:`/`o2:` + id → count and date), `onlyNew` (the not-done-yet filter) |
@@ -278,6 +278,28 @@ whole test are judged bestået / ikke bestået.
   after it; a match question's subject appears in more than one text but is true
   of one person. Check all three by reading every option in place before adding
   a task.
+
+## Streak and badges
+
+Fun on top of the real progress, never part of it — nothing here touches
+`stats().ready` or the "Sådan tælles det" copy.
+
+- **Streak** (`P.streak`, flame pill in the global-bar row, `#streakBtn`). A
+  day counts when a piece of work is *finished*, not for a single tick:
+  `studied()` is called only from the end of a Dagens ord session, the end of
+  a training round (`drawEnd`), `recordRead`, `logWrite`, `finishMock` and
+  `oralDone`. A streak whose `last` is older than yesterday shows as 0.
+- **Badges** (`BADGES`, the *Mærker* section on Status). Each has an `ok()`
+  test over what is already stored, so they can be earned retroactively; the
+  date is stored on first unlock and a badge is never taken back. Badges earned
+  during boot are awarded quietly. The "every X" badges read the full arrays,
+  not `SC`, or narrowing the scope would hand them out free.
+  `checkBadges()` runs inside `syncProgress()` and in the Modultest hooks.
+- **Celebrations** (`cheer()`): a toast line, red-and-white confetti (skipped
+  under `prefers-reduced-motion`, z-index above the overlays) and a recorded
+  *Godt gået!*, *Flot!* or *Godkendt!*. They queue rather than overlap. The
+  three lines are in `tools/voices.js`; add any new one there too.
+- `Nulstil alt` clears both.
 
 ## The tour
 

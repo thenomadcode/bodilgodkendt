@@ -63,4 +63,7 @@ VERBS.forEach(v => { add(v.i); add(v.i + ', ' + v.n + ', ' + v.d + ', ' + v.f); 
 RULES.forEach(r => (r.ex || []).forEach(e => add(sayText(e))));
 SETS.forEach(s => s.items.forEach(it => add(sayText(it.a))));
 
+/* the celebrations: Dagens ord done, a perfect round, a badge, a mock passed */
+['Godt gået!', 'Flot!', 'Godkendt!'].forEach(t => add(t));
+
 process.stdout.write(JSON.stringify(out, null, 0).replace(/\},"/g, '},\n"') + '\n');
