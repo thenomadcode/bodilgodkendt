@@ -14,6 +14,7 @@ writes two things:
 Order matters: the words modules must come before the rest, because hub.html's
 script merges them at load time.
 """
+import json
 import pathlib
 import shutil
 import sys
@@ -41,6 +42,11 @@ MODULES = [
 # Copied verbatim into dist/site/. Every icon href in HEAD_EXTRA is relative,
 # so the site works at any path — thenomadcode.github.io/bodilgodkendt/ or a
 # custom domain root — with no rewriting.
+# Recorded speech, made by tools/tts.py from audio/manifest.json. The website
+# gets every file and the list of keys; the Artifact gets neither, because it
+# cannot carry two thousand files, and falls back to the browser's voice.
+AUDIO = ROOT / "audio"
+
 SITE_ASSETS = ["icon.svg", "icon-32.png", "icon-180.png", "icon-192.png", "icon-512.png"]
 
 DESCRIPTION = (
@@ -112,7 +118,11 @@ def main() -> int:
         return 1
 
     data = "\n".join((SRC / m).read_text(encoding="utf-8") for m in MODULES)
-    body = shell.replace("/*DATA*/", data)
+    manifest = json.loads((AUDIO / "manifest.json").read_text()) if (AUDIO / "manifest.json").exists() else {}
+    clips = sorted(k for k in manifest if (AUDIO / f"{k}.mp3").is_file())
+    shell = shell.replace("/*DATA*/", data)
+    body = shell.replace("/*AUDIO*/", 'const AUDIO_KEYS = "";')
+    site_body = shell.replace("/*AUDIO*/", f'const AUDIO_KEYS = "{" ".join(clips)}";')
 
     DIST.mkdir(exist_ok=True)
     (DIST / "index.html").write_text(body, encoding="utf-8")
@@ -122,17 +132,20 @@ def main() -> int:
         shutil.rmtree(SITE)
     SITE.mkdir(parents=True)
 
-    page = document(body, HEAD_EXTRA)
+    page = document(site_body, HEAD_EXTRA)
     (SITE / "index.html").write_text(page, encoding="utf-8")
     (SITE / "manifest.webmanifest").write_text(MANIFEST, encoding="utf-8")
     for asset in SITE_ASSETS:
         shutil.copy2(ASSETS / asset, SITE / asset)
+    (SITE / "audio").mkdir()
+    for k in clips:
+        shutil.copy2(AUDIO / f"{k}.mp3", SITE / "audio" / f"{k}.mp3")
     # Stop GitHub Pages running the page through Jekyll.
     (SITE / ".nojekyll").write_text("", encoding="utf-8")
 
     print(f"dist/index.html       {len(body):>7,} bytes   (Claude Artifact)")
     print(f"dist/site/index.html  {len(page):>7,} bytes   (website)")
-    print(f"dist/site/            {len(SITE_ASSETS) + 2} supporting files")
+    print(f"dist/site/            {len(SITE_ASSETS) + 2} supporting files, {len(clips)} of {len(manifest)} recorded lines")
     return 0
 
 

@@ -265,6 +265,7 @@ body.wtest .item.revealed .note{color:var(--ink-3);background:transparent;cursor
 .themebtn:hover{color:var(--ink);border-color:var(--ink-3)}
 .themebtn:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
 .themebtn svg{width:14px;height:14px;flex:none}
+.themebtn[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--ground)}
 .gprog{display:flex;align-items:center;gap:11px;padding:0 0 9px}
 .gprog .glabel{font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;
   color:var(--ink-3);font-weight:600;white-space:nowrap}
@@ -343,7 +344,7 @@ tr.vgot .vinf{color:var(--ok)}
    control for audio it cannot play — same rule that removed Lytteopgaver. */
 .say{flex:none;width:25px;height:25px;border-radius:6px;border:1px solid var(--line);
   background:var(--surface);color:var(--ink-3);cursor:pointer;display:none;place-items:center;padding:0}
-body.has-tts .say{display:inline-grid;vertical-align:-6px}
+body.has-tts .say,.say.rec{display:inline-grid;vertical-align:-6px}
 .say:hover{color:var(--accent);border-color:var(--ink-3)}
 .say:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
 .say svg{width:13px;height:13px}
@@ -706,6 +707,8 @@ textarea.wtxt:focus-visible{outline:2px solid var(--focus);outline-offset:1px;bo
         <button class="tab" role="tab" data-p="listen" aria-selected="false">Lyt &amp; tal</button>
         <button class="tab" role="tab" data-p="practice" aria-selected="false">Øv dig</button>
       </div>
+      <button class="themebtn" id="slowBtn" type="button" aria-pressed="false" hidden
+        title="Play Danish at three-quarter speed"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 18a8 8 0 1 1 16 0"/><path d="M12 18 8 12"/></svg><span class="tlabel">Langsomt</span></button>
       <button class="themebtn" id="themeBtn" type="button">Tema</button>
     </div>
     <div class="gprog">
@@ -816,7 +819,7 @@ textarea.wtxt:focus-visible{outline:2px solid var(--focus);outline-offset:1px;bo
   </section>
 
   <footer class="foot">
-    Page numbers are the printed pages of <i>Danish to Go 3</i> — the same numbers in the PDF in your <code>danish</code> folder and in the paper book. Rules tagged <b>Begge</b> appear in both the book and your Studieskolen notes. Everything you mark — rules, verbs, words, listening tasks, drill scores, training results, mock tests, drafts and mindmaps — is saved in this browser only, on this device. The Danish you hear is your own browser's speech engine, so it needs a Danish voice installed; where there is none, the speaker buttons do not appear.
+    Page numbers are the printed pages of <i>Danish to Go 3</i> — the same numbers in the PDF in your <code>danish</code> folder and in the paper book. Rules tagged <b>Begge</b> appear in both the book and your Studieskolen notes. Everything you mark — rules, verbs, words, listening tasks, drill scores, training results, mock tests, drafts and mindmaps — is saved in this browser only, on this device. The Danish you hear on the website is recorded with Google's Chirp 3 HD Danish voices — six of them, a man's or a woman's voice where the sentence calls for one. Anything not recorded falls back to your browser's own voice, and <b>Langsomt</b> in the top bar plays everything at three-quarter speed.
   </footer>
 </div>
 
@@ -844,6 +847,7 @@ textarea.wtxt:focus-visible{outline:2px solid var(--focus);outline-offset:1px;bo
 </div>
 
 <script>
+/*AUDIO*/
 /*DATA*/
 </script>
 
@@ -909,7 +913,7 @@ try{ const o=JSON.parse(localStorage.getItem(KEY_W)||'{}');
    exam  — the exam date, 'YYYY-MM-DD'. All four are additive: older saved
            progress loads unchanged. */
 let P = {rules:new Set(), verbs:new Set(), listen:new Set(), drills:{}, last:null,
-         miss:[], hits:{}, sess:[], exam:null};
+         miss:[], hits:{}, sess:[], exam:null, slow:false};
 try{ const o=JSON.parse(localStorage.getItem(KEY_H)||'{}');
      if(o.tab) S.tab=o.tab; if(typeof o.vDrill==='boolean') S.vDrill=o.vDrill;
      if(Array.isArray(o.rules)) P.rules=new Set(o.rules);
@@ -920,6 +924,7 @@ try{ const o=JSON.parse(localStorage.getItem(KEY_H)||'{}');
      if(o.hits && typeof o.hits==='object') P.hits=o.hits;
      if(Array.isArray(o.sess)) P.sess=o.sess;
      if(typeof o.exam==='string') P.exam=o.exam;
+     if(typeof o.slow==='boolean') P.slow=o.slow;
      if(o.last) P.last=o.last;
      if(Array.isArray(o.scope)){ const sc=o.scope.filter(n=>CHAPTERS.includes(n)); if(sc.length) SCOPE=new Set(sc); }
    }catch(e){}
@@ -930,7 +935,7 @@ function saveW(){ try{ localStorage.setItem(KEY_W, JSON.stringify(
 function saveH(){ try{ localStorage.setItem(KEY_H, JSON.stringify(
   {tab:S.tab, vDrill:S.vDrill, rules:[...P.rules], verbs:[...P.verbs],
    listen:[...P.listen], drills:P.drills, last:P.last,
-   miss:P.miss, hits:P.hits, sess:P.sess, exam:P.exam, scope:[...SCOPE]})); }catch(e){} }
+   miss:P.miss, hits:P.hits, sess:P.sess, exam:P.exam, scope:[...SCOPE], slow:P.slow})); }catch(e){} }
 function touch(){ P.last = new Date().toISOString().slice(0,10); }
 
 /* ── figures ── */
@@ -966,26 +971,57 @@ function sayText(t){
 const TICK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 12.5 5.2 5.2L20 7"/></svg>';
 
 /* ═══ SPEECH ═══ */
-/* The browser's own engine, no network and no key. Voices load asynchronously
-   in Chrome, so the buttons are always rendered and CSS keeps them hidden
-   until body.has-tts confirms a Danish voice exists. Where the device has
-   none — most Linux desktops — nothing appears and the listening question
-   type is never drawn, rather than shipping a control that does nothing. */
+/* Recorded voices first. tools/tts.py records every line the page speaks with
+   six of Google's Chirp 3 HD Danish voices into audio/, and build.py lists the
+   files in AUDIO_KEYS — for the website only; the Artifact cannot carry two
+   thousand files, so it gets an empty list. A line is found by sayKey(), the
+   same FNV-1a hash tools/voices.js uses; change one and change the other.
+
+   The browser's own engine is the fallback, for the Artifact and for any line
+   not recorded yet. Its voices load asynchronously in Chrome, so speaker
+   buttons are always rendered: a recorded line shows its button at once
+   (.rec), anything else waits for body.has-tts. A device with neither shows
+   no button, rather than one that does nothing. */
+const REC = new Set((typeof AUDIO_KEYS==='string' && AUDIO_KEYS) ? AUDIO_KEYS.split(' ') : []);
+function sayKey(t){
+  const s=String(t).replace(/\s+/g,' ').trim();
+  let h=0x811c9dc5;
+  for(let i=0;i<s.length;i++){ h^=s.charCodeAt(i); h=Math.imul(h,0x01000193)>>>0; }
+  return h.toString(36);
+}
+const recorded = t => REC.has(sayKey(t));
+const canSpeak = () => TTS || REC.size>0;
 const SPEAKER='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" '+
   'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+
   '<path d="M11 5 6.5 9H3v6h3.5L11 19z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/>'+
   '<path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>';
 let DA_VOICE=null, TTS=false;
 function sayBtn(text, cls){
-  return '<button class="say'+(cls?' '+cls:'')+'" type="button" data-say="'+
+  return '<button class="say'+(cls?' '+cls:'')+(recorded(text)?' rec':'')+'" type="button" data-say="'+
     esc(text).replace(/"/g,'&quot;')+'" aria-label="Hear it in Danish" title="Hear it in Danish">'+SPEAKER+'</button>';
 }
+let PLAYER=null;
 function speak(text){
-  if(!TTS || !text) return;
+  if(!text) return;
+  try{ speechSynthesis.cancel(); }catch(e){}
+  if(PLAYER){ PLAYER.pause(); PLAYER=null; }
+  if(recorded(text)){
+    const a = new Audio('audio/'+sayKey(text)+'.mp3');
+    /* slow is 0.75× with the pitch kept, so it sounds slower, not deeper */
+    a.preservesPitch = true;
+    a.defaultPlaybackRate = a.playbackRate = P.slow ? .75 : 1;
+    PLAYER = a;
+    a.play().catch(()=>{ if(PLAYER===a) speakTTS(text); });   // missing or blocked: fall back
+    return;
+  }
+  speakTTS(text);
+}
+function speakTTS(text){
+  if(!TTS) return;
   try{
     speechSynthesis.cancel();
     const u = new SpeechSynthesisUtterance(String(text));
-    u.lang='da-DK'; u.voice=DA_VOICE; u.rate=.88;
+    u.lang='da-DK'; u.voice=DA_VOICE; u.rate = P.slow ? .7 : .88;
     speechSynthesis.speak(u);
   }catch(e){}
 }
@@ -997,6 +1033,7 @@ function findVoice(){
   const had = TTS;
   TTS = !!DA_VOICE;
   document.body.classList.toggle('has-tts', TTS);
+  const sb=document.getElementById('slowBtn'); if(sb) sb.hidden = !canSpeak();
   return had !== TTS;
 }
 /* One delegated listener covers every speaker button on the page, including
@@ -1559,7 +1596,7 @@ function weightedPick(cands, weight, used, keyOf){
   const last=pool[pool.length-1]; used.add(keyOf(last)); return last;
 }
 function makeOne(type, used){
-  if(type==='listen' && !TTS) type='da2en';
+  if(type==='listen' && !canSpeak()) type='da2en';
   if(type==='blank'){
     const items=[];
     SC.sets.forEach(set=>set.items.forEach((_,i)=>items.push({set,i,k:set.id+':'+i})));
@@ -1592,7 +1629,7 @@ function rebuildMiss(m){
     return (v && v[f] && v[f]!=='–') ? qVerb(v,f) : null;
   }
   const w=wordByDa(m.k.slice(2));
-  return w ? qWord((m.t==='listen'&&!TTS)?'da2en':m.t, w) : null;
+  return w ? qWord((m.t==='listen'&&!canSpeak())?'da2en':m.t, w) : null;
 }
 /* Mistakes from chapters outside the scope stay saved but are not shown or
    drilled. rebuildMiss() itself stays unscoped: the boot prune runs on it,
@@ -2324,7 +2361,7 @@ $('#mtBody').addEventListener('click',e=>{
    Danish voice on the device, the text is shown instead. */
 function askHTML(q, i, n){
   return '<p class="qkind">Spørgsmål '+(i+1)+' af '+n+'</p>'+
-    (TTS ? '<div class="saybar">'+sayBtn(q,'big')+'<span class="sit" style="margin:0">Listen, then answer out loud.</span></div>'+
+    (canSpeak() ? '<div class="saybar">'+sayBtn(q,'big')+'<span class="sit" style="margin:0">Listen, then answer out loud.</span></div>'+
            '<p class="qprompt small hidq" id="oQ" title="Show the question">'+esc(q)+'</p>'+
            '<p class="cap" style="text-align:left;margin-top:6px">Tap the grey bar if you need to read it.</p>'
          : '<p class="qprompt small">'+esc(q)+'</p>');
@@ -2351,7 +2388,7 @@ function openOral1(id){
   const keys = (M.maps[id]&&M.maps[id].length) ? M.maps[id] : t.keys;
   body('<p class="qkind">Opgave 1 · emneopgave</p><h2 class="mt-h">'+esc(t.name)+'</h2>'+
     '<p class="sit">Talk about this for one to two minutes, out loud, from your keywords. Then the examiner asks follow-up questions — '+
-    (TTS?'you will hear them.':'they appear one at a time.')+'</p>'+
+    (canSpeak()?'you will hear them.':'they appear one at a time.')+'</p>'+
     '<div class="mm">'+keys.map(k=>'<span class="kw big">'+esc(k)+'</span>').join('')+'</div>'+
     (M.maps[id]&&M.maps[id].length?'':'<p class="why">These are suggestions. Build your own mindmap on the Modultest tab — it is yours you take into the room.</p>')+
     '<h3 class="mt-sub">Kom i gang</h3><ul class="uses">'+t.starters.map(s=>'<li>'+esc(s)+' '+sayBtn(s)+'</li>').join('')+'</ul>'+
@@ -2653,7 +2690,7 @@ function renderStatus(){
   const seenOk = seen7.reduce((n,x)=>n+x.ok,0), seenN = seen7.reduce((n,x)=>n+x.n,0);
   h += '<section class="sec"><div class="sec-head"><h2>Træning</h2></div>'+
     '<p class="sec-sub">Twelve questions from everything on this page — words both ways, '+
-    'the fill-in-the-blank drills, verb forms, and'+(TTS?' Danish you listen to.':' Danish you read.')+
+    'the fill-in-the-blank drills, verb forms, and'+(canSpeak()?' Danish you listen to.':' Danish you read.')+
     ' Get a word or a verb right twice and it ticks itself off in the notebook.</p>'+
     '<div class="trcard"><h3>'+(lastS?'Run another round':'Start your first round')+'</h3>'+
     '<p>'+(seenN
@@ -2892,6 +2929,13 @@ document.addEventListener('keydown',e=>{
 /* Voices load asynchronously in Chrome, so check once now and again when the
    list arrives. Until one is found, body.has-tts is absent and every speaker
    button stays hidden. */
+(function(){
+  const sb=$('#slowBtn');
+  const draw=()=>{ sb.setAttribute('aria-pressed',P.slow);
+    sb.setAttribute('aria-label', P.slow ? 'Langsomt: til — Danish plays at three-quarter speed' : 'Langsomt: fra'); };
+  sb.addEventListener('click',()=>{ P.slow=!P.slow; saveH(); draw(); });
+  draw();
+})();
 findVoice();
 try{ speechSynthesis.addEventListener('voiceschanged',()=>{ if(findVoice()) syncProgress(); }); }catch(e){}
 applyTheme();
