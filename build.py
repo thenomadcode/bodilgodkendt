@@ -35,6 +35,7 @@ MODULES = [
     "verbs.js",     # conjugations          -> VERBS
     "listen.js",    # oral prompts          -> ORAL
     "practice.js",  # drills + writing      -> SETS, WRITING
+    "modultest.js", # the test's own formats -> READ_T, WRITE_T, ORAL_T
 ]
 
 # Copied verbatim into dist/site/. Every icon href in HEAD_EXTRA is relative,
@@ -45,7 +46,8 @@ SITE_ASSETS = ["icon.svg", "icon-32.png", "icon-180.png", "icon-192.png", "icon-
 DESCRIPTION = (
     "Danish to Go 3, chapters 1–6, cross-referenced with Studieskolen modul 3.3: "
     "the grammar rules, the verb conjugations, the vocabulary, the oral questions "
-    "and drills — with progress tracking that stays in your own browser."
+    "and drills, plus practice in the formats of Modultest 3 and a timed mock test — "
+    "with progress tracking that stays in your own browser."
 )
 
 # Only the site build gets these. The Artifact build must not, because its

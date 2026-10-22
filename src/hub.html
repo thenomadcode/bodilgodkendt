@@ -481,6 +481,177 @@ body.has-tts .say{display:inline-grid;vertical-align:-6px}
   .srs-grades{grid-template-columns:repeat(2,minmax(0,1fr))}
   .srs kbd{display:none}
 }
+/* ── Modultest ── */
+.mtype{margin-top:26px}
+.mtype h3{font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);font-weight:600;margin:0}
+.mtype .how{margin:4px 0 0;font-size:14px;color:var(--ink-2);max-width:64ch}
+.mtlist{margin-top:11px;display:grid;gap:8px}
+.mtrow{display:flex;gap:12px;align-items:center;background:var(--surface);border:1px solid var(--line);
+  border-radius:10px;box-shadow:var(--shadow);padding:11px 14px 11px 16px}
+.mtrow .mtt{flex:1 1 auto;min-width:0}
+.mtrow h4{font-family:Newsreader,Georgia,serif;font-weight:600;font-size:17px;margin:0}
+.mtrow p{margin:1px 0 0;font-size:13px;color:var(--ink-2)}
+.mtrow .btn{flex:none}
+.best{font-size:12.5px;font-variant-numeric:tabular-nums;color:var(--ink-3);white-space:nowrap}
+.best.ok{color:var(--ok);font-weight:600}
+.best.no{color:var(--accent);font-weight:600}
+.mocks{margin:14px 0 0;padding:0;list-style:none;display:grid;gap:6px}
+.mocks li{display:flex;gap:10px;align-items:center;font-size:13.5px;color:var(--ink-2);flex-wrap:wrap}
+.mocks li .d{font-variant-numeric:tabular-nums;color:var(--ink-3);min-width:84px}
+.mt-h{font-family:Newsreader,Georgia,serif;font-weight:500;font-size:clamp(24px,5.4vw,31px);
+  line-height:1.15;margin:5px 0 0;letter-spacing:-.012em}
+.mt-sub{font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);font-weight:600;margin:26px 0 0}
+.sit{margin:8px 0 0;color:var(--ink-2);font-size:14.5px}
+.mtres{margin:12px 0 14px;display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.mtres .score{margin:0}
+.mtres p{margin:0;font-size:14px;color:var(--ink-2);flex:1 1 220px}
+.rtext{margin-top:18px;background:var(--surface);border:1px solid var(--line);border-radius:10px;
+  box-shadow:var(--shadow);padding:18px 20px;font-family:Newsreader,Georgia,serif;font-size:17.5px;line-height:1.95}
+.rtext p{margin:0 0 12px}
+.rtext p:last-child{margin:0}
+select.gap{font:inherit;font-family:"IBM Plex Sans",Arial,sans-serif;font-size:14.5px;line-height:1.3;color:var(--ink);
+  background:var(--surface-2);border:1px solid var(--line);border-radius:6px;padding:1px 3px;max-width:100%}
+select.gap.ok{border-color:var(--ok);background:var(--ok-bg)}
+select.gap.no{border-color:var(--accent);background:var(--accent-soft)}
+select.gap:focus-visible{outline:2px solid var(--focus);outline-offset:1px}
+select.gap:disabled{opacity:1;color:var(--ink)}
+.fbl{margin:16px 0 0;padding:0 0 0 22px;display:grid;gap:6px;font-size:14px;color:var(--ink-2)}
+.fbl b{font-family:Newsreader,Georgia,serif;font-size:16px;color:var(--ok)}
+.fbl s{color:var(--accent)}
+.fbl li.ok::marker{color:var(--ok)}
+.fbl li.no::marker{color:var(--accent);font-weight:600}
+.chat{margin-top:18px;display:flex;flex-direction:column;gap:9px}
+.bub{max-width:86%;padding:9px 13px;border-radius:14px;font-size:15.5px;line-height:1.45}
+.bub>b{display:block;font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3);margin-bottom:2px}
+.bub.x{background:var(--surface);border:1px solid var(--line);border-bottom-left-radius:4px;align-self:flex-start}
+.bub.y{background:var(--t3-bg);border:1.5px solid transparent;border-bottom-right-radius:4px;align-self:flex-end}
+.bub.y.unset{border:1.5px dashed var(--line);background:transparent}
+.bub.y.ex{opacity:.7}
+.bub.y.ok{border-color:var(--ok)}
+.bub.y.no{border-color:var(--accent)}
+.bub .yt{display:block}
+.bub select.gap{margin:2px 0 4px}
+.chat .why{align-self:flex-end;max-width:86%;text-align:right;margin:0}
+.optlist{margin:20px 0 0;padding:0;list-style:none;display:grid;gap:7px}
+.optlist li{display:flex;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:9px;
+  padding:9px 13px;font-size:15px;transition:opacity .2s}
+.optlist li .k{font-family:"IBM Plex Mono",monospace;font-weight:600;color:var(--accent);flex:none}
+.optlist li.used{opacity:.4}
+.ipara,.mq{margin-top:14px;background:var(--surface);border:1px solid var(--line);border-radius:10px;
+  box-shadow:var(--shadow);padding:15px 17px}
+.ipara.ok,.mq.ok{border-color:var(--ok)}
+.ipara.no,.mq.no{border-color:var(--accent)}
+.ipara>p,.mq>p{margin:0;font-family:Newsreader,Georgia,serif;font-size:17px;line-height:1.7}
+.num{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--ink-3);margin-right:8px}
+.blank{border-bottom:2px solid var(--accent);color:var(--accent);font-style:italic;padding:0 3px}
+.choice{display:grid;gap:6px;margin-top:11px}
+.choice.row{grid-template-columns:repeat(3,minmax(0,1fr))}
+.choice button{font:inherit;font-size:14.5px;text-align:left;color:var(--ink);background:var(--ground);
+  border:1px solid var(--line);border-radius:8px;padding:7px 11px;cursor:pointer;display:flex;gap:9px;align-items:baseline}
+.choice.row button{justify-content:center}
+.choice button .k{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--ink-3);flex:none}
+.choice button:hover:not(:disabled){border-color:var(--ink-3)}
+.choice button[aria-pressed="true"]{border-color:var(--ink);box-shadow:0 0 0 1px var(--ink) inset;background:var(--surface)}
+.choice button.right{border-color:var(--ok);background:var(--ok-bg);box-shadow:none}
+.choice button.wrong{border-color:var(--accent);background:var(--accent-soft);box-shadow:none}
+.choice button:disabled{cursor:default}
+.choice button:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.why{margin:9px 0 0;font-size:13.5px;color:var(--ink-2)}
+.why b{color:var(--ok)}
+.why b.wr{color:var(--accent)}
+.people{display:grid;gap:12px;margin-top:18px}
+.person{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:15px 18px;box-shadow:var(--shadow)}
+.person h4{margin:0 0 5px;font-family:Newsreader,Georgia,serif;font-size:18px;font-weight:600}
+.person h4 span{font-family:"IBM Plex Mono",monospace;font-size:12.5px;color:var(--accent);margin-right:7px}
+.person p{margin:0;font-family:Newsreader,Georgia,serif;font-size:16.5px;line-height:1.65}
+.clock{font-family:"IBM Plex Mono",monospace;font-size:14px;font-variant-numeric:tabular-nums;color:var(--ink-2);white-space:nowrap}
+.clock.good{color:var(--ok);font-weight:600}
+.clock.late{color:var(--accent);font-weight:600}
+.mt-prog{flex:1 1 auto;min-width:0;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
+.mt-prog .arm{color:var(--accent);text-transform:none;letter-spacing:0;font-size:13px}
+.bigclock{font-family:Newsreader,Georgia,serif;font-size:clamp(64px,18vw,104px);font-weight:500;line-height:1;
+  font-variant-numeric:tabular-nums;text-align:center;margin:26px 0 4px;letter-spacing:-.02em}
+.bigclock.good{color:var(--ok)}
+.bigclock.late{color:var(--accent)}
+.cap{text-align:center;color:var(--ink-3);font-size:13.5px;margin:0}
+/* The stamp: what a pass looks like. It lands, it doesn't just appear. */
+.stamp{display:inline-block;font-family:"IBM Plex Mono",monospace;font-weight:600;font-size:clamp(22px,6.5vw,34px);
+  letter-spacing:.14em;color:var(--accent);border:4px solid currentColor;border-radius:9px;padding:3px 16px;
+  transform:rotate(-7deg);animation:thump .5s cubic-bezier(.2,1.5,.4,1) both;white-space:nowrap}
+.stamp.no{color:var(--ink-3)}
+.stamp.sm{font-size:11px;border-width:2px;padding:0 6px;border-radius:5px;letter-spacing:.08em;animation:none;transform:rotate(-4deg)}
+@keyframes thump{0%{transform:rotate(-7deg) scale(2.6);opacity:0}55%{opacity:1}100%{transform:rotate(-7deg) scale(1);opacity:1}}
+.landed{animation:landed .3s .3s ease-out}
+@keyframes landed{0%,100%{transform:none}30%{transform:translate(2px,1px)}60%{transform:translate(-2px,-1px)}}
+textarea.wtxt{display:block;width:100%;margin-top:16px;font:inherit;font-family:Newsreader,Georgia,serif;font-size:17.5px;
+  line-height:1.6;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:10px;
+  padding:14px 16px;min-height:300px;resize:vertical;box-shadow:var(--shadow)}
+textarea.wtxt:focus-visible{outline:2px solid var(--focus);outline-offset:1px;border-color:transparent}
+.wmeta{display:flex;gap:12px;align-items:baseline;margin-top:8px;font-size:13px;color:var(--ink-3);flex-wrap:wrap}
+.wmeta .wc{font-variant-numeric:tabular-nums;font-weight:600;color:var(--ink-2)}
+.wmeta .wc.ok{color:var(--ok)}
+.ck{margin:14px 0 0;padding:0;list-style:none;display:grid;gap:6px}
+.ck button,.ck span.auto{font:inherit;font-size:14.5px;text-align:left;color:var(--ink-2);background:none;border:0;
+  padding:2px 0;cursor:pointer;display:flex;gap:9px;align-items:baseline}
+.ck span.auto{cursor:default}
+.ck .bx{flex:none;width:17px;height:17px;border:1.5px solid var(--line);border-radius:4px;display:inline-grid;
+  place-items:center;color:transparent;transform:translateY(3px)}
+.ck .bx svg{width:10px;height:10px}
+.ck [aria-pressed="true"] .bx,.ck .auto.on .bx{background:var(--ok);border-color:var(--ok);color:var(--surface)}
+.ck [aria-pressed="true"],.ck .auto.on{color:var(--ink)}
+.ck .auto em{font-style:normal;font-size:12px;color:var(--ink-3)}
+.ck button:focus-visible{outline:2px solid var(--focus);outline-offset:2px;border-radius:4px}
+.mail{margin:14px 0 0;padding:14px 17px;background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--t3);
+  border-radius:8px;font-family:Newsreader,Georgia,serif;font-size:16.5px;line-height:1.6;white-space:pre-line}
+.kit{margin-top:14px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:0 16px}
+.kit summary{cursor:pointer;padding:12px 0;font-weight:500;font-size:14.5px;color:var(--ink-2)}
+.kit summary:focus-visible{outline:2px solid var(--focus);outline-offset:2px;border-radius:4px}
+.kit[open] summary{color:var(--ink)}
+.kit .in{padding:0 0 15px}
+.kit h5{margin:10px 0 6px;font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
+.kit h5:first-child{margin-top:0}
+.phr{display:flex;flex-wrap:wrap;gap:6px}
+.phr button{font:inherit;font-family:Newsreader,Georgia,serif;font-size:15px;color:var(--ink);background:var(--ground);
+  border:1px solid var(--line);border-radius:99px;padding:3px 11px;cursor:pointer;text-align:left}
+.phr button:hover{border-color:var(--ink-3)}
+.phr button:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.model{font-family:Newsreader,Georgia,serif;font-size:16.5px;line-height:1.65;white-space:pre-line;margin:0}
+.gcheck{margin:0;padding:0 0 0 18px;display:grid;gap:5px;font-size:14px;color:var(--ink-2)}
+.gcheck i{font-family:Newsreader,Georgia,serif;color:var(--ink)}
+.scenes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:18px}
+.scene{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px 12px;text-align:center;box-shadow:var(--shadow)}
+.scene .ic{font-size:42px;line-height:1}
+.scene .sd{font-family:Newsreader,Georgia,serif;font-size:16.5px;margin-top:9px;line-height:1.35}
+.scene .se{font-size:12.5px;color:var(--ink-3);margin-top:3px}
+.saybar{display:flex;gap:10px;align-items:center;margin-top:14px}
+.hidq{color:transparent;background:var(--surface-2);border-radius:6px;cursor:pointer;user-select:none}
+.mm{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
+.kw{font-family:Newsreader,Georgia,serif;font-size:16px;background:var(--surface-2);border:1px solid transparent;
+  border-radius:99px;padding:3px 5px 3px 12px;display:inline-flex;gap:3px;align-items:center}
+.kw.long{border-color:var(--accent);background:var(--accent-soft)}
+.kw button{font:inherit;font-size:14px;line-height:1;width:22px;height:22px;border-radius:99px;border:0;background:none;
+  color:var(--ink-3);cursor:pointer}
+.kw button:hover{color:var(--accent)}
+.kw.big{font-size:19px;padding:6px 15px;background:var(--surface);border-color:var(--line)}
+.kwadd{display:flex;gap:8px;margin-top:12px}
+.kwadd input{flex:1 1 auto;min-width:0;font:inherit;font-size:15px;color:var(--ink);background:var(--ground);
+  border:1px solid var(--line);border-radius:7px;padding:7px 11px}
+.kwadd input:focus-visible{outline:2px solid var(--focus);outline-offset:1px;border-color:transparent}
+.sugg{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px;align-items:center}
+.sugg .lbl{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);font-weight:600;margin-right:3px}
+.sugg button{font:inherit;font-size:13px;color:var(--ink-2);background:none;border:1px dashed var(--line);border-radius:99px;
+  padding:2px 9px;cursor:pointer}
+.sugg button:hover{color:var(--ink);border-color:var(--ink-3)}
+.warn{margin:10px 0 0;font-size:13px;color:var(--accent)}
+.mmhead{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.mmhead h3{flex:1 1 auto}
+.pics{display:grid;gap:8px;margin-top:12px}
+.pics .ics{font-size:20px;letter-spacing:4px;white-space:nowrap}
+@media (max-width:520px){
+  .choice.row{grid-template-columns:1fr}
+  .mtrow{flex-wrap:wrap}
+  .pics .ics{display:none}
+}
 .empty{padding:44px 16px;text-align:center;color:var(--ink-3);font-size:15px}
 .foot{margin-top:60px;padding-top:20px;border-top:1px solid var(--line);color:var(--ink-3);
   font-size:13px;max-width:66ch}
@@ -505,7 +676,7 @@ body.has-tts .say{display:inline-grid;vertical-align:-6px}
   <header class="mast">
     <p class="eyebrow">Danish to Go 3 · <span id="chRange">Kapitel 1–6</span> &nbsp;·&nbsp; Studieskolen modul 3.3</p>
     <h1>Bodil<span>godkendt</span></h1>
-    <p class="lede">Everything from the book and your class notes, in one place: the rules, the verbs, the words, the questions you will be asked out loud, and drills to prove you've got it. Pick the chapters your test covers on the Status tab, and every count follows.</p>
+    <p class="lede">Everything from the book and your class notes, in one place: the rules, the verbs, the words and drills to prove you've got it — and Modultest, practice in the exact formats of the module 3 test, with a mock that ends in a verdict.</p>
     <div class="figures">
       <div class="fig"><div class="n" id="fRules">0</div><div class="l">Rules</div></div>
       <div class="fig"><div class="n" id="fVerbs">0</div><div class="l">Verbs</div></div>
@@ -518,6 +689,7 @@ body.has-tts .say{display:inline-grid;vertical-align:-6px}
     <div class="tabtop">
       <div class="tabrow" role="tablist">
         <button class="tab" role="tab" data-p="status" aria-selected="true">Status</button>
+        <button class="tab" role="tab" data-p="test" aria-selected="false">Modultest</button>
         <button class="tab" role="tab" data-p="grammar" aria-selected="false">Grammatik</button>
         <button class="tab" role="tab" data-p="verbs" aria-selected="false">Verber</button>
         <button class="tab" role="tab" data-p="words" aria-selected="false">Ord</button>
@@ -536,6 +708,11 @@ body.has-tts .say{display:inline-grid;vertical-align:-6px}
   <!-- STATUS -->
   <section class="panel on" id="p-status">
     <div id="sOut"></div>
+  </section>
+
+  <!-- MODULTEST -->
+  <section class="panel" id="p-test">
+    <div id="mOut"></div>
   </section>
 
   <!-- GRAMMAR -->
@@ -629,7 +806,7 @@ body.has-tts .say{display:inline-grid;vertical-align:-6px}
   </section>
 
   <footer class="foot">
-    Page numbers are the printed pages of <i>Danish to Go 3</i> — the same numbers in the PDF in your <code>danish</code> folder and in the paper book. Rules tagged <b>Begge</b> appear in both the book and your Studieskolen notes. Everything you mark — rules, verbs, words, listening tasks, drill scores and your training results — is saved in this browser only, on this device. The Danish you hear is your own browser's speech engine, so it needs a Danish voice installed; where there is none, the speaker buttons do not appear.
+    Page numbers are the printed pages of <i>Danish to Go 3</i> — the same numbers in the PDF in your <code>danish</code> folder and in the paper book. Rules tagged <b>Begge</b> appear in both the book and your Studieskolen notes. Everything you mark — rules, verbs, words, listening tasks, drill scores, training results, mock tests, drafts and mindmaps — is saved in this browser only, on this device. The Danish you hear is your own browser's speech engine, so it needs a Danish voice installed; where there is none, the speaker buttons do not appear.
   </footer>
 </div>
 
@@ -641,6 +818,18 @@ body.has-tts .say{display:inline-grid;vertical-align:-6px}
       <button class="tr-x" id="trX" type="button" aria-label="Close the trainer">&#10005;</button>
     </header>
     <div class="tr-body" id="trBody"></div>
+  </div>
+</div>
+
+<!-- MODULTEST OVERLAY: reading tasks, the writing editor, oral practice and the mock test -->
+<div class="tr" id="mt" hidden role="dialog" aria-modal="true" aria-label="Modultest">
+  <div class="tr-in">
+    <header class="tr-top">
+      <div class="mt-prog" id="mtProg"></div>
+      <span class="clock" id="mtClock"></span>
+      <button class="tr-x" id="mtX" type="button" aria-label="Close">&#10005;</button>
+    </header>
+    <div class="tr-body" id="mtBody"></div>
   </div>
 </div>
 
@@ -1203,8 +1392,8 @@ function renderL(){
   const out=$('#lOut');
   let h='<section class="sec"><div class="sec-head"><h2>Mundtlige spørgsmål</h2>'+
      '<span class="sec-count">'+SC.oral.length+'</span></div>'+
-     '<p class="sec-sub">The book\'s own <i>snak sammen</i> questions — the closest thing to the oral exam — '+
-     'with the phrases to build an answer from.</p><div class="cards">';
+     '<p class="sec-sub">The book\'s own <i>snak sammen</i> questions, with the phrases to build an answer from. '+
+     'For the oral test itself — your two topics and the picture conversation — see Modultest.</p><div class="cards">';
   SC.oral.forEach(o=>{
     h+='<article class="lcard'+(P.listen.has(o.q)?' got':'')+'">'+
       '<div class="lcard-top">'+markBtn(o.q)+'<p class="oq">'+esc(o.q)+'</p>'+sayBtn(o.q)+'</div>'+
@@ -1633,6 +1822,675 @@ document.addEventListener('keydown',e=>{
   if(T.answered && e.key==='Enter'){ e.preventDefault(); next(); }
 });
 
+/* ═══ MODULTEST ═══ */
+/* Practice in the formats of the real DU3 modul 3 test: four reading tasks in
+   50 minutes, a complaint and an e-mail reply, and two oral tasks. The texts
+   in modultest.js are written for this page — the official samples in
+   source/modultest/ are reference only. Unlike the notebook, reading here is
+   marked by the page, so it is the one score that is not self-reported. It is
+   kept out of stats().ready on purpose; the real test is pass/fail, so it
+   gets a verdict, not a share of the headline. Its own storage key. */
+const KEY_M = 'dtg3-test-v1';
+let M = {best:{}, mocks:[], drafts:{}, checks:{}, topics:[], maps:{}, oral:{}};
+try{ const o=JSON.parse(localStorage.getItem(KEY_M)||'{}');
+     ['best','drafts','checks','maps','oral'].forEach(k=>{
+       if(o[k] && typeof o[k]==='object' && !Array.isArray(o[k])) M[k]=o[k]; });
+     if(Array.isArray(o.mocks)) M.mocks=o.mocks;
+     if(Array.isArray(o.topics)) M.topics=o.topics.filter(id=>ORAL_T.topics.some(t=>t.id===id)).slice(0,2);
+   }catch(e){}
+function saveM(){ try{ localStorage.setItem(KEY_M, JSON.stringify(M)); }catch(e){} }
+
+const LET  = 'ABCDEFGH';
+const attr = s => esc(s).replace(/"/g,'&quot;');
+const PASS = .6;   // the official pass mark is not published; 60 % is our bar, and the page says so
+const RT = {
+  cloze: {name:'Opgave 1 · Ord i hullerne', short:'Ord i hullerne',
+          how:'A text with ten words missing. Pick the one that fits each gap — prepositions, conjunctions, pronouns and verb forms, in context.'},
+  chat:  {name:'Opgave 2 · Chatten', short:'Chatten',
+          how:'One side of a chat is missing. The right reply fits the message before it and the one after it. Three replies are left over.'},
+  insert:{name:'Opgave 3 · Den manglende sætning', short:'Manglende sætning',
+          how:'Each paragraph has lost a sentence. Read the whole paragraph — the sentence after the gap is usually the clue.'},
+  match: {name:'Opgave 4 · Hvem …?', short:'Hvem …?',
+          how:'Three people, seven questions. The same subject turns up in more than one text; read for whom it is actually true of.'},
+};
+const RTYPES = Object.keys(RT);
+const readOf = type => READ_T.filter(t=>t.type===type);
+const nItems = t => t.type==='cloze'?t.gaps.length : t.type==='chat'?t.key.length : t.type==='insert'?t.paras.length : t.qs.length;
+const rightOf = (t,i) => t.type==='cloze'?t.gaps[i].o[t.gaps[i].a] : t.type==='chat'?t.key[i] : t.type==='insert'?t.paras[i].a : t.qs[i].a;
+const whyOf = (t,i) => t.type==='cloze'?t.gaps[i].w : t.type==='chat'?t.w[i] : t.type==='insert'?t.paras[i].w : t.qs[i].w;
+function rightText(t,i){
+  const r=rightOf(t,i);
+  if(t.type==='cloze') return r;
+  if(t.type==='chat') return LET[r]+' — '+t.opts[r];
+  if(t.type==='insert') return LET[r]+' — '+t.paras[i].o[r];
+  return t.people[r].n;
+}
+function newX(t){
+  return {t, ans:Array(nItems(t)).fill(null), checked:false,
+          order: t.type==='cloze' ? t.gaps.map(g=>shuffle(g.o.slice())) : null};
+}
+const scoreX = X => X.ans.reduce((n,v,i)=>n+(v===rightOf(X.t,i)?1:0),0);
+const answered = X => X.ans.filter(v=>v!=null).length;
+function stamp(ok, extra){
+  return '<span class="stamp'+(ok?'':' no')+(extra?' '+extra:'')+'">'+(ok?'GODKENDT':'IKKE ENDNU')+'</span>';
+}
+
+/* ── one reading task, rendered ── */
+function choiceHTML(i, opts, v, c, right, cls){
+  return '<div class="choice'+(cls?' '+cls:'')+'" role="group">'+opts.map((o,k)=>
+    '<button type="button" data-i="'+i+'" data-v="'+k+'" aria-pressed="'+(v===k)+'"'+(c?' disabled':'')+
+    (c&&k===right?' class="right"':c&&k===v?' class="wrong"':'')+'>'+
+    '<span class="k">'+LET[k]+'</span><span>'+esc(o)+'</span></button>').join('')+'</div>';
+}
+function taskHTML(X){
+  const t=X.t, c=X.checked;
+  const mark = i => !c ? '' : (X.ans[i]===rightOf(t,i) ? ' ok' : ' no');
+  const fb = i => !c ? '' : '<p class="why">'+(X.ans[i]===rightOf(t,i) ? '<b>Rigtigt.</b> '
+    : '<b class="wr">Svaret er '+esc(rightText(t,i))+'.</b> ')+esc(whyOf(t,i))+'</p>';
+  if(t.type==='cloze'){
+    const body = esc(t.text).replace(/\{(\d+)\}/g,(_,n)=>{ n=+n;
+      return '<select class="gap'+mark(n)+'" data-i="'+n+'" aria-label="Hul '+(n+1)+'"'+(c?' disabled':'')+'>'+
+        '<option value="">'+(n+1)+' …</option>'+X.order[n].map(o=>
+          '<option value="'+attr(o)+'"'+(X.ans[n]===o?' selected':'')+'>'+esc(o)+'</option>').join('')+'</select>'; });
+    let h='<div class="rtext">'+body.split(/\n\n+/).map(p=>'<p>'+p+'</p>').join('')+'</div>';
+    if(c) h+='<ol class="fbl">'+t.gaps.map((g,i)=>'<li class="'+mark(i).trim()+'">'+
+      (X.ans[i]===rightOf(t,i) ? '' : '<s>'+esc(X.ans[i]||'—')+'</s> → ')+'<b>'+esc(g.o[g.a])+'</b> — '+esc(g.w)+'</li>').join('')+'</ol>';
+    return h;
+  }
+  if(t.type==='chat'){
+    const xb = m => '<div class="bub x"><b>'+esc(t.x)+'</b>'+esc(m)+'</div>';
+    const yb = i => { const v=X.ans[i];
+      return '<div class="bub y'+(v==null?' unset':'')+mark(i)+'"><b>'+esc(t.y)+' · '+(i+1)+'</b>'+
+        '<select class="gap" data-i="'+i+'" aria-label="'+attr(t.y)+', svar '+(i+1)+'"'+(c?' disabled':'')+'>'+
+        '<option value="">Vælg A–'+LET[t.opts.length-1]+'</option>'+t.opts.map((o,k)=>
+          '<option value="'+k+'"'+(v===k?' selected':'')+'>'+LET[k]+'</option>').join('')+'</select>'+
+        '<span class="yt">'+(v==null?'':esc(t.opts[v]))+'</span></div>'+fb(i); };
+    let h='<p class="sit">'+esc(t.sit)+'</p><div class="chat">'+xb(t.m[0])+
+      '<div class="bub y ex"><b>'+esc(t.y)+' · eksempel</b>'+esc(t.ex)+'</div>';
+    t.key.forEach((_,i)=>{ h+=xb(t.m[i+1])+yb(i); });
+    h+=xb(t.m[t.key.length+1])+'</div>';
+    h+='<ol class="optlist">'+t.opts.map((o,k)=>'<li data-k="'+k+'"'+(X.ans.includes(k)?' class="used"':'')+'>'+
+      '<span class="k">'+LET[k]+'</span><span>'+esc(o)+'</span></li>').join('')+'</ol>';
+    return h;
+  }
+  if(t.type==='insert'){
+    return t.paras.map((p,i)=>'<div class="ipara'+mark(i)+'"><p><span class="num">'+(i+1)+'</span>'+
+      esc(p.t).replace('___','<span class="blank" data-b="'+i+'">'+blankText(p,X.ans[i])+'</span>')+'</p>'+
+      choiceHTML(i,p.o,X.ans[i],c,p.a)+fb(i)+'</div>').join('');
+  }
+  return '<div class="people">'+t.people.map((p,k)=>'<article class="person"><h4><span>'+LET[k]+'</span>'+
+      esc(p.n)+'</h4><p>'+esc(p.t)+'</p></article>').join('')+'</div>'+
+    '<h3 class="mt-sub">Hvem …?</h3>'+t.qs.map((q,i)=>'<div class="mq'+mark(i)+'"><p><span class="num">'+(i+1)+'</span>'+
+      esc(q.q)+'</p>'+choiceHTML(i,t.people.map(p=>p.n),X.ans[i],c,q.a,'row')+fb(i)+'</div>').join('');
+}
+/* the option goes into the gap as written, minus its full stop only when the
+   text already has one straight after the gap */
+function blankText(p,v){
+  if(v==null) return '&nbsp;&nbsp;&nbsp;?&nbsp;&nbsp;&nbsp;';
+  const after = p.t.charAt(p.t.indexOf('___')+3);
+  return esc(/[.!?]/.test(after) ? p.o[v].replace(/[.!?]$/,'') : p.o[v]);
+}
+/* picking an answer updates the page in place, so focus and scroll stay put */
+function pickAnswer(X, i, v){
+  if(X.checked) return;
+  const t=X.t, body=$('#mtBody');
+  X.ans[i]=v;
+  if(t.type==='chat'){
+    const sel=body.querySelector('select.gap[data-i="'+i+'"]'), row=sel.closest('.bub');
+    row.classList.toggle('unset', v==null);  // not .empty — that is the page's empty-state class
+    row.querySelector('.yt').textContent = v==null ? '' : t.opts[v];
+    body.querySelectorAll('.optlist li').forEach(li=>li.classList.toggle('used', X.ans.includes(+li.dataset.k)));
+  }
+  if(t.type==='insert' || t.type==='match'){
+    body.querySelectorAll('.choice button[data-i="'+i+'"]').forEach(b=>b.setAttribute('aria-pressed', +b.dataset.v===v));
+    const bl=body.querySelector('.blank[data-b="'+i+'"]');
+    if(bl) bl.innerHTML = blankText(t.paras[i],v);
+  }
+  drawFoot();
+}
+
+/* ── the overlay ── */
+let MT=null;
+function mmss(s){ const neg=s<0; s=Math.abs(Math.round(s));
+  return (neg?'+':'')+Math.floor(s/60)+':'+String(s%60).padStart(2,'0'); }
+function setClock(text, cls){ const c=$('#mtClock'); c.textContent=text||''; c.className='clock'+(cls?' '+cls:''); }
+function startClock(fn){ stopClock(); MT.timer=setInterval(fn,1000); fn(); }
+function stopClock(){ if(MT && MT.timer){ clearInterval(MT.timer); MT.timer=null; } }
+function setProg(text){ $('#mtProg').innerHTML=text; }
+function openMT(state){
+  if(MT) stopClock();
+  MT=state;
+  $('#mt').hidden=false; document.body.style.overflow='hidden';
+  setClock(''); setProg('');
+}
+function closeMT(){
+  stopClock();
+  try{ speechSynthesis.cancel(); }catch(e){}
+  $('#mt').hidden=true; document.body.style.overflow='';
+  MT=null;
+  renderM(); syncProgress();
+}
+/* A mock in progress asks twice before it lets go — closing it loses the round. */
+function requestClose(){
+  if(MT && MT.kind==='mock' && MT.phase!=='done' && MT.phase!=='review' && !MT.armed){
+    MT.armed=true; drawProgMock();
+    setTimeout(()=>{ if(MT && MT.armed){ MT.armed=false; drawProgMock(); } },4000);
+    return;
+  }
+  closeMT();
+}
+$('#mtX').addEventListener('click',requestClose);
+function body(html){ const b=$('#mtBody'); b.innerHTML=html; $('#mt').scrollTop=0; return b; }
+
+/* ── practising one reading task ── */
+function openRead(id){
+  const t=READ_T.find(x=>x.id===id); if(!t) return;
+  openMT({kind:'read', X:newX(t)});
+  drawRead();
+}
+function drawRead(){
+  const X=MT.X, t=X.t;
+  setProg(esc(RT[t.type].name));
+  let h='<p class="qkind">Læsning · øvelse</p><h2 class="mt-h">'+esc(t.title)+'</h2>';
+  if(X.checked){
+    const s=scoreX(X), n=nItems(t), ok=s/n>=PASS;
+    h+='<div class="mtres"><div class="score">'+s+'<small>/'+n+'</small></div>'+stamp(ok)+
+      '<p>'+(s===n?'Fejlfri. Every one right.':ok?'That would pass. The ones you missed are explained below.'
+        :'Below the line this time. Read the explanations — each one points at the clue in the text.')+'</p></div>';
+  } else h+='<p class="sit">'+esc(RT[t.type].how)+'</p>';
+  h+=taskHTML(X)+'<div class="tr-foot" id="mtFoot"></div>';
+  body(h); drawFoot();
+}
+function drawFoot(){
+  const f=$('#mtFoot'); if(!f || !MT) return;
+  if(MT.kind==='read'){
+    const X=MT.X, n=nItems(X.t), a=answered(X);
+    f.innerHTML = X.checked
+      ? '<button class="pbtn" id="mtAgain">Prøv igen</button>'+
+        (nextOfType(X.t)?'<button class="pbtn ghost" id="mtNext">Næste '+esc(RT[X.t.type].short.toLowerCase())+'</button>':'')+
+        '<button class="pbtn ghost" id="mtDone">Luk</button>'
+      : '<button class="pbtn" id="mtCheck">Tjek svarene</button><span class="tr-hint">'+a+' af '+n+' besvaret</span>';
+  }
+  if(MT.kind==='mock' && MT.phase==='read'){
+    const X=MT.Xs[MT.step], last=MT.step===MT.Xs.length-1;
+    f.innerHTML = (MT.step?'<button class="pbtn ghost" id="mkPrev">← Forrige</button>':'')+
+      (last?'<button class="pbtn" id="mkHand">Aflever læsningen</button>':'<button class="pbtn" id="mkNext">Næste opgave →</button>')+
+      '<span class="tr-hint">'+answered(X)+' af '+nItems(X.t)+' besvaret</span>';
+  }
+}
+function nextOfType(t){
+  const list=readOf(t.type); return list.length>1 ? list[(list.indexOf(t)+1)%list.length] : null;
+}
+function recordRead(X){
+  const id=X.t.id, s=scoreX(X), n=nItems(X.t), b=M.best[id]||{s:-1,k:0};
+  M.best[id]={s:Math.max(b.s,s), n, k:(b.k||0)+1, d:new Date().toISOString().slice(0,10)};
+  saveM();
+}
+$('#mtBody').addEventListener('change',e=>{
+  const s=e.target.closest('select.gap'); if(!s || !MT) return;
+  const X = MT.kind==='read' ? MT.X : MT.kind==='mock' ? MT.Xs[MT.step] : null;
+  if(!X) return;
+  pickAnswer(X, +s.dataset.i, s.value==='' ? null : X.t.type==='cloze' ? s.value : +s.value);
+});
+$('#mtBody').addEventListener('click',e=>{
+  if(!MT) return;
+  const cb=e.target.closest('.choice button[data-i]');
+  if(cb){
+    const X = MT.kind==='read' ? MT.X : MT.Xs && MT.Xs[MT.step];
+    if(X){ const i=+cb.dataset.i, v=+cb.dataset.v; pickAnswer(X, i, X.ans[i]===v ? null : v); }
+    return;
+  }
+  const id=e.target.closest('button[id]') && e.target.closest('button[id]').id;
+  if(MT.kind==='read'){
+    if(id==='mtCheck'){ MT.X.checked=true; recordRead(MT.X); drawRead();
+      $('#mtBody .stamp') && $('#mtBody .stamp').closest('.mtres').classList.add('landed'); }
+    if(id==='mtAgain'){ MT.X=newX(MT.X.t); drawRead(); }
+    if(id==='mtNext'){ MT.X=newX(nextOfType(MT.X.t)); drawRead(); }
+    if(id==='mtDone') closeMT();
+  }
+});
+
+/* ── writing ── */
+const GRAM_CHECK = [
+  'The verb comes second. Start with a time and the subject moves behind it: <i>I lørdags <b>var</b> jeg …</i>',
+  '<i>ikke</i> goes before the verb after <i>at, fordi, når, hvis, selvom</i>: <i>fordi maden <b>ikke var</b> varm</i>',
+  'Datid for a finished time — <i>sidste uge, i går, i lørdags</i>. Førnutid for no time given: <i>Jeg har prøvet at …</i>',
+  'en / et, and the adjective with it: <i>en kold suppe, et koldt værelse, de kolde retter</i>',
+  'No capital letters on days, months or nationalities: <i>mandag, i juni, dansk</i>',
+  '<i>sin / sit / sine</i> when it is the subject\'s own: <i>Naboen spiller sin musik højt.</i>',
+];
+const OPEN_RE  = /^\s*(hej|hejsa|kære|til|goddag|dear|hi)\b/i;
+const CLOSE_RE = /\b(hilsen|hilsner|venlig|knus|kh|vh|mvh)\b/i;
+const wordsIn = s => (String(s).trim().match(/\S+/g)||[]).length;
+function writeAuto(t, text){
+  const lines = String(text).split('\n').map(s=>s.trim()).filter(Boolean);
+  const out = [
+    {k:'open',  label:'Opens properly', hint:'Kære … / Hej …', on: lines.length>0 && OPEN_RE.test(lines[0])},
+    {k:'close', label:'Signs off properly', hint:t.kind==='klage'?'Med venlig hilsen':'Kærlig hilsen / Mange hilsner',
+     on: lines.length>1 && CLOSE_RE.test(lines.slice(-3).join(' '))},
+  ];
+  if(t.kind==='mail') out.push({k:'len', label:'At least 90 words', hint:wordsIn(text)+' so far', on: wordsIn(text)>=90});
+  return out;
+}
+const writeItems = t => t.kind==='klage' ? t.points : t.qs;
+function writeComplete(t, text, ticks){
+  return writeItems(t).every((_,i)=>ticks.includes(i)) && writeAuto(t,text).every(a=>a.on);
+}
+function phraseKit(kit){
+  return '<details class="kit"><summary>Gode vendinger — tap one to put it in</summary><div class="in">'+
+    [['open','Start'],['useful','Undervejs'],['close','Slut']].map(([k,l])=>kit[k]?
+      '<h5>'+l+'</h5><div class="phr">'+kit[k].map(p=>'<button type="button" data-ph="'+attr(p)+'">'+esc(p)+'</button>').join('')+'</div>':'').join('')+
+    '</div></details>';
+}
+function writeHTML(t, text, ticks, opts){
+  opts=opts||{};
+  const kind = t.kind==='klage' ? 'Klage' : 'E-mail';
+  let h='<p class="qkind">Skrivning · '+kind+(opts.mock?' · prøveprøve':'')+'</p><h2 class="mt-h">'+esc(t.title)+'</h2>'+
+    '<p class="sit">'+esc(t.sit)+'</p>';
+  if(t.kind==='klage') h+='<p class="sit" style="color:var(--ink)">'+esc(t.task)+'</p>'+
+    '<ul class="uses">'+t.points.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul>';
+  else h+='<div class="mail">'+esc(t.mail)+'</div><p class="sit">Svar på alle spørgsmålene. Mindst 90 ord, og begynd og slut på en passende måde.</p>';
+  h+='<textarea class="wtxt" id="wTxt" spellcheck="false" placeholder="'+(t.kind==='klage'?'Kære …':'Hej …')+'">'+esc(text)+'</textarea>'+
+    '<div class="wmeta"><span class="wc" id="wCnt"></span><span>'+(t.kind==='mail'?'mindst 90 ord':'no minimum, but cover all four points')+'</span></div>'+
+    '<ul class="ck" id="wCk"></ul>'+
+    phraseKit(ORAL_T.kit[t.kind])+
+    '<details class="kit"><summary>Tjek din grammatik, før du afleverer</summary><div class="in"><ul class="gcheck">'+
+      GRAM_CHECK.map(g=>'<li>'+g+'</li>').join('')+'</ul></div></details>';
+  if(!opts.mock) h+='<details class="kit"><summary>Se et modelsvar</summary><div class="in"><p class="model">'+esc(t.model)+'</p>'+
+    '<p class="why">One way a pass could look. Write yours first — copying it teaches nothing.</p></div></details>';
+  return h;
+}
+const BOX = '<span class="bx">'+TICK+'</span>';
+function drawChecks(t, text, ticks){
+  const ul=$('#wCk'); if(!ul) return;
+  const n=wordsIn(text);
+  const wc=$('#wCnt'); wc.textContent=n+' ord'; wc.classList.toggle('ok', t.kind==='klage' ? n>=60 : n>=90);
+  const auto=writeAuto(t,text);
+  /* Built once, then updated in place on every keystroke and tick — re-rendering
+     would throw keyboard focus off the box you just ticked. */
+  if(ul.dataset.id!==t.id){
+    ul.dataset.id=t.id;
+    ul.innerHTML = writeItems(t).map((p,i)=>'<li><button type="button" data-tk="'+i+'" aria-pressed="false">'+BOX+
+        '<span>'+esc(p)+'</span></button></li>').join('')+
+      auto.map(a=>'<li><span class="auto" data-ak="'+a.k+'">'+BOX+'<span>'+a.label+' <em></em></span></span></li>').join('');
+  }
+  ul.querySelectorAll('[data-tk]').forEach(b=>b.setAttribute('aria-pressed', ticks.includes(+b.dataset.tk)));
+  auto.forEach(a=>{ const el=ul.querySelector('[data-ak="'+a.k+'"]');
+    el.classList.toggle('on',a.on); el.querySelector('em').textContent='· '+a.hint; });
+}
+/* Wires the editor. get/set hide where the text lives — drafts for practice,
+   memory for a mock — so one editor serves both. */
+function bindWrite(t, W){
+  const ta=$('#wTxt');
+  const refresh=()=>{ drawChecks(t, W.text, W.ticks); if(W.onChange) W.onChange(); };
+  ta.addEventListener('input',()=>{ W.text=ta.value; refresh(); });
+  $('#wCk').addEventListener('click',e=>{
+    const b=e.target.closest('[data-tk]'); if(!b) return;
+    const i=+b.dataset.tk;
+    W.ticks = W.ticks.includes(i) ? W.ticks.filter(x=>x!==i) : W.ticks.concat(i);
+    refresh();
+  });
+  $('#mtBody').querySelectorAll('[data-ph]').forEach(b=>b.addEventListener('click',()=>{
+    const p=b.dataset.ph, s=ta.selectionStart, pre=ta.value.slice(0,s);
+    const gap = pre && !/\s$/.test(pre) ? ' ' : '';
+    ta.setRangeText(gap+p+' ', s, ta.selectionEnd, 'end');
+    ta.focus(); W.text=ta.value; refresh();
+  }));
+  refresh();
+}
+function openWrite(id){
+  const t=WRITE_T.find(x=>x.id===id); if(!t) return;
+  openMT({kind:'write', t});
+  setProg('Skrivning');
+  const W={text:M.drafts[id]||'', ticks:(M.checks[id]||[]).slice()};
+  W.onChange=()=>{ M.drafts[id]=W.text; M.checks[id]=W.ticks; if(!W.text) delete M.drafts[id]; saveM(); };
+  body(writeHTML(t, W.text, W.ticks)+'<div class="tr-foot"><button class="pbtn" id="wDone">Gem og luk</button>'+
+    '<span class="tr-hint">Saved as you type, in this browser.</span></div>');
+  bindWrite(t, W);
+  $('#wDone').addEventListener('click',closeMT);
+}
+
+/* ── the mock test ── */
+/* Picks the least-practised task of each type, so repeated mocks rotate
+   through everything before they repeat. Two chats, like the real 2A and 2B. */
+function pickLeast(list, n){
+  return shuffle(list.slice()).sort((a,b)=>((M.best[a.id]||{}).k||0)-((M.best[b.id]||{}).k||0)).slice(0,n);
+}
+function startMock(mode){
+  const Xs = mode==='write' ? [] :
+    [...pickLeast(readOf('cloze'),1), ...pickLeast(readOf('chat'),2), ...pickLeast(readOf('insert'),1), ...pickLeast(readOf('match'),1)].map(newX);
+  const Ws = mode==='read' ? [] : [pickLeast(WRITE_T.filter(w=>w.kind==='klage'),1)[0], pickLeast(WRITE_T.filter(w=>w.kind==='mail'),1)[0]]
+    .filter(Boolean).map(t=>({t, text:'', ticks:[], t0:0}));
+  openMT({kind:'mock', mode, Xs, Ws, step:0, phase: Xs.length?'read':'write', armed:false});
+  if(MT.phase==='read'){
+    MT.readEnd = Date.now()+50*60e3;
+    startClock(()=>{
+      const left=(MT.readEnd-Date.now())/1000;
+      setClock(mmss(Math.max(0,left)), left<300?'late':'');
+      if(left<=0) handInReading(true);
+    });
+    drawMockRead();
+  } else startWriting();
+}
+function drawProgMock(){
+  if(!MT || MT.kind!=='mock') return;
+  if(MT.armed){ setProg('<span class="arm">Stop the mock? Press ✕ again.</span>'); return; }
+  setProg(MT.phase==='read' ? 'Prøveprøve · læsning '+(MT.step+1)+' af '+MT.Xs.length
+    : MT.phase==='write' ? 'Prøveprøve · skrivning '+(MT.step+1)+' af '+MT.Ws.length : 'Prøveprøve');
+}
+function drawMockRead(){
+  const X=MT.Xs[MT.step];
+  MT.handArmed=false;
+  drawProgMock();
+  body('<p class="qkind">'+esc(RT[X.t.type].name)+'</p><h2 class="mt-h">'+esc(X.t.title)+'</h2>'+
+    '<p class="sit">'+esc(RT[X.t.type].how)+'</p>'+taskHTML(X)+'<div class="tr-foot" id="mtFoot"></div>');
+  drawFoot();
+}
+function handInReading(timeUp){
+  if(MT.phase!=='read') return;
+  stopClock();
+  MT.Xs.forEach(X=>{ X.checked=true; recordRead(X); });
+  MT.timeUp=!!timeUp;
+  if(MT.Ws.length) startWriting(); else finishMock();
+}
+function startWriting(){
+  MT.phase='write'; MT.step=0;
+  drawMockWrite();
+}
+function drawMockWrite(){
+  const W=MT.Ws[MT.step]; W.t0 = W.t0 || Date.now();
+  drawProgMock();
+  const last = MT.step===MT.Ws.length-1;
+  body((MT.step===0 && MT.Xs.length ? '<p class="sit" style="margin:0 0 14px">'+(MT.timeUp?'Time is up for reading — it is handed in. ':'Reading handed in. ')+
+      'Your score waits at the end. Now the two texts — 30 minutes each.</p>' : '')+
+    writeHTML(W.t, W.text, W.ticks, {mock:true})+
+    '<div class="tr-foot">'+(MT.step?'<button class="pbtn ghost" id="mkWPrev">← Forrige</button>':'')+
+    '<button class="pbtn" id="mkWNext">'+(last?'Aflever det hele':'Næste opgave →')+'</button>'+
+    '<span class="tr-hint">Tick each point only when it is really in your text.</span></div>');
+  bindWrite(W.t, W);
+  startClock(()=>{ const left=30*60-(Date.now()-W.t0)/1000; setClock(mmss(left), left<0?'late':left<300?'late':''); });
+  $('#mkWNext').addEventListener('click',()=>{ if(last) finishMock(); else { MT.step++; drawMockWrite(); } });
+  const pv=$('#mkWPrev'); if(pv) pv.addEventListener('click',()=>{ MT.step--; drawMockWrite(); });
+}
+function finishMock(){
+  stopClock(); setClock('');
+  MT.phase='done'; MT.armed=false;
+  const rs = MT.Xs.reduce((n,X)=>n+scoreX(X),0), rn = MT.Xs.reduce((n,X)=>n+nItems(X.t),0);
+  const readOk = !rn || rs/rn>=PASS;
+  const wres = MT.Ws.map(W=>({t:W.t, ok:writeComplete(W.t,W.text,W.ticks), n:wordsIn(W.text), W}));
+  const writeOk = wres.every(w=>w.ok);
+  const pass = readOk && writeOk;
+  M.mocks.unshift({d:new Date().toISOString().slice(0,10), mode:MT.mode, r:rs, rn, w:wres.map(w=>w.ok), pass});
+  M.mocks = M.mocks.slice(0,20); saveM();
+  MT.result={rs,rn,readOk,wres,pass};
+  drawMockDone();
+}
+function drawMockDone(){
+  const R=MT.result;
+  setProg('Prøveprøve · resultat');
+  let h='<p class="qkind">Prøveprøve</p><div class="mtres landed" style="margin-top:8px">'+stamp(R.pass)+'</div>'+
+    '<h2 class="mt-h">'+(R.pass?'Det havde du bestået.':'Ikke helt endnu.')+'</h2>';
+  if(R.rn){
+    h+='<h3 class="mt-sub">Læsning · '+R.rs+' af '+R.rn+' ('+pc(R.rs/R.rn)+' %)</h3><ul class="mocks">'+
+      MT.Xs.map(X=>{ const s=scoreX(X), n=nItems(X.t);
+        return '<li><span class="best '+(s/n>=PASS?'ok':'no')+'">'+s+'/'+n+'</span>'+esc(RT[X.t.type].short)+' — '+esc(X.t.title)+'</li>'; }).join('')+'</ul>';
+  }
+  if(R.wres.length){
+    h+='<h3 class="mt-sub">Skrivning</h3><ul class="mocks">'+R.wres.map(w=>{
+      const miss = writeItems(w.t).filter((_,i)=>!w.W.ticks.includes(i)).concat(writeAuto(w.t,w.W.text).filter(a=>!a.on).map(a=>a.label.toLowerCase()));
+      return '<li><span class="best '+(w.ok?'ok':'no')+'">'+(w.ok?'✓':'✗')+'</span>'+esc(w.t.title)+' · '+w.n+' ord'+
+        (miss.length?' — <span style="color:var(--accent)">mangler: '+esc(miss.join(', '))+'</span>':'')+'</li>'; }).join('')+'</ul>';
+  }
+  h+='<p class="sec-sub" style="margin-top:20px">The official pass mark isn\'t published. This uses '+pc(PASS)+' % for reading, '+
+    'and every required point plus a proper opening and closing for writing — a fair bar, not the official one. '+
+    'Reading is marked by the page; writing is your own honest tick.</p>'+
+    '<div class="tr-foot">'+(R.rn?'<button class="pbtn" id="mkReview">Se dine læsesvar</button>':'')+
+    (R.wres.length?'<button class="pbtn ghost" id="mkModels">Se modelsvarene</button>':'')+
+    '<button class="pbtn ghost" id="mkClose">Luk</button></div>';
+  body(h);
+  const rv=$('#mkReview'); if(rv) rv.addEventListener('click',drawMockReview);
+  const md=$('#mkModels'); if(md) md.addEventListener('click',drawMockModels);
+  $('#mkClose').addEventListener('click',closeMT);
+}
+function drawMockReview(){
+  MT.phase='review'; setProg('Prøveprøve · dine svar');
+  body(MT.Xs.map(X=>'<h3 class="mt-sub">'+esc(RT[X.t.type].name)+' · '+scoreX(X)+'/'+nItems(X.t)+'</h3>'+
+      '<h2 class="mt-h">'+esc(X.t.title)+'</h2>'+taskHTML(X)).join('')+
+    '<div class="tr-foot"><button class="pbtn ghost" id="mkBack">← Resultatet</button><button class="pbtn ghost" id="mkClose2">Luk</button></div>');
+  $('#mkBack').addEventListener('click',drawMockDone);
+  $('#mkClose2').addEventListener('click',closeMT);
+}
+function drawMockModels(){
+  MT.phase='review'; setProg('Prøveprøve · modelsvar');
+  body(MT.result.wres.map(w=>'<h3 class="mt-sub">'+esc(w.t.title)+'</h3>'+
+      '<div class="kit" style="padding:14px 16px"><h5>Dit svar · '+w.n+' ord</h5><p class="model">'+(esc(w.W.text)||'—')+'</p></div>'+
+      '<div class="kit" style="padding:14px 16px"><h5>Modelsvar</h5><p class="model">'+esc(w.t.model)+'</p></div>').join('')+
+    '<div class="tr-foot"><button class="pbtn ghost" id="mkBack">← Resultatet</button><button class="pbtn ghost" id="mkClose2">Luk</button></div>');
+  $('#mkBack').addEventListener('click',drawMockDone);
+  $('#mkClose2').addEventListener('click',closeMT);
+}
+$('#mtBody').addEventListener('click',e=>{
+  if(!MT || MT.kind!=='mock' || MT.phase!=='read') return;
+  const id=e.target.closest('button[id]') && e.target.closest('button[id]').id;
+  if(id==='mkNext'){ MT.step++; drawMockRead(); }
+  if(id==='mkPrev'){ MT.step--; drawMockRead(); }
+  if(id==='mkHand'){
+    const open = MT.Xs.reduce((n,X)=>n+nItems(X.t)-answered(X),0);
+    if(open && !MT.handArmed){ MT.handArmed=true;
+      e.target.closest('button').textContent='Aflever med '+open+' tomme? Klik igen'; return; }
+    handInReading(false);
+  }
+});
+
+/* ── oral practice ── */
+/* The questions are spoken, not shown: in the real test you hear them. With no
+   Danish voice on the device, the text is shown instead. */
+function askHTML(q, i, n){
+  return '<p class="qkind">Spørgsmål '+(i+1)+' af '+n+'</p>'+
+    (TTS ? '<div class="saybar">'+sayBtn(q,'big')+'<span class="sit" style="margin:0">Listen, then answer out loud.</span></div>'+
+           '<p class="qprompt small hidq" id="oQ" title="Show the question">'+esc(q)+'</p>'+
+           '<p class="cap" style="text-align:left;margin-top:6px">Tap the grey bar if you need to read it.</p>'
+         : '<p class="qprompt small">'+esc(q)+'</p>');
+}
+function oralQs(title, qs, onDone){
+  MT.phase='qs'; MT.qi=0; MT.q0=Date.now();
+  const draw=()=>{
+    const q=qs[MT.qi];
+    body('<h2 class="mt-h" style="font-size:20px">'+esc(title)+'</h2>'+askHTML(q,MT.qi,qs.length)+
+      '<div class="tr-foot">'+(MT.qi<qs.length-1?'<button class="pbtn" id="oNext">Næste spørgsmål</button>':'')+
+      '<button class="pbtn '+(MT.qi<qs.length-1?'ghost':'')+'" id="oEnd">'+(MT.qi<qs.length-1?'Slut her':'Færdig')+'</button></div>');
+    const qe=$('#oQ'); if(qe) qe.addEventListener('click',()=>qe.classList.remove('hidq'));
+    speak(q);
+    const nx=$('#oNext'); if(nx) nx.addEventListener('click',()=>{ MT.qi++; draw(); });
+    $('#oEnd').addEventListener('click',()=>{ MT.answered=MT.qi+1; onDone(); });
+  };
+  startClock(()=>{ const s=(Date.now()-MT.q0)/1000; setClock(mmss(s), s>=180?'good':''); });
+  draw();
+}
+function openOral1(id){
+  const t=ORAL_T.topics.find(x=>x.id===id); if(!t) return;
+  openMT({kind:'oral1', t, phase:'prep'});
+  setProg('Mundtlig · opgave 1');
+  const keys = (M.maps[id]&&M.maps[id].length) ? M.maps[id] : t.keys;
+  body('<p class="qkind">Opgave 1 · emneopgave</p><h2 class="mt-h">'+esc(t.name)+'</h2>'+
+    '<p class="sit">Talk about this for one to two minutes, out loud, from your keywords. Then the examiner asks follow-up questions — '+
+    (TTS?'you will hear them.':'they appear one at a time.')+'</p>'+
+    '<div class="mm">'+keys.map(k=>'<span class="kw big">'+esc(k)+'</span>').join('')+'</div>'+
+    (M.maps[id]&&M.maps[id].length?'':'<p class="why">These are suggestions. Build your own mindmap on the Modultest tab — it is yours you take into the room.</p>')+
+    '<h3 class="mt-sub">Kom i gang</h3><ul class="uses">'+t.starters.map(s=>'<li>'+esc(s)+' '+sayBtn(s)+'</li>').join('')+'</ul>'+
+    '<div class="tr-foot"><button class="pbtn" id="oGo">Start — tal i 1–2 minutter</button></div>');
+  $('#oGo').addEventListener('click',()=>{
+    MT.phase='talk'; MT.t0=Date.now();
+    body('<p class="qkind">Opgave 1 · fortæl</p><h2 class="mt-h">'+esc(t.name)+'</h2>'+
+      '<div class="bigclock" id="oClk">0:00</div><p class="cap" id="oCap">Aim for one to two minutes.</p>'+
+      '<div class="mm" style="justify-content:center;margin-top:22px">'+keys.map(k=>'<span class="kw big">'+esc(k)+'</span>').join('')+'</div>'+
+      '<div class="tr-foot"><button class="pbtn" id="oStop">Færdig — stil mig spørgsmål</button></div>');
+    startClock(()=>{
+      const s=(Date.now()-MT.t0)/1000, c=$('#oClk'); if(!c) return;
+      c.textContent=mmss(s); c.className='bigclock'+(s>=120?' late':s>=60?' good':'');
+      $('#oCap').textContent = s<60?'Aim for one to two minutes.':s<120?'That is a full answer. Round it off when you are ready.':'Over two minutes — wrap it up.';
+    });
+    $('#oStop').addEventListener('click',()=>{
+      MT.talk=Math.round((Date.now()-MT.t0)/1000);
+      oralQs(t.name, shuffle(t.follow.slice()).slice(0,5), ()=>oralDone('o1:'+t.id, t.name,
+        MT.talk>=60 && MT.answered>=3,
+        'You talked for '+mmss(MT.talk)+' and answered '+MT.answered+' question'+(MT.answered===1?'':'s')+'. '+
+        (MT.talk<60?'Next time, stretch the talk past a minute — say why, give an example.':'')));
+    });
+  });
+}
+function openOral2(id){
+  const t=ORAL_T.pics.find(x=>x.id===id); if(!t) return;
+  openMT({kind:'oral2', t, phase:'pair'});
+  setProg('Mundtlig · opgave 2');
+  const k=ORAL_T.kit.pref;
+  body('<p class="qkind">Opgave 2 · del 1, sammen med en anden</p><h2 class="mt-h">Emne: '+esc(t.emne)+'</h2>'+
+    '<div class="saybar">'+sayBtn(t.intro,'big')+'<p class="sit" style="margin:0">'+esc(t.intro)+'</p></div>'+
+    '<div class="scenes">'+t.scenes.map((s,i)=>'<div class="scene"><div class="ic" aria-hidden="true">'+esc(s.icon)+'</div>'+
+      '<div class="sd">'+esc(s.da)+'</div><div class="se">'+esc(s.en)+'</div></div>').join('')+'</div>'+
+    '<p class="sit" style="margin-top:14px">Say which you like best and least, and why — about all four. Practising alone? Play both sides, or ask the questions to a friend.</p>'+
+    '<details class="kit" open><summary>Sådan siger du det</summary><div class="in">'+
+      [['pref','Hvad du foretrækker'],['why','Hvorfor'],['ask','Spørg den anden'],['react','Svar igen']].map(([kk,l])=>
+        '<h5>'+l+'</h5><ul class="uses">'+(k[kk]||[]).map(p=>'<li>'+esc(p)+' '+sayBtn(p)+'</li>').join('')+'</ul>').join('')+
+    '</div></details>'+
+    '<div class="tr-foot"><button class="pbtn" id="oPart2">Del 2 — dine egne spørgsmål</button><span class="tr-hint">Del 1 is about four minutes.</span></div>');
+  MT.t0=Date.now();
+  speak(t.intro);
+  startClock(()=>{ const s=(Date.now()-MT.t0)/1000; setClock(mmss(s), s>=240?'good':''); });
+  $('#oPart2').addEventListener('click',()=>{
+    oralQs(t.emne, t.qs.slice(), ()=>oralDone('o2:'+t.id, t.emne, MT.answered>=t.qs.length,
+      'You took '+MT.answered+' of '+t.qs.length+' questions. In the test, keep each answer going: what you prefer, why, and one thing that happened to you.'));
+  });
+}
+function oralDone(key, title, ok, text){
+  stopClock(); setClock('');
+  const o=M.oral[key]||{n:0}; M.oral[key]={n:o.n+1, d:new Date().toISOString().slice(0,10)}; saveM();
+  body('<p class="qkind">Mundtlig</p><div class="mtres landed" style="margin-top:8px">'+stamp(ok)+'</div>'+
+    '<h2 class="mt-h">'+esc(title)+'</h2><p class="sit">'+esc(text)+'</p>'+
+    '<p class="sit">The oral test is judged as a whole, bestået or ikke bestået. What counts is that you keep talking, '+
+    'join your sentences up with <i>fordi, men, når, selvom</i>, and give a reason when you are asked one.</p>'+
+    '<div class="tr-foot"><button class="pbtn" id="oAgain">En gang til</button><button class="pbtn ghost" id="oClose">Luk</button></div>');
+  const again = MT.kind==='oral1' ? ()=>openOral1(MT.t.id) : ()=>openOral2(MT.t.id);
+  $('#oAgain').addEventListener('click',again);
+  $('#oClose').addEventListener('click',closeMT);
+}
+
+/* ── the tab ── */
+function mockSummary(){
+  if(!M.mocks.length) return '<p class="dhint">No mock taken yet.</p>';
+  return '<ul class="mocks">'+M.mocks.slice(0,5).map(m=>'<li><span class="d">'+esc(m.d)+'</span>'+stamp(m.pass,'sm')+
+    '<span>'+(m.rn?'læsning '+m.r+'/'+m.rn:'')+(m.rn&&m.w.length?' · ':'')+
+    (m.w.length?'skrivning '+m.w.filter(Boolean).length+'/'+m.w.length:'')+'</span></li>').join('')+'</ul>';
+}
+function readStats(){
+  const tried = READ_T.filter(t=>M.best[t.id]);
+  const s = tried.reduce((n,t)=>n+M.best[t.id].s,0), n = tried.reduce((n,t)=>n+M.best[t.id].n,0);
+  return {tried:tried.length, total:READ_T.length, acc: n ? s/n : null};
+}
+function renderM(){
+  const out=$('#mOut'); if(!out) return;
+  const rsx=readStats(), wDone=WRITE_T.filter(t=>writeComplete(t, M.drafts[t.id]||'', M.checks[t.id]||[])).length;
+  const days=examDays();
+  let h='<section class="sec" style="margin-top:24px"><div class="sec-head"><h2>Modultest 3</h2>'+
+    '<span class="sec-count">'+(days!==null && days>=0 ? days+' dage til' : 'DU3 · modul 3')+'</span></div>'+
+    '<p class="sec-sub">The test itself, in its own formats. Reading here is marked by the page, not by you — '+
+    'so these are the scores to trust. Written texts are original, on the book\'s themes; none of it is the real test.</p>'+
+    '<div class="dash">'+
+      '<article class="dcard"><h3>Læsning · 50 min</h3><div class="dnum">'+(rsx.acc===null?'—':pc(rsx.acc)+'<small>%</small>')+'</div>'+
+        '<p class="dhint">'+rsx.tried+' af '+rsx.total+' opgaver prøvet. Four task types, no dictionary.</p></article>'+
+      '<article class="dcard"><h3>Skrivning</h3><div class="dnum">'+wDone+'<small>af '+WRITE_T.length+'</small></div>'+
+        '<p class="dhint">A complaint with four set points, and an e-mail reply of at least 90 words.</p></article>'+
+      '<article class="dcard"><h3>Mundtlig</h3><div class="dnum">'+M.topics.length+'<small>af 2 emner</small></div>'+
+        '<p class="dhint">Two prepared topics, then a picture conversation. Judged bestået / ikke bestået.</p></article>'+
+    '</div>'+
+    '<div class="trcard"><h3>Prøveprøve</h3><p>A full written test against the clock: five reading tasks in 50 minutes, then a complaint and an e-mail, '+
+      '30 minutes each. Reading is marked at the end; you get a verdict, with a stamp.</p>'+
+      '<div class="trrow"><button class="pbtn" data-mock="full">Hele den skriftlige prøve</button>'+
+      '<button class="pbtn ghost" data-mock="read">Kun læsning</button><button class="pbtn ghost" data-mock="write">Kun skrivning</button></div>'+
+      mockSummary()+'</div></section>';
+
+  h+='<section class="sec"><div class="sec-head"><h2>Læsning</h2><span class="sec-count">'+READ_T.length+' opgaver</span></div>'+
+    '<p class="sec-sub">One at a time, with the answer and the reason as soon as you check.</p>';
+  RTYPES.forEach(type=>{
+    const list=readOf(type); if(!list.length) return;
+    h+='<div class="mtype"><h3>'+esc(RT[type].name)+'</h3><p class="how">'+esc(RT[type].how)+'</p><div class="mtlist">'+
+      list.map(t=>{ const b=M.best[t.id];
+        return '<div class="mtrow"><div class="mtt"><h4>'+esc(t.title)+'</h4>'+(t.sub?'<p>'+esc(t.sub)+'</p>':'')+'</div>'+
+          (b?'<span class="best '+(b.s/b.n>=PASS?'ok':'no')+'">bedst '+b.s+'/'+b.n+'</span>':'<span class="best">'+nItems(t)+' spørgsmål</span>')+
+          '<button class="btn" data-read="'+t.id+'">'+(b?'Igen':'Start')+'</button></div>'; }).join('')+'</div></div>';
+  });
+  h+='</section>';
+
+  h+='<section class="sec"><div class="sec-head"><h2>Skrivning</h2><span class="sec-count">'+WRITE_T.length+' opgaver</span></div>'+
+    '<p class="sec-sub">The two kinds of text the test asks for. Each has its checklist, the phrases to open and close with, '+
+    'and a model answer to compare with once yours is written. Drafts are kept in this browser.</p>';
+  [['klage','Opgave 1 · Klage','A formal complaint. The task lists four points; a text that skips one does not pass, however good the Danish.'],
+   ['mail','Opgave 2 · Svar på en e-mail','A friendly reply. Answer every question in the e-mail, in at least 90 words, and open and close it properly.']].forEach(([k,name,how])=>{
+    h+='<div class="mtype"><h3>'+name+'</h3><p class="how">'+how+'</p><div class="mtlist">'+
+      WRITE_T.filter(t=>t.kind===k).map(t=>{
+        const d=M.drafts[t.id]||'', ok=writeComplete(t,d,M.checks[t.id]||[]);
+        return '<div class="mtrow"><div class="mtt"><h4>'+esc(t.title)+'</h4><p>'+esc(t.sit)+'</p></div>'+
+          (d?'<span class="best'+(ok?' ok':'')+'">'+(ok?'✓ ':'')+wordsIn(d)+' ord</span>':'')+
+          '<button class="btn" data-write="'+t.id+'">'+(d?'Fortsæt':'Skriv')+'</button></div>'; }).join('')+'</div></div>';
+  });
+  h+='</section>';
+
+  h+='<section class="sec"><div class="sec-head"><h2>Mundtlig</h2></div>'+
+    '<div class="mtype"><h3>Opgave 1 · Dit emne</h3><p class="how">Choose two topics. One is drawn on the day; you talk for 1–2 minutes from a mindmap of keywords — '+
+    'single words only, no sentences — then answer follow-up questions for 3–4 minutes.</p>'+
+    '<div class="chips" id="topicChips">'+ORAL_T.topics.map(t=>'<button class="chip" type="button" data-topic="'+t.id+'" aria-pressed="'+M.topics.includes(t.id)+'">'+esc(t.name)+'</button>').join('')+'</div>'+
+    (M.topics.length<2?'<p class="why">'+(M.topics.length?'Pick one more.':'Pick the two you will prepare.')+' Avoid easy ones like my flat or my family — the test guidance rules them out as too simple.</p>':'')+
+    '<div class="cards">'+M.topics.map(id=>{
+      const t=ORAL_T.topics.find(x=>x.id===id), mine=M.maps[id]||[], long=mine.filter(k=>k.trim().split(/\s+/).length>3);
+      return '<article class="wcard"><div class="mmhead"><h3>'+esc(t.name)+'</h3><button class="btn go" data-oral1="'+id+'">Øv præsentationen</button></div>'+
+        '<div class="mm">'+(mine.length?mine.map((k,i)=>'<span class="kw'+(k.trim().split(/\s+/).length>3?' long':'')+'">'+esc(k)+
+          '<button type="button" data-kwdel="'+id+'" data-i="'+i+'" aria-label="Fjern '+attr(k)+'">×</button></span>').join('')
+          :'<span class="dhint" style="margin:0">Your mindmap is empty. Add your own keywords, or start from the suggestions.</span>')+'</div>'+
+        (long.length?'<p class="warn">That is a sentence, not a keyword. The rule is single words on the mindmap — you are meant to build the sentence while you talk.</p>':'')+
+        '<div class="kwadd"><input type="text" data-kwin="'+id+'" placeholder="Tilføj et stikord og tryk Enter" aria-label="Nyt stikord til '+attr(t.name)+'" maxlength="40"></div>'+
+        '<div class="sugg"><span class="lbl">Forslag</span>'+t.keys.filter(k=>!mine.includes(k)).map(k=>'<button type="button" data-kwsug="'+id+'">'+esc(k)+'</button>').join('')+'</div>'+
+        '</article>'; }).join('')+'</div></div>'+
+    '<div class="mtype"><h3>Opgave 2 · Billeder</h3><p class="how">Four pictures on a theme. With a partner you say which you prefer and why, '+
+    'then the examiner asks you three questions of your own. The pictures are described here in words.</p><div class="mtlist">'+
+    ORAL_T.pics.map(p=>{ const o=M.oral['o2:'+p.id];
+      return '<div class="mtrow"><div class="mtt"><h4>'+esc(p.emne)+'</h4><p>'+esc(p.scenes.map(s=>s.da).join(' · '))+'</p></div>'+
+        (o?'<span class="best ok">'+o.n+'×</span>':'')+'<button class="btn" data-oral2="'+p.id+'">Øv</button></div>'; }).join('')+
+    '</div></div></section>';
+  out.innerHTML=h;
+}
+function addKw(id, k){
+  k=String(k).trim(); if(!k) return;
+  const m=M.maps[id]||(M.maps[id]=[]);
+  if(!m.includes(k)) m.push(k);
+  saveM(); renderM();
+  const inp=document.querySelector('[data-kwin="'+id+'"]'); if(inp) inp.focus();
+}
+$('#mOut').addEventListener('click',e=>{
+  const b=e.target.closest('button'); if(!b) return;
+  const d=b.dataset;
+  if(d.read) openRead(d.read);
+  else if(d.write) openWrite(d.write);
+  else if(d.mock) startMock(d.mock);
+  else if(d.oral1) openOral1(d.oral1);
+  else if(d.oral2) openOral2(d.oral2);
+  else if(d.topic){
+    const id=d.topic;
+    if(M.topics.includes(id)) M.topics=M.topics.filter(x=>x!==id);
+    else { M.topics.push(id); if(M.topics.length>2) M.topics.shift(); }
+    saveM(); renderM();
+  }
+  else if(d.kwdel){ const m=M.maps[d.kwdel]||[]; m.splice(+d.i,1); saveM(); renderM(); }
+  else if(d.kwsug) addKw(d.kwsug, b.textContent);
+});
+$('#mOut').addEventListener('keydown',e=>{
+  const inp=e.target.closest('[data-kwin]');
+  if(inp && e.key==='Enter'){ e.preventDefault(); addKw(inp.dataset.kwin, inp.value); }
+});
+document.addEventListener('keydown',e=>{
+  if(!MT) return;
+  if(e.key==='Escape'){ e.preventDefault(); requestClose(); }
+});
+
 /* ═══ STATUS ═══ */
 /* Counts are taken over the scoped arrays, never P.*.size — that way a stale
    mark, or one from a chapter outside the scope, can't inflate a number. */
@@ -1708,6 +2566,17 @@ function renderStatus(){
   });
   h += '</div>';
 
+  /* ── the mock test sits beside the headline, never inside it ── */
+  const lastM = M.mocks[0], rsx = readStats();
+  h += '<div class="trcard"><h3>Modultest'+(lastM?' '+stamp(lastM.pass,'sm'):'')+'</h3>'+
+    '<p>'+(lastM
+      ? 'Last mock '+esc(lastM.d)+': '+(lastM.rn?'reading '+lastM.r+'/'+lastM.rn:'')+(lastM.rn&&lastM.w.length?', ':'')+
+        (lastM.w.length?'writing '+lastM.w.filter(Boolean).length+' of '+lastM.w.length+' complete':'')+'. '
+      : 'The percentage above is what you have marked. The mock test is what you can do — reading in the real formats, marked by the page. ')+
+      (rsx.acc!==null?'Reading practice so far: <b>'+pc(rsx.acc)+' %</b> right across '+rsx.tried+' tasks.':'')+'</p>'+
+    '<div class="trrow"><button class="pbtn" data-mock="full">Tag en prøveprøve</button>'+
+    '<button class="pbtn ghost" data-go="test">Gå til modultest →</button></div></div>';
+
   /* ── training ── */
   const lastS = P.sess[0];
   const seen7 = P.sess.slice(0,7);
@@ -1780,13 +2649,16 @@ function renderStatus(){
     'Training is not weighed in either, and does not need to be: getting a word or a verb right '+
     'twice ticks it off in the notebook, and a drill answered in training scores that drill — '+
     'so it reaches the same four numbers through the same door as marking things by hand. '+
-    'Dagens ord does the same: a word it has pushed a week or more ahead gets ticked.'+
+    'Dagens ord does the same: a word it has pushed a week or more ahead gets ticked. '+
+    'Modultest is kept apart on purpose: its reading is marked by the page rather than by you, '+
+    'and the real test is pass or fail, so it gets a verdict of its own instead of a share of this number.'+
     (P.last?' Last marked: <b>'+esc(P.last)+'</b>.':'')+'</p>'+
-    '<p style="margin-top:14px"><button class="linkish" id="sReset">Nulstil alt (rules, verbs, words, drills, training, Dagens ord)</button></p>'+
+    '<p style="margin-top:14px"><button class="linkish" id="sReset">Nulstil alt (rules, verbs, words, drills, training, Dagens ord, Modultest)</button></p>'+
     '</section>';
 
   out.innerHTML = h;
   out.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>showTab(b.dataset.go)));
+  out.querySelectorAll('[data-mock]').forEach(b=>b.addEventListener('click',()=>startMock(b.dataset.mock)));
   const ed = $('#examDate');
   if(ed) ed.addEventListener('change',()=>{ P.exam = ed.value || null; saveH(); renderStatus(); });
   out.querySelectorAll('#scopeChips .chip').forEach(b=>b.addEventListener('click',()=>{
@@ -1805,7 +2677,8 @@ function renderStatus(){
     P.rules.clear(); P.verbs.clear(); P.listen.clear(); P.drills={}; S.known.clear();
     P.miss=[]; P.hits={}; P.sess=[];
     R.cards={}; R.newDay={d:'',n:0}; saveR(); Q=null;
-    saveH(); saveW(); renderG(); renderV(); renderW(); renderL(); renderP(); renderSrs(); syncProgress();
+    M={best:{}, mocks:[], drafts:{}, checks:{}, topics:[], maps:{}, oral:{}}; saveM();
+    saveH(); saveW(); renderG(); renderV(); renderW(); renderL(); renderP(); renderSrs(); renderM(); syncProgress();
   });
 }
 let resetArmed=false, resetTimer=null;
@@ -1814,7 +2687,7 @@ function confirmReset(){
   if(resetArmed){ resetArmed=false; clearTimeout(resetTimer); return true; }
   resetArmed=true; b.textContent='Sikker? Klik igen for at slette alt.';
   resetTimer=setTimeout(()=>{ resetArmed=false; const x=$('#sReset');
-    if(x) x.textContent='Nulstil alt (rules, verbs, words, drills, training, Dagens ord)'; },4000);
+    if(x) x.textContent='Nulstil alt (rules, verbs, words, drills, training, Dagens ord, Modultest)'; },4000);
   return false;
 }
 function tabBadges(){
@@ -1876,7 +2749,7 @@ function setScope(){
   refreshChips(wChips, k=> k==='all' ? SC.words.length
     : isCh(k) ? SC.words.filter(w=>w.ch===chNum(k)).length
     : SC.words.filter(w=>w.c===k).length);
-  renderFigures(); renderG(); renderV(); renderW(); renderL(); renderP(); renderSrs(); syncProgress();
+  renderFigures(); renderG(); renderV(); renderW(); renderL(); renderP(); renderSrs(); renderM(); syncProgress();
 }
 
 /* A tab's Reset clears only what that tab is showing — the chosen chapters.
