@@ -445,13 +445,6 @@ body.has-tts .say,.say.rec{display:inline-grid;vertical-align:-6px}
 #inBody{outline:none}
 .in-list .tname{flex:0 0 88px;font-weight:600;font-size:14px;color:var(--ink)}
 .in-list .tdesc{flex:1 1 auto;min-width:0;color:var(--ink-2)}
-.in-list .num{flex:none;width:22px;height:22px;border-radius:99px;background:var(--accent);
-  color:var(--surface);font-size:12.5px;font-weight:600;display:grid;place-items:center}
-.in-demo{display:flex;align-items:center;gap:14px;margin:22px 0 0;padding:14px 16px;
-  background:var(--surface);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow)}
-.in-demo .da{font-family:Newsreader,Georgia,serif;font-size:24px;font-weight:500}
-.in-demo .en{font-size:13.5px;color:var(--ink-3)}
-.in-tip{margin:18px 0 0;font-size:14.5px;color:var(--ink-2);border-left:3px solid var(--accent);padding:2px 0 2px 12px}
 /* the buttons stay under the thumb even when a step is taller than the screen */
 #intro .tr-foot{position:sticky;bottom:0;background:var(--ground);padding:16px 0 14px;flex-wrap:nowrap}
 #intro .tr-in{padding-bottom:0}
@@ -724,7 +717,7 @@ textarea.wtxt:focus-visible{outline:2px solid var(--focus);outline-offset:1px;bo
     <p class="eyebrow">Danish to Go 3 · <span id="chRange">Kapitel 1–6</span> &nbsp;·&nbsp; Studieskolen modul 3.3</p>
     <h1>Bodil<span>godkendt</span></h1>
     <p class="lede">Everything from the book and your class notes, in one place: the rules, the verbs, the words and drills to prove you've got it — and Modultest, practice in the exact formats of the module 3 test, with a mock that ends in a verdict.</p>
-    <p class="tourlink"><button class="goto" type="button" data-tour>New here? See how this page works — it takes a minute</button></p>
+    <p class="tourlink"><button class="goto" type="button" data-tour>New here? Take the quick tour</button></p>
     <div class="figures">
       <div class="fig"><div class="n" id="fRules">0</div><div class="l">Rules</div></div>
       <div class="fig"><div class="n" id="fVerbs">0</div><div class="l">Verbs</div></div>
@@ -2954,87 +2947,40 @@ try{ matchMedia('(prefers-color-scheme: dark)')
        .addEventListener('change',()=>{ if(theme==='auto') applyTheme(); }); }catch(e){}
 
 /* ═══ TOUR ═══
-   Six short steps for someone who has never seen the page: what it is for,
-   where things are, how marking and training work, the audio, where progress
-   lives, and where to start. It opens on its own once (FIRST_VISIT), and the
-   [data-tour] links reopen it. The audio step is left out on a device that
-   cannot speak, so it never describes buttons that are not there. */
+   Three short steps for someone who has never seen the page: what it is,
+   where things are, and where progress is saved. Kept deliberately small —
+   a longer version was too much to read on a phone. It opens on its own once
+   (FIRST_VISIT), and the [data-tour] links reopen it. */
 const IC = d => '<span class="ico">'+SVG+d+'</svg></span>';
-const I_TICK  = '<span class="ico">'+TICK+'</span>';
-const I_BOLT  = IC('<path d="M13 2 4 14h7l-1 8 9-12h-7z"/>');
-const I_LOOP  = IC('<path d="M17 2l4 4-4 4"/><path d="M3 11V9a3 3 0 0 1 3-3h15"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v2a3 3 0 0 1-3 3H3"/>');
-const I_STAMP = IC('<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/>');
 const I_PHONE = IC('<rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M11 18h2"/>');
-const I_LOCK  = IC('<rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>');
 const I_SCRN  = IC('<rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/>');
-const I_BIN   = IC('<path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/>');
 const li = (cls, ico, html) => '<li'+(cls?' class="'+cls+'"':'')+'>'+ico+'<span>'+html+'</span></li>';
 
 const TOUR = [
-  {k:'Velkommen', h:'Velkommen til Bodilgodkendt', body:()=>
-    '<p class="in-p">A free place to study for Danish at Studieskolen, module 3: the book '+
-    '<i>Danish to Go 3</i>, chapters 1–6, the grammar from class, and practice in the exact '+
-    'formats of <b>Modultest 3</b>.</p>'+
-    '<ul class="in-list">'+
-      li('is-ok', I_PHONE, 'Made for your phone. Nothing to install, no account, no sign-up.')+
-      li('', I_TICK, 'The Danish is what you learn; everything around it is explained in English.')+
-    '</ul>'+
-    '<p class="in-tip">One minute, six short steps. Swipe, or tap <b>Next</b>.</p>'},
+  {k:'Velkommen', h:'Velkommen', body:()=>
+    '<p class="in-p">Everything you need to pass <b>Modultest 3</b>: the book, the grammar '+
+    'and practice tests. Free, no account.</p>'+
+    (canSpeak() ? '<p class="in-p">Tap '+sayBtn('hyggelig')+' next to any Danish to hear it.</p>' : '')},
 
-  {k:'Fanerne', h:'Syv faner', body:()=>
-    '<p class="in-p">They sit at the top of the page and stay there while you scroll.</p>'+
+  {k:'Fanerne', h:'Hvor er hvad?', body:()=>
     '<ul class="in-list">'+
-      [['Status','Your progress, the countdown to the test, and the chapters you study.'],
-       ['Modultest','The test’s reading, writing and speaking tasks, and a timed mock test.'],
-       ['Grammatik','Every rule, with examples and the traps to avoid.'],
-       ['Verber','Each verb in the present, past and perfect.'],
-       ['Ord','The vocabulary, and <i>Dagens ord</i>: a few minutes of review a day.'],
-       ['Lyt &amp; tal','The book’s speaking questions, with phrases to answer them.'],
-       ['Øv dig','Fill-the-gap drills, with the answer and why.']]
+      [['Status','Your progress'],
+       ['Modultest','Practice the real test'],
+       ['The rest','Grammar, verbs, words and drills']]
       .map(([n,d])=>'<li><span class="tname">'+n+'</span><span class="tdesc">'+d+'</span></li>').join('')+
     '</ul>'},
 
-  {k:'Sådan øver du', h:'Sæt flueben, og bevis det', body:()=>
-    '<p class="in-p">The page counts what you mark, so you always see what is left.</p>'+
+  {k:'Fremskridt', h:'Gemt på denne telefon', body:()=>
+    '<p class="in-p">Tick what you know. Your progress is saved as you go.</p>'+
     '<ul class="in-list">'+
-      li('is-ok', I_TICK, 'Tick a rule, a verb or a word when you know it. The bars fill up as you go.')+
-      li('', I_BOLT, 'The <b>Train</b> buttons ask twelve quick questions. Get one right twice in a row and it ticks itself.')+
-      li('', I_LOOP, 'Wrong answers come back more often until you get them right. Status lists them under <i>Mine fejl</i>.')+
-      li('', I_STAMP, 'In Modultest the page marks your reading for you, and the mock test ends in <b>GODKENDT</b> or <b>IKKE ENDNU</b>.')+
+      li('is-ok', I_PHONE, 'Same phone, same browser: it is all still here.')+
+      li('is-lost', I_SCRN, 'Another phone or computer starts from zero.')+
     '</ul>'},
-
-  {k:'Lyd', h:'Hør det på dansk', audio:true, body:()=>
-    '<p class="in-p">Tap the speaker next to any Danish to hear it read aloud, then say it '+
-    'back. That is your pronunciation practice. Try it:</p>'+
-    '<div class="in-demo">'+sayBtn('hyggelig','big')+
-      '<div><div class="da">hyggelig</div><div class="en">cosy, nice</div></div></div>'+
-    '<p class="in-tip"><b>Langsomt</b>, the dial button at the top, plays everything slower. '+
-    'No sound? Check your phone’s volume and silent mode.</p>'},
-
-  {k:'Dine fremskridt', h:'Gemt på denne telefon', body:()=>
-    '<p class="in-p">Everything you tick, every score, draft and mock test is saved as you go — '+
-    'in this browser, on this device. Nothing is sent anywhere.</p>'+
-    '<ul class="in-list">'+
-      li('is-ok', I_LOCK, 'Come back on the same phone, in the same browser, and it is all still here.')+
-      li('is-lost', I_SCRN, 'On another phone, a computer or a different browser you start from zero. Progress does not travel between devices.')+
-      li('is-lost', I_BIN, 'Clearing your browser data, or studying in a private tab, wipes it.')+
-    '</ul>'+
-    '<p class="in-tip">Add the page to your home screen so it opens like an app: '+
-    '<b>Share → Add to Home Screen</b> on an iPhone, <b>⋮ → Add to Home screen</b> on Android. '+
-    'On an iPhone the home-screen app keeps its own progress, apart from Safari — pick one and stay with it.</p>'},
-
-  {k:'Kom i gang', h:'Hvor starter jeg?', body:()=>
-    '<ul class="in-list">'+
-      li('', '<span class="num">1</span>', 'On <b>Status</b>, choose the chapters you have covered. Every count and bar follows.')+
-      li('', '<span class="num">2</span>', 'Open <b>Ord</b> every day for <i>Dagens ord</i>. Five minutes is enough.')+
-      li('', '<span class="num">3</span>', 'Work through <b>Modultest</b>, then take a mock test to see where you stand.')+
-    '</ul>'+
-    '<p class="in-tip">This tour is always one tap away: <i>See how this page works</i>, at the top of the page.</p>'},
 ];
 
 let IN = null;   // {i, steps} while the tour is open
 function openTour(){
-  IN = {i:0, steps:TOUR.filter(s=>!s.audio || canSpeak())};
+  IN = {i:0, steps:TOUR};
   $('#intro').hidden=false; document.body.style.overflow='hidden';
   drawTour(1);
 }
@@ -3055,7 +3001,7 @@ function drawTour(dir){
     '<div class="tr-foot">'+
       (IN.i ? '<button class="pbtn ghost" type="button" data-in="back">Back</button>'
             : '<button class="pbtn ghost" type="button" data-in="skip">Skip</button>')+
-      '<button class="pbtn" type="button" data-in="'+(last?'done':'next')+'">'+(last?'Start studying':'Next')+'</button>'+
+      '<button class="pbtn" type="button" data-in="'+(last?'done':'next')+'">'+(last?'Start':'Next')+'</button>'+
     '</div>';
   $('#intro').scrollTop=0;
   /* focus the step, not the button, so a tap never paints a focus ring */

@@ -281,15 +281,13 @@ whole test are judged bestået / ikke bestået.
 
 ## The tour
 
-Six swipeable steps (`TOUR` in `hub.html`) for a first-time visitor, written
-for a phone: what the page is for, the seven tabs, marking and training, the
-audio, where progress is saved (this browser only, lost on another device or
-when site data is cleared), and where to start. It opens by itself when
-neither `dtg3-hub-v1` nor `dtg3-k1-v1` exists (`FIRST_VISIT`, read before
-boot's `showTab()` writes the hub key), and the `[data-tour]` links in the
-masthead and footer reopen it. It stores nothing of its own. The audio step is
-dropped when `canSpeak()` is false. If you add a tab or change how progress is
-saved, the tour's copy has to change with it.
+Three short steps (`TOUR` in `hub.html`) for a first-time visitor on a phone:
+what the page is, where things are, and that progress is saved on this phone
+and browser only. A six-step version was too much — keep it short. It opens by
+itself when neither `dtg3-hub-v1` nor `dtg3-k1-v1` exists (`FIRST_VISIT`, read
+before boot's `showTab()` writes the hub key), and the `[data-tour]` links in
+the masthead and footer reopen it. It stores nothing of its own. If you add a
+tab or change how progress is saved, the tour's copy has to change with it.
 
 ## The trainer
 
