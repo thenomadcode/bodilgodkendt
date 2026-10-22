@@ -84,8 +84,8 @@ dist/             build output — untracked, do not edit by hand
 ```
 
 The page has seven tabs: Status, Modultest, Grammatik, Verber, Ord, Lyt & tal,
-Øv dig — plus two full-screen overlays, the trainer (`#tr`) and the Modultest
-player (`#mt`). The phone nav wraps to two rows at 360px and is now at
+Øv dig — plus three full-screen overlays: the trainer (`#tr`), the Modultest
+player (`#mt`) and the tour (`#intro`). The phone nav wraps to two rows at 360px and is now at
 capacity; see the `@media (max-width:620px)` block. A new feature goes into an
 existing tab or an overlay, not an eighth tab.
 
@@ -278,6 +278,18 @@ whole test are judged bestået / ikke bestået.
   after it; a match question's subject appears in more than one text but is true
   of one person. Check all three by reading every option in place before adding
   a task.
+
+## The tour
+
+Six swipeable steps (`TOUR` in `hub.html`) for a first-time visitor, written
+for a phone: what the page is for, the seven tabs, marking and training, the
+audio, where progress is saved (this browser only, lost on another device or
+when site data is cleared), and where to start. It opens by itself when
+neither `dtg3-hub-v1` nor `dtg3-k1-v1` exists (`FIRST_VISIT`, read before
+boot's `showTab()` writes the hub key), and the `[data-tour]` links in the
+masthead and footer reopen it. It stores nothing of its own. The audio step is
+dropped when `canSpeak()` is false. If you add a tab or change how progress is
+saved, the tour's copy has to change with it.
 
 ## The trainer
 

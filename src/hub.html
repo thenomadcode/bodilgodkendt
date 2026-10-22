@@ -422,6 +422,42 @@ body.has-tts .say,.say.rec{display:inline-grid;vertical-align:-6px}
 .recap .rq{color:var(--ink-2)}
 .recap .ra{font-family:Newsreader,Georgia,serif;font-size:17px;font-weight:600;display:block;margin-top:2px}
 
+/* ── Tour (first visit) ──
+   Reuses the trainer overlay's frame. Written for a phone held in one hand:
+   short steps, a swipe between them, and the buttons at the bottom. */
+.tourlink{margin:12px 0 0}
+.tourlink .goto{font-size:14.5px}
+.foot .goto{font-size:inherit;margin-left:4px}
+.in-step{animation:inslide .22s ease}
+.in-step.back{animation-name:inslideback}
+@keyframes inslide{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:none}}
+@keyframes inslideback{from{opacity:0;transform:translateX(-16px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.in-step{animation:none}}
+.in-p{margin:12px 0 0;color:var(--ink-2);font-size:16px}
+.in-list{margin:20px 0 0;padding:0;list-style:none;display:grid;gap:9px}
+.in-list li{display:flex;gap:12px;align-items:flex-start;background:var(--surface);
+  border:1px solid var(--line);border-radius:10px;padding:11px 14px;font-size:15px;
+  line-height:1.45;box-shadow:var(--shadow)}
+.in-list .ico{flex:none;width:18px;height:18px;margin-top:2px;color:var(--ink-3)}
+.in-list .ico svg{width:18px;height:18px;display:block}
+.in-list li.is-ok .ico{color:var(--ok)}
+.in-list li.is-lost .ico{color:var(--accent)}
+#inBody{outline:none}
+.in-list .tname{flex:0 0 88px;font-weight:600;font-size:14px;color:var(--ink)}
+.in-list .tdesc{flex:1 1 auto;min-width:0;color:var(--ink-2)}
+.in-list .num{flex:none;width:22px;height:22px;border-radius:99px;background:var(--accent);
+  color:var(--surface);font-size:12.5px;font-weight:600;display:grid;place-items:center}
+.in-demo{display:flex;align-items:center;gap:14px;margin:22px 0 0;padding:14px 16px;
+  background:var(--surface);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow)}
+.in-demo .da{font-family:Newsreader,Georgia,serif;font-size:24px;font-weight:500}
+.in-demo .en{font-size:13.5px;color:var(--ink-3)}
+.in-tip{margin:18px 0 0;font-size:14.5px;color:var(--ink-2);border-left:3px solid var(--accent);padding:2px 0 2px 12px}
+/* the buttons stay under the thumb even when a step is taller than the screen */
+#intro .tr-foot{position:sticky;bottom:0;background:var(--ground);padding:16px 0 14px;flex-wrap:nowrap}
+#intro .tr-in{padding-bottom:0}
+#intro .tr-foot .pbtn{flex:1 1 0}
+#intro .tr-foot .pbtn:last-child{flex-grow:2}
+
 /* ── Training card on Status ── */
 .trcard{background:var(--surface);border:1px solid var(--accent);border-radius:10px;
   box-shadow:var(--shadow);padding:20px 22px;margin-top:14px}
@@ -688,6 +724,7 @@ textarea.wtxt:focus-visible{outline:2px solid var(--focus);outline-offset:1px;bo
     <p class="eyebrow">Danish to Go 3 · <span id="chRange">Kapitel 1–6</span> &nbsp;·&nbsp; Studieskolen modul 3.3</p>
     <h1>Bodil<span>godkendt</span></h1>
     <p class="lede">Everything from the book and your class notes, in one place: the rules, the verbs, the words and drills to prove you've got it — and Modultest, practice in the exact formats of the module 3 test, with a mock that ends in a verdict.</p>
+    <p class="tourlink"><button class="goto" type="button" data-tour>New here? See how this page works — it takes a minute</button></p>
     <div class="figures">
       <div class="fig"><div class="n" id="fRules">0</div><div class="l">Rules</div></div>
       <div class="fig"><div class="n" id="fVerbs">0</div><div class="l">Verbs</div></div>
@@ -820,6 +857,7 @@ textarea.wtxt:focus-visible{outline:2px solid var(--focus);outline-offset:1px;bo
 
   <footer class="foot">
     Page numbers are the printed pages of <i>Danish to Go 3</i> — the same numbers in the PDF in your <code>danish</code> folder and in the paper book. Rules tagged <b>Begge</b> appear in both the book and your Studieskolen notes. Everything you mark — rules, verbs, words, listening tasks, drill scores, training results, mock tests, drafts and mindmaps — is saved in this browser only, on this device. The Danish you hear on the website is recorded with Google's Chirp 3 HD Danish voices — six of them, a man's or a woman's voice where the sentence calls for one. Anything not recorded falls back to your browser's own voice, and <b>Langsomt</b> in the top bar plays everything at three-quarter speed.
+    <button class="goto" type="button" data-tour>Take the tour again</button>
   </footer>
 </div>
 
@@ -846,6 +884,17 @@ textarea.wtxt:focus-visible{outline:2px solid var(--focus);outline-offset:1px;bo
   </div>
 </div>
 
+<!-- TOUR: opens by itself on a first visit; "How this page works" reopens it -->
+<div class="tr" id="intro" hidden role="dialog" aria-modal="true" aria-label="Sådan virker siden">
+  <div class="tr-in">
+    <header class="tr-top">
+      <div class="dots" id="inDots" aria-hidden="true"></div>
+      <button class="tr-x" id="inX" type="button" aria-label="Close the tour">&#10005;</button>
+    </header>
+    <div class="tr-body" id="inBody" tabindex="-1"></div>
+  </div>
+</div>
+
 <script>
 /*AUDIO*/
 /*DATA*/
@@ -858,6 +907,11 @@ const $ = s => document.querySelector(s);
 const esc = s => String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
 const KEY_W = 'dtg3-k1-v1';      // kept from the chapter-1 word list so ticks survive
 const KEY_H = 'dtg3-hub-v1';
+/* Read before anything saves: boot's showTab() writes KEY_H, so this is true
+   exactly once per browser. Blocked storage counts as not new — on file://
+   the tour would otherwise open on every load. */
+const FIRST_VISIT = (()=>{ try{ return localStorage.getItem(KEY_H)===null &&
+  localStorage.getItem(KEY_W)===null; }catch(e){ return false; } })();
 
 /* merge the per-chapter word lists; list n is chapter n+1 */
 const ALL_WORDS = [WORDS, WORDS_CH2, WORDS_CH3, WORDS_CH4, WORDS_CH5, WORDS_CH6]
@@ -2899,6 +2953,148 @@ $('#themeBtn').addEventListener('click',()=>{
 try{ matchMedia('(prefers-color-scheme: dark)')
        .addEventListener('change',()=>{ if(theme==='auto') applyTheme(); }); }catch(e){}
 
+/* ═══ TOUR ═══
+   Six short steps for someone who has never seen the page: what it is for,
+   where things are, how marking and training work, the audio, where progress
+   lives, and where to start. It opens on its own once (FIRST_VISIT), and the
+   [data-tour] links reopen it. The audio step is left out on a device that
+   cannot speak, so it never describes buttons that are not there. */
+const IC = d => '<span class="ico">'+SVG+d+'</svg></span>';
+const I_TICK  = '<span class="ico">'+TICK+'</span>';
+const I_BOLT  = IC('<path d="M13 2 4 14h7l-1 8 9-12h-7z"/>');
+const I_LOOP  = IC('<path d="M17 2l4 4-4 4"/><path d="M3 11V9a3 3 0 0 1 3-3h15"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v2a3 3 0 0 1-3 3H3"/>');
+const I_STAMP = IC('<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/>');
+const I_PHONE = IC('<rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M11 18h2"/>');
+const I_LOCK  = IC('<rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>');
+const I_SCRN  = IC('<rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/>');
+const I_BIN   = IC('<path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/>');
+const li = (cls, ico, html) => '<li'+(cls?' class="'+cls+'"':'')+'>'+ico+'<span>'+html+'</span></li>';
+
+const TOUR = [
+  {k:'Velkommen', h:'Velkommen til Bodilgodkendt', body:()=>
+    '<p class="in-p">A free place to study for Danish at Studieskolen, module 3: the book '+
+    '<i>Danish to Go 3</i>, chapters 1–6, the grammar from class, and practice in the exact '+
+    'formats of <b>Modultest 3</b>.</p>'+
+    '<ul class="in-list">'+
+      li('is-ok', I_PHONE, 'Made for your phone. Nothing to install, no account, no sign-up.')+
+      li('', I_TICK, 'The Danish is what you learn; everything around it is explained in English.')+
+    '</ul>'+
+    '<p class="in-tip">One minute, six short steps. Swipe, or tap <b>Next</b>.</p>'},
+
+  {k:'Fanerne', h:'Syv faner', body:()=>
+    '<p class="in-p">They sit at the top of the page and stay there while you scroll.</p>'+
+    '<ul class="in-list">'+
+      [['Status','Your progress, the countdown to the test, and the chapters you study.'],
+       ['Modultest','The test’s reading, writing and speaking tasks, and a timed mock test.'],
+       ['Grammatik','Every rule, with examples and the traps to avoid.'],
+       ['Verber','Each verb in the present, past and perfect.'],
+       ['Ord','The vocabulary, and <i>Dagens ord</i>: a few minutes of review a day.'],
+       ['Lyt &amp; tal','The book’s speaking questions, with phrases to answer them.'],
+       ['Øv dig','Fill-the-gap drills, with the answer and why.']]
+      .map(([n,d])=>'<li><span class="tname">'+n+'</span><span class="tdesc">'+d+'</span></li>').join('')+
+    '</ul>'},
+
+  {k:'Sådan øver du', h:'Sæt flueben, og bevis det', body:()=>
+    '<p class="in-p">The page counts what you mark, so you always see what is left.</p>'+
+    '<ul class="in-list">'+
+      li('is-ok', I_TICK, 'Tick a rule, a verb or a word when you know it. The bars fill up as you go.')+
+      li('', I_BOLT, 'The <b>Train</b> buttons ask twelve quick questions. Get one right twice in a row and it ticks itself.')+
+      li('', I_LOOP, 'Wrong answers come back more often until you get them right. Status lists them under <i>Mine fejl</i>.')+
+      li('', I_STAMP, 'In Modultest the page marks your reading for you, and the mock test ends in <b>GODKENDT</b> or <b>IKKE ENDNU</b>.')+
+    '</ul>'},
+
+  {k:'Lyd', h:'Hør det på dansk', audio:true, body:()=>
+    '<p class="in-p">Tap the speaker next to any Danish to hear it read aloud, then say it '+
+    'back. That is your pronunciation practice. Try it:</p>'+
+    '<div class="in-demo">'+sayBtn('hyggelig','big')+
+      '<div><div class="da">hyggelig</div><div class="en">cosy, nice</div></div></div>'+
+    '<p class="in-tip"><b>Langsomt</b>, the dial button at the top, plays everything slower. '+
+    'No sound? Check your phone’s volume and silent mode.</p>'},
+
+  {k:'Dine fremskridt', h:'Gemt på denne telefon', body:()=>
+    '<p class="in-p">Everything you tick, every score, draft and mock test is saved as you go — '+
+    'in this browser, on this device. Nothing is sent anywhere.</p>'+
+    '<ul class="in-list">'+
+      li('is-ok', I_LOCK, 'Come back on the same phone, in the same browser, and it is all still here.')+
+      li('is-lost', I_SCRN, 'On another phone, a computer or a different browser you start from zero. Progress does not travel between devices.')+
+      li('is-lost', I_BIN, 'Clearing your browser data, or studying in a private tab, wipes it.')+
+    '</ul>'+
+    '<p class="in-tip">Add the page to your home screen so it opens like an app: '+
+    '<b>Share → Add to Home Screen</b> on an iPhone, <b>⋮ → Add to Home screen</b> on Android. '+
+    'On an iPhone the home-screen app keeps its own progress, apart from Safari — pick one and stay with it.</p>'},
+
+  {k:'Kom i gang', h:'Hvor starter jeg?', body:()=>
+    '<ul class="in-list">'+
+      li('', '<span class="num">1</span>', 'On <b>Status</b>, choose the chapters you have covered. Every count and bar follows.')+
+      li('', '<span class="num">2</span>', 'Open <b>Ord</b> every day for <i>Dagens ord</i>. Five minutes is enough.')+
+      li('', '<span class="num">3</span>', 'Work through <b>Modultest</b>, then take a mock test to see where you stand.')+
+    '</ul>'+
+    '<p class="in-tip">This tour is always one tap away: <i>See how this page works</i>, at the top of the page.</p>'},
+];
+
+let IN = null;   // {i, steps} while the tour is open
+function openTour(){
+  IN = {i:0, steps:TOUR.filter(s=>!s.audio || canSpeak())};
+  $('#intro').hidden=false; document.body.style.overflow='hidden';
+  drawTour(1);
+}
+function closeTour(){
+  try{ speechSynthesis.cancel(); }catch(e){}
+  if(PLAYER) PLAYER.pause();
+  $('#intro').hidden=true; document.body.style.overflow='';
+  IN=null;
+}
+function drawTour(dir){
+  const n=IN.steps.length, s=IN.steps[IN.i], last=IN.i===n-1;
+  $('#inDots').innerHTML = IN.steps.map((_,i)=>'<i class="'+(i<=IN.i?'now':'')+'"></i>').join('');
+  $('#inBody').innerHTML =
+    '<div class="in-step'+(dir<0?' back':'')+'">'+
+      '<p class="qkind">'+s.k+' · '+(IN.i+1)+' af '+n+'</p>'+
+      '<h2 class="qprompt">'+s.h+'</h2>'+s.body()+
+    '</div>'+
+    '<div class="tr-foot">'+
+      (IN.i ? '<button class="pbtn ghost" type="button" data-in="back">Back</button>'
+            : '<button class="pbtn ghost" type="button" data-in="skip">Skip</button>')+
+      '<button class="pbtn" type="button" data-in="'+(last?'done':'next')+'">'+(last?'Start studying':'Next')+'</button>'+
+    '</div>';
+  $('#intro').scrollTop=0;
+  /* focus the step, not the button, so a tap never paints a focus ring */
+  $('#inBody').focus({preventScroll:true});
+}
+function stepTour(d){
+  if(!IN) return;
+  const i=IN.i+d;
+  if(i<0 || i>=IN.steps.length) return;
+  IN.i=i; drawTour(d);
+}
+$('#inBody').addEventListener('click',e=>{
+  const b=e.target.closest('[data-in]'); if(!b) return;
+  const a=b.dataset.in;
+  if(a==='next') stepTour(1);
+  else if(a==='back') stepTour(-1);
+  else if(a==='skip') closeTour();
+  else if(a==='done'){ closeTour(); showTab('status'); window.scrollTo(0,0); }
+});
+$('#inX').addEventListener('click',closeTour);
+document.querySelectorAll('[data-tour]').forEach(b=>b.addEventListener('click',openTour));
+document.addEventListener('keydown',e=>{
+  if(!IN) return;
+  if(e.key==='Escape'){ e.preventDefault(); closeTour(); }
+  else if(e.key==='ArrowRight'){ e.preventDefault(); stepTour(1); }
+  else if(e.key==='ArrowLeft'){ e.preventDefault(); stepTour(-1); }
+});
+/* A sideways swipe turns the page; a mostly vertical one is left to scroll. */
+(function(){
+  let x0=null, y0=0;
+  const el=$('#intro');
+  el.addEventListener('touchstart',e=>{ const t=e.touches[0]; x0=t.clientX; y0=t.clientY; },{passive:true});
+  el.addEventListener('touchend',e=>{
+    if(x0===null) return;
+    const t=e.changedTouches[0], dx=t.clientX-x0, dy=t.clientY-y0; x0=null;
+    if(Math.abs(dx)>50 && Math.abs(dx)>Math.abs(dy)*1.5) stepTour(dx<0?1:-1);
+  },{passive:true});
+})();
+
 /* ── keyboard ── */
 document.addEventListener('keydown',e=>{
   if(e.key==='/' && !/^(INPUT|TEXTAREA)$/.test(document.activeElement.tagName)){
@@ -2948,5 +3144,6 @@ $('#vDrill').setAttribute('aria-pressed',S.vDrill);
 $('#vDrill').textContent = S.vDrill?'Show the forms':'Hide the forms';
 setScope();
 showTab(S.tab);
+if(FIRST_VISIT) openTour();
 })();
 </script>
