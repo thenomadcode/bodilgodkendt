@@ -434,6 +434,53 @@ body.has-tts .say{display:inline-grid;vertical-align:-6px}
 .exam input:focus-visible{outline:2px solid var(--focus);outline-offset:1px}
 .days{font-family:Newsreader,Georgia,serif;font-size:19px;font-weight:600;color:var(--accent)}
 
+/* ── Dagens ord (spaced repetition) ── */
+#p-words.srs-on #wList{display:none}
+.srs-strip{margin-top:16px;background:var(--surface);border:1px solid var(--line);border-radius:10px;
+  box-shadow:var(--shadow);padding:16px 20px;display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center}
+.srs-strip .st{flex:1 1 260px;min-width:0}
+.srs-strip h3{font-family:Newsreader,Georgia,serif;font-weight:600;font-size:19.5px;margin:0}
+.srs-strip p{margin:3px 0 0;font-size:14px;color:var(--ink-2)}
+.srs-strip .chips{flex:1 1 100%;padding:0}
+.srs-strip .chips .lbl{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);
+  font-weight:600;align-self:center;margin:0 2px 0 8px}
+.srs-strip .chips .lbl:first-child{margin-left:0}
+.btn.go{background:var(--accent);border-color:var(--accent);color:var(--surface)}
+.btn.go:hover{color:var(--surface);filter:brightness(1.07)}
+.btn.go:disabled{opacity:.45;cursor:default;filter:none}
+.srs{margin-top:16px}
+.srs-top{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;font-size:13px;color:var(--ink-2)}
+.srs-top b{color:var(--ink)}
+.srs-top .linkish{margin-left:auto}
+.srs-card{margin-top:12px;background:var(--surface);border:1px solid var(--line);border-radius:12px;
+  box-shadow:var(--shadow);padding:30px 24px 26px;text-align:center;min-height:220px}
+.srs-kind{font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
+.srs-kind .nw{color:var(--accent)}
+.srs-front{font-family:Newsreader,Georgia,serif;font-size:clamp(28px,6vw,38px);font-weight:500;
+  line-height:1.15;margin:16px 0 0;letter-spacing:-.01em}
+.srs-back{margin-top:18px;padding-top:16px;border-top:1px solid var(--line-soft)}
+.srs-ans{font-family:Newsreader,Georgia,serif;font-size:clamp(21px,4.4vw,26px);font-weight:500;color:var(--ink)}
+.srs-note{font-family:Newsreader,Georgia,serif;font-style:italic;font-size:15px;color:var(--ink-3);margin-top:8px}
+.srs-actions{margin-top:14px}
+.srs-actions .btn{width:100%;padding:12px;font-size:15px}
+.srs-grades{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.grade{font:inherit;cursor:pointer;border-radius:9px;padding:10px 6px;background:var(--surface);
+  border:1px solid var(--line);color:var(--ink);display:grid;gap:2px;justify-items:center}
+.grade b{font-size:14.5px;font-weight:600}
+.grade small{font-size:11.5px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.grade:hover{border-color:var(--ink-3)}
+.grade:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.grade.g0 b{color:var(--accent)} .grade.g1 b{color:var(--t4)} .grade.g2 b{color:var(--ok)} .grade.g3 b{color:var(--t3)}
+.srs kbd{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--ink-3);border:1px solid var(--line);
+  border-radius:4px;padding:0 4px;margin-left:6px}
+.srs-done{text-align:center}
+.srs-done h3{font-family:Newsreader,Georgia,serif;font-weight:500;font-size:26px;margin:4px 0 6px}
+.srs-done p{color:var(--ink-2);font-size:14.5px;margin:0 auto;max-width:46ch}
+.srs-done .row{display:flex;gap:9px;justify-content:center;flex-wrap:wrap;margin-top:18px}
+@media (max-width:520px){
+  .srs-grades{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .srs kbd{display:none}
+}
 .empty{padding:44px 16px;text-align:center;color:var(--ink-3);font-size:15px}
 .foot{margin-top:60px;padding-top:20px;border-top:1px solid var(--line);color:var(--ink-3);
   font-size:13px;max-width:66ch}
@@ -456,9 +503,9 @@ body.has-tts .say{display:inline-grid;vertical-align:-6px}
 
 <div class="wrap">
   <header class="mast">
-    <p class="eyebrow">Danish to Go 3 · Kapitel 1–2 &nbsp;·&nbsp; Studieskolen modul 3.3</p>
+    <p class="eyebrow">Danish to Go 3 · <span id="chRange">Kapitel 1–6</span> &nbsp;·&nbsp; Studieskolen modul 3.3</p>
     <h1>Bodil<span>godkendt</span></h1>
-    <p class="lede">Everything from the book's first two chapters and your class notes, in one place: the rules, the verbs, the words, the questions you will be asked out loud, and drills to prove you've got it.</p>
+    <p class="lede">Everything from the book and your class notes, in one place: the rules, the verbs, the words, the questions you will be asked out loud, and drills to prove you've got it. Pick the chapters your test covers on the Status tab, and every count follows.</p>
     <div class="figures">
       <div class="fig"><div class="n" id="fRules">0</div><div class="l">Rules</div></div>
       <div class="fig"><div class="n" id="fVerbs">0</div><div class="l">Verbs</div></div>
@@ -480,7 +527,7 @@ body.has-tts .say{display:inline-grid;vertical-align:-6px}
       <button class="themebtn" id="themeBtn" type="button">Tema</button>
     </div>
     <div class="gprog">
-      <span class="glabel">Samlet</span>
+      <span class="glabel" id="gLabel">Samlet</span>
       <span class="gbar"><i id="globFill"></i></span>
       <span class="gval" id="globVal">0%</span>
     </div>
@@ -532,6 +579,8 @@ body.has-tts .say{display:inline-grid;vertical-align:-6px}
 
   <!-- WORDS -->
   <section class="panel" id="p-words">
+    <div id="srsOut"></div>
+    <div id="wList">
     <div class="bar">
       <label class="search">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
@@ -549,6 +598,7 @@ body.has-tts .say{display:inline-grid;vertical-align:-6px}
       <button class="linkish" id="wReset">Reset</button>
     </div>
     <div id="wOut"></div>
+    </div>
   </section>
 
   <!-- LISTEN & SPEAK -->
@@ -606,8 +656,42 @@ const esc = s => String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt
 const KEY_W = 'dtg3-k1-v1';      // kept from the chapter-1 word list so ticks survive
 const KEY_H = 'dtg3-hub-v1';
 
-/* merge chapter 1 + 2 word lists */
-const ALL_WORDS = WORDS.map(w=>Object.assign({ch:1},w)).concat(WORDS_CH2.map(w=>Object.assign({ch:2},w)));
+/* merge the per-chapter word lists; list n is chapter n+1 */
+const ALL_WORDS = [WORDS, WORDS_CH2, WORDS_CH3, WORDS_CH4, WORDS_CH5, WORDS_CH6]
+  .flatMap((list,i)=>list.map(w=>Object.assign({ch:i+1},w)));
+const WORD_CHAPTERS = [...new Set(ALL_WORDS.map(w=>w.ch))];
+
+/* ── chapter scope ──
+   Anything with a `ch` (a number, or a list for material that spans chapters)
+   is shown and counted only while one of its chapters is chosen. Items with no
+   `ch` — the class-notes rules, the verb sheet, the original drill sets — are
+   the core and always count. Progress stays keyed by content, so narrowing the
+   scope never loses a mark; it only changes what is on the page and in the %.
+   Everything downstream reads SC, never the raw arrays. */
+const CHAPTERS = WORD_CHAPTERS;
+let SCOPE = new Set(CHAPTERS);
+const inScope = x => x.ch==null || [].concat(x.ch).some(n=>SCOPE.has(n));
+const SC = {};
+function computeScope(){
+  SC.rules   = RULES.filter(inScope);
+  SC.star    = SC.rules.filter(r=>r.star);
+  SC.verbs   = VERBS.filter(inScope);
+  SC.words   = ALL_WORDS.filter(inScope);
+  SC.tier12  = SC.words.filter(w=>w.t<=2);
+  SC.oral    = ORAL.filter(inScope);
+  SC.sets    = SETS.filter(inScope);
+  SC.writing = WRITING.filter(inScope);
+  SC.drillTotal = SC.sets.reduce((n,x)=>n+x.items.length,0);
+}
+/* [1,2,3,5] → "1–3, 5" */
+function chRange(list){
+  const a=[...list].sort((x,y)=>x-y), out=[];
+  for(let i=0;i<a.length;i++){
+    let j=i; while(j+1<a.length && a[j+1]===a[j]+1) j++;
+    out.push(j>i ? a[i]+'–'+a[j] : String(a[i])); i=j;
+  }
+  return out.join(', ');
+}
 const CATS2 = Object.assign({pron:"Pronoun"}, CATS);
 
 let S = {tab:'status', gTerm:'', gSrc:'all', gStar:false,
@@ -637,21 +721,31 @@ try{ const o=JSON.parse(localStorage.getItem(KEY_H)||'{}');
      if(o.hits && typeof o.hits==='object') P.hits=o.hits;
      if(Array.isArray(o.sess)) P.sess=o.sess;
      if(typeof o.exam==='string') P.exam=o.exam;
-     if(o.last) P.last=o.last; }catch(e){}
+     if(o.last) P.last=o.last;
+     if(Array.isArray(o.scope)){ const sc=o.scope.filter(n=>CHAPTERS.includes(n)); if(sc.length) SCOPE=new Set(sc); }
+   }catch(e){}
+computeScope();
 
 function saveW(){ try{ localStorage.setItem(KEY_W, JSON.stringify(
   {known:[...S.known], test:S.wTest, hideKnown:S.wHide})); }catch(e){} }
 function saveH(){ try{ localStorage.setItem(KEY_H, JSON.stringify(
   {tab:S.tab, vDrill:S.vDrill, rules:[...P.rules], verbs:[...P.verbs],
    listen:[...P.listen], drills:P.drills, last:P.last,
-   miss:P.miss, hits:P.hits, sess:P.sess, exam:P.exam})); }catch(e){} }
+   miss:P.miss, hits:P.hits, sess:P.sess, exam:P.exam, scope:[...SCOPE]})); }catch(e){} }
 function touch(){ P.last = new Date().toISOString().slice(0,10); }
 
 /* ── figures ── */
-$('#fRules').textContent = RULES.length;
-$('#fVerbs').textContent = VERBS.length;
-$('#fWords').textContent = ALL_WORDS.length;
-$('#fDrills').textContent = SETS.reduce((n,s)=>n+s.items.length,0);
+$('#chRange').textContent = 'Kapitel '+chRange(CHAPTERS);
+function renderFigures(){
+  $('#fRules').textContent  = SC.rules.length;
+  $('#fVerbs').textContent  = SC.verbs.length;
+  $('#fWords').textContent  = SC.words.length;
+  $('#fDrills').textContent = SC.drillTotal;
+}
+/* Chip labels carry a live count; this re-counts them after a scope change. */
+function refreshChips(box, count){
+  [...box.children].forEach(c=>{ c.textContent = c.dataset.label+'  '+count(c.dataset.k); });
+}
 
 /* ── tabs ── */
 const tabs = [...document.querySelectorAll('.tab')];
@@ -661,6 +755,14 @@ function showTab(id){
   document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('on', p.id==='p-'+id));
 }
 tabs.forEach(t=>t.addEventListener('click',()=>showTab(t.dataset.p)));
+
+/* Text for a speaker button when the source carries markup: tags stripped,
+   the English annotation after " — " dropped, layout symbols made pauses. */
+function sayText(t){
+  return String(t).replace(/<[^>]+>/g,'').split(' — ')[0]
+    .replace(/___/g,' … ').replace(/\s*[·→\/]\s*/g,', ').replace(/[()]/g,'')
+    .replace(/\s+/g,' ').trim();
+}
 
 const TICK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 12.5 5.2 5.2L20 7"/></svg>';
 
@@ -715,9 +817,7 @@ const srcChips = $('#srcChips');
 [['all','Alle'],['both','Begge'],['notes','Klassenoter'],['book','Bogen']].forEach(([k,label])=>{
   const b=document.createElement('button');
   b.className='chip'; b.type='button'; b.dataset.k=k;
-  b.setAttribute('aria-pressed', k==='all');
-  const n = k==='all' ? RULES.length : RULES.filter(r=>r.src===k).length;
-  b.textContent = label+'  '+n;
+  b.setAttribute('aria-pressed', k==='all'); b.dataset.label=label;
   b.addEventListener('click',()=>{
     S.gSrc=k;
     [...srcChips.children].forEach(c=>c.setAttribute('aria-pressed', c.dataset.k===k));
@@ -732,7 +832,7 @@ function ruleText(r){
 }
 function renderG(){
   const out=$('#gOut'); out.innerHTML='';
-  const shown = RULES.filter(r=>{
+  const shown = SC.rules.filter(r=>{
     if(S.gSrc!=='all' && r.src!==S.gSrc) return false;
     if(S.gStar && !r.star) return false;
     if(S.gTerm && !ruleText(r).includes(S.gTerm)) return false;
@@ -759,7 +859,7 @@ function renderG(){
         '<p class="rule">'+r.rule+'</p>';
       if(r.table) h += '<table class="gtable"><tbody>'+r.table.map(row=>
         '<tr><td>'+row[0]+'</td><td>'+row[1]+'</td></tr>').join('')+'</tbody></table>';
-      if(r.ex) h += '<ul class="exs">'+r.ex.map(e=>'<li>'+e+'</li>').join('')+'</ul>';
+      if(r.ex) h += '<ul class="exs">'+r.ex.map(e=>'<li>'+e+sayBtn(sayText(e))+'</li>').join('')+'</ul>';
       if(r.trap) h += '<p class="trap">'+r.trap+'</p>';
       c.innerHTML=h;
       const mk=c.querySelector('.mark');
@@ -786,11 +886,7 @@ const grpChips = $('#grpChips');
 [['all','Alle'],['1','Gruppe 1'],['2','Gruppe 2'],['U','Uregelmæssige'],['M','Modal'],['sheet','Fra dit ark'],['book','Fra bogen']].forEach(([k,label])=>{
   const b=document.createElement('button');
   b.className='chip'; b.type='button'; b.dataset.k=k;
-  b.setAttribute('aria-pressed', k==='all');
-  const n = k==='all' ? VERBS.length
-          : (k==='sheet'||k==='book') ? VERBS.filter(v=>v.src===k).length
-          : VERBS.filter(v=>v.grp===k).length;
-  b.textContent = label+'  '+n;
+  b.setAttribute('aria-pressed', k==='all'); b.dataset.label=label;
   b.addEventListener('click',()=>{
     S.vGrp=k;
     [...grpChips.children].forEach(c=>c.setAttribute('aria-pressed', c.dataset.k===k));
@@ -800,7 +896,7 @@ const grpChips = $('#grpChips');
 });
 function renderV(){
   const out=$('#vOut'); out.innerHTML='';
-  const shown = VERBS.filter(v=>{
+  const shown = SC.verbs.filter(v=>{
     if(S.vGrp!=='all'){
       if(S.vGrp==='sheet'||S.vGrp==='book'){ if(v.src!==S.vGrp) return false; }
       else if(v.grp!==S.vGrp) return false;
@@ -819,7 +915,7 @@ function renderV(){
     if(P.verbs.has(v.i)) tr.classList.add('vgot');
     tr.innerHTML =
       '<td class="vmark"><span class="vm"><button class="mark" type="button" aria-pressed="'+P.verbs.has(v.i)+'" title="Jeg kan bøje det her">'+TICK+'</button>'+
-        sayBtn(v.i+', '+v.n+', '+v.d+', '+v.f)+'</span></td>'+
+        sayBtn(S.vDrill ? v.i : v.i+', '+v.n+', '+v.d+', '+v.f)+'</span></td>'+
       '<td class="vinf">'+esc(v.i)+'</td>'+
       '<td class="vform" data-l="Nutid">'+esc(v.n)+'</td>'+
       '<td class="vform hide" data-l="Datid">'+esc(v.d)+'</td>'+
@@ -844,7 +940,7 @@ function renderV(){
   });
   const sec=document.createElement('section'); sec.className='sec';
   sec.innerHTML='<div class="sec-head"><h2>Verber</h2><span class="sec-count">'+shown.length+' viser</span></div>'+
-    '<p class="sec-sub">Your 57-verb sheet, exactly as given, plus every verb worth knowing from chapters 1–2. Turn on <b>Hide the forms</b> and click a row to check yourself.</p>';
+    '<p class="sec-sub">Your 57-verb sheet, exactly as given, plus every verb worth knowing from the chapters you have chosen. Turn on <b>Hide the forms</b> and click a row to check yourself.</p>';
   sec.appendChild(wrap); out.appendChild(sec);
 }
 $('#qV').addEventListener('input',e=>{ S.vTerm=e.target.value.trim().toLowerCase(); renderV(); });
@@ -857,19 +953,15 @@ $('#vDrill').addEventListener('click',e=>{
 
 /* ═══ WORDS ═══ */
 const wChips = $('#wChips');
-const wFilters = [['all','Alle'],['ch1','Kapitel 1'],['ch2','Kapitel 2'],
+const isCh = k => /^ch\d$/.test(k), chNum = k => +k.slice(2);
+const wFilters = [['all','Alle'], ...WORD_CHAPTERS.map(n=>['ch'+n,'Kapitel '+n]),
                   ['verb','Verb'],['phrase','Phrase'],['noun','Noun'],['adj','Adjective'],['adv','Adverb'],['time','Time']];
 wFilters.forEach(([k,label])=>{
   const b=document.createElement('button');
   b.className='chip'; b.type='button'; b.dataset.k=k;
-  b.setAttribute('aria-pressed', k==='all');
-  const n = k==='all' ? ALL_WORDS.length
-          : k==='ch1' ? ALL_WORDS.filter(w=>w.ch===1).length
-          : k==='ch2' ? ALL_WORDS.filter(w=>w.ch===2).length
-          : ALL_WORDS.filter(w=>w.c===k).length;
-  b.textContent = label+'  '+n;
+  b.setAttribute('aria-pressed', k==='all'); b.dataset.label=label;
   b.addEventListener('click',()=>{
-    if(k==='ch1'||k==='ch2'){ S.wCh = (S.wCh===k)?'all':k; S.wCat='all'; }
+    if(isCh(k)){ S.wCh = (S.wCh===k)?'all':k; S.wCat='all'; }
     else { S.wCat = k; if(k==='all') S.wCh='all'; }
     [...wChips.children].forEach(c=>{
       const kk=c.dataset.k;
@@ -882,8 +974,8 @@ wFilters.forEach(([k,label])=>{
 });
 function renderW(){
   const out=$('#wOut'); out.innerHTML='';
-  const shown = ALL_WORDS.filter(w=>{
-    if(S.wCh!=='all' && w.ch!==(S.wCh==='ch1'?1:2)) return false;
+  const shown = SC.words.filter(w=>{
+    if(S.wCh!=='all' && w.ch!==chNum(S.wCh)) return false;
     if(S.wCat!=='all' && w.c!==S.wCat) return false;
     if(S.wHide && S.known.has(w.da)) return false;
     if(S.wTerm && !(w.da+' '+w.en+' '+(w.n||'')).toLowerCase().includes(S.wTerm)) return false;
@@ -932,12 +1024,11 @@ function renderW(){
 function updateWProgress(){
   /* Headline is tier 1–2 only, so it matches the tab badge and the Status card.
      Tiers 3–4 are optional, so they are reported but not counted. */
-  const done12 = TIER12.filter(w=>S.known.has(w.da)).length;
-  const pct = TIER12.length ? done12/TIER12.length : 0;
-  $('#wPct').textContent = pc(pct)+'%';
-  $('#wFill').style.width = pc(pct)+'%';
-  $('#wKnown').textContent = done12+' of '+TIER12.length+' in tier 1–2 · '+
-    S.known.size+' of '+ALL_WORDS.length+' ticked in all';
+  const t = stats();
+  $('#wPct').textContent = pc(t.w12Pct)+'%';
+  $('#wFill').style.width = pc(t.w12Pct)+'%';
+  $('#wKnown').textContent = t.w12Done+' of '+SC.tier12.length+' in tier 1–2 · '+
+    SC.words.filter(w=>S.known.has(w.da)).length+' of '+SC.words.length+' ticked in all';
 }
 $('#qW').addEventListener('input',e=>{ S.wTerm=e.target.value.trim().toLowerCase(); renderW(); });
 $('#wTest').addEventListener('click',e=>{
@@ -948,7 +1039,157 @@ $('#wTest').addEventListener('click',e=>{
 $('#wHide').addEventListener('click',e=>{
   S.wHide=!S.wHide; e.currentTarget.setAttribute('aria-pressed',S.wHide); saveW(); renderW();
 });
-$('#wReset').addEventListener('click',()=>{ S.known.clear(); saveW(); renderW(); syncProgress(); });
+$('#wReset').addEventListener('click',()=>{ SC.words.forEach(w=>S.known.delete(w.da)); saveW(); renderW(); syncProgress(); });
+
+/* ═══ DAGENS ORD — spaced repetition ═══
+   Each word gets an interval: how many days until it is shown again. Getting
+   it right stretches the interval (×ease, ~2.5), missing it sends it back to
+   tomorrow and shows it again in the same session. The schedule is keyed by
+   `da`, like the ticks, and lives in its own key so the hub's two keys stay as
+   they were. A word whose interval reaches LEARNED days is ticked as known —
+   that is the one place this feeds the Ord bar. */
+const KEY_R = 'dtg3-srs-v1';
+const LEARNED = 7;
+let R = {cards:{}, dir:'da', perDay:20, tiers:'12', newDay:{d:'',n:0}};
+try{ const o=JSON.parse(localStorage.getItem(KEY_R)||'{}');
+     if(o.cards && typeof o.cards==='object') R.cards=o.cards;
+     if(o.dir==='en') R.dir='en';
+     if([10,20,30].includes(o.perDay)) R.perDay=o.perDay;
+     if(o.tiers==='all') R.tiers='all';
+     if(o.newDay && typeof o.newDay.d==='string') R.newDay=o.newDay; }catch(e){}
+function saveR(){ try{ localStorage.setItem(KEY_R, JSON.stringify(R)); }catch(e){} }
+const ymd = d => d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+const today = () => ymd(new Date());
+const inDays = n => { const d=new Date(); d.setDate(d.getDate()+n); return ymd(d); };
+
+const srsPool  = () => SC.words.filter(w => R.tiers==='all' || w.t<=2);
+const srsDue   = () => { const t=today(); return srsPool().filter(w=>{ const c=R.cards[w.da]; return c && c.due<=t; })
+                           .sort((a,b)=>R.cards[a.da].due.localeCompare(R.cards[b.da].due)); };
+const newLeft  = () => R.newDay.d===today() ? Math.max(0, R.perDay-R.newDay.n) : R.perDay;
+/* New words: never seen, not already ticked by hand. Tier 1 first, then by chapter. */
+const srsFresh = n => srsPool().filter(w=>!R.cards[w.da] && !S.known.has(w.da))
+                                .sort((a,b)=>a.t-b.t || a.ch-b.ch).slice(0,n);
+const srsLearned = () => srsPool().filter(w=>{ const c=R.cards[w.da]; return c && c.ivl>=LEARNED; }).length;
+
+let Q = null;   // the running session, or null
+function srsStart(extraNew){
+  const due = srsDue().map(w=>({w}));
+  const fresh = srsFresh(extraNew || newLeft()).map(w=>({w, isNew:true}));
+  const q=[]; let i=0, j=0;                   // one new word after every three reviews
+  while(i<due.length || j<fresh.length){
+    for(let k=0;k<3 && i<due.length;k++) q.push(due[i++]);
+    if(j<fresh.length) q.push(fresh[j++]);
+  }
+  Q = {queue:q, shown:false, seen:0, again:0, learned:0};
+  renderSrs();
+}
+function srsStop(){ Q=null; renderSrs(); renderW(); syncProgress(); }
+
+/* Returns the new card state for grade g (0 Igen · 1 Svært · 2 Godt · 3 Let). */
+function srsCalc(it, g){
+  const c = R.cards[it.w.da] || {ivl:0, ease:2.5, reps:0, lapses:0};
+  let ivl=c.ivl, ease=c.ease, lapses=c.lapses;
+  const learning = !c.reps || it.relearn;
+  if(g===0){ if(c.reps && !it.relearn){ ease=Math.max(1.3, ease-.2); lapses++; } }
+  else if(learning) ivl = g===3 ? (it.relearn ? 2 : 4) : 1;
+  else if(g===1){ ivl=Math.max(ivl+1, Math.round(ivl*1.2)); ease=Math.max(1.3, ease-.15); }
+  else if(g===2){ ivl=Math.max(ivl+1, Math.round(ivl*ease)); }
+  else          { ivl=Math.max(ivl+2, Math.round(ivl*ease*1.3)); ease+=.15; }
+  return {ivl, ease:Math.round(ease*100)/100, lapses, reps:c.reps};
+}
+const fmtDays = d => d<1 ? 'igen nu' : d===1 ? '1 dag' : d<14 ? d+' dage'
+                  : d<60 ? Math.round(d/7)+' uger' : Math.round(d/30)+' mdr.';
+function srsAnswer(g){
+  const it = Q && Q.queue[0]; if(!it || !Q.shown) return;
+  const da = it.w.da, r = srsCalc(it, g);
+  if(!R.cards[da]){                                   // first time ever: counts as a new word today
+    if(R.newDay.d!==today()) R.newDay={d:today(), n:0};
+    R.newDay.n++;
+  }
+  Q.queue.shift(); Q.shown=false;
+  if(g===0){
+    R.cards[da] = {ivl:r.ivl, ease:r.ease, reps:r.reps, lapses:r.lapses, due:today()};
+    it.relearn = true;
+    Q.queue.splice(Math.min(3, Q.queue.length), 0, it);   // back in a few cards
+    Q.again++;
+  } else {
+    R.cards[da] = {ivl:r.ivl, ease:r.ease, reps:r.reps+1, lapses:r.lapses, due:inDays(r.ivl)};
+    Q.seen++;
+    if(r.ivl>=LEARNED && !S.known.has(da)){ S.known.add(da); saveW(); Q.learned++; }
+  }
+  saveR(); touch(); saveH();
+  renderSrs(); syncProgress();
+}
+
+const chipRow = (label, key, opts, cur) => '<span class="lbl">'+label+'</span>'+
+  opts.map(([v,t])=>'<button class="chip" type="button" data-'+key+'="'+v+'" aria-pressed="'+(String(cur)===String(v))+'">'+t+'</button>').join('');
+function renderSrs(){
+  const out=$('#srsOut'), panel=$('#p-words');
+  panel.classList.toggle('srs-on', !!Q);
+  if(!Q){
+    const due=srsDue().length, nl=Math.min(newLeft(), srsFresh(999).length), learned=srsLearned();
+    const any = due+nl>0;
+    out.innerHTML = '<section class="srs-strip"><div class="st"><h3>Dagens ord</h3><p>'+
+      (any ? '<b>'+due+'</b> til gentagelse · <b>'+nl+'</b> nye'
+           : 'Intet at gentage i dag. Kom igen i morgen')+
+      ' · '+learned+' lært</p></div>'+
+      '<button class="btn go" type="button" id="srsGo"'+(any?'':' disabled')+'>Start</button>'+
+      '<div class="chips">'+
+        chipRow('Retning','dir',[['da','Dansk → engelsk'],['en','Engelsk → dansk']],R.dir)+
+        chipRow('Nye om dagen','per',[[10,'10'],[20,'20'],[30,'30']],R.perDay)+
+        chipRow('Ord','tiers',[['12','Niveau 1–2'],['all','Alle']],R.tiers)+
+      '</div></section>';
+    const go=$('#srsGo'); if(go) go.addEventListener('click',()=>srsStart());
+    out.querySelectorAll('[data-dir]').forEach(b=>b.addEventListener('click',()=>{ R.dir=b.dataset.dir; saveR(); renderSrs(); }));
+    out.querySelectorAll('[data-per]').forEach(b=>b.addEventListener('click',()=>{ R.perDay=+b.dataset.per; saveR(); renderSrs(); }));
+    out.querySelectorAll('[data-tiers]').forEach(b=>b.addEventListener('click',()=>{ R.tiers=b.dataset.tiers; saveR(); renderSrs(); }));
+    return;
+  }
+  const it = Q.queue[0];
+  if(!it){
+    const more = srsFresh(10).length;
+    out.innerHTML = '<section class="srs"><div class="srs-card srs-done"><span class="srs-kind">Dagens ord</span>'+
+      '<h3>Færdig for i dag.</h3><p>'+Q.seen+' ord gennemgået'+
+      (Q.again?' · '+Q.again+' gange <i>igen</i>':'')+
+      (Q.learned?' · '+Q.learned+' ord lært og sat flueben ved':'')+
+      '. Kom tilbage i morgen — de ord, du havde svært ved, kommer først.</p><div class="row">'+
+      (more?'<button class="btn" type="button" id="srsMore">Lær 10 nye mere</button>':'')+
+      '<button class="btn go" type="button" id="srsEnd">Tilbage til listen</button></div></div></section>';
+    const m=$('#srsMore'); if(m) m.addEventListener('click',()=>srsStart(10));
+    $('#srsEnd').addEventListener('click',srsStop);
+    return;
+  }
+  const w=it.w, toEn = R.dir==='da';
+  const front = toEn ? esc(w.da)+sayBtn(w.da) : esc(w.en);
+  const back  = toEn ? esc(w.en) : esc(w.da)+sayBtn(w.da);
+  const kind  = (it.isNew&&!it.relearn ? '<span class="nw">Nyt ord</span> · ' : it.relearn ? '<span class="nw">Igen</span> · ' : '')+
+                (CATS2[w.c]||w.c)+' · Kapitel '+w.ch+' · s. '+w.p;
+  let h = '<section class="srs"><div class="srs-top"><span><b>'+Q.queue.length+'</b> tilbage</span>'+
+    '<span>'+Q.seen+' gennemgået</span>'+
+    '<button class="linkish" type="button" id="srsQuit">Stop for nu</button></div>'+
+    '<div class="srs-card"><span class="srs-kind">'+kind+'</span>'+
+    '<div class="srs-front">'+front+'</div>';
+  if(Q.shown) h += '<div class="srs-back"><div class="srs-ans">'+back+'</div>'+
+                   (w.n?'<div class="srs-note">'+esc(w.n)+'</div>':'')+'</div>';
+  h += '</div><div class="srs-actions">';
+  if(!Q.shown) h += '<button class="btn go" type="button" id="srsShow">Vis svar<kbd>Mellemrum</kbd></button>';
+  else h += '<div class="srs-grades">'+['Igen','Svært','Godt','Let'].map((l,g)=>
+      '<button class="grade g'+g+'" type="button" data-g="'+g+'"><b>'+l+'</b><small>'+
+      fmtDays(g===0?0:srsCalc(it,g).ivl)+'<kbd>'+(g+1)+'</kbd></small></button>').join('')+'</div>';
+  h += '</div></section>';
+  out.innerHTML = h;
+  $('#srsQuit').addEventListener('click',srsStop);
+  const sh=$('#srsShow'); if(sh){ sh.addEventListener('click',()=>{ Q.shown=true; renderSrs(); }); sh.focus({preventScroll:true}); }
+  out.querySelectorAll('.grade').forEach(b=>b.addEventListener('click',()=>srsAnswer(+b.dataset.g)));
+}
+/* Space / Enter shows the answer, 1–4 grade it — only while a session is open
+   on the Ord tab and nothing is being typed. */
+document.addEventListener('keydown',e=>{
+  if(!Q || S.tab!=='words' || /^(INPUT|TEXTAREA)$/.test(document.activeElement.tagName)) return;
+  if(!Q.queue.length) return;
+  if(!Q.shown && (e.key===' '||e.key==='Enter')){ e.preventDefault(); Q.shown=true; renderSrs(); }
+  else if(Q.shown && /^[1-4]$/.test(e.key)){ e.preventDefault(); srsAnswer(+e.key-1); }
+});
 
 /* ═══ LISTEN & SPEAK ═══ */
 /* Keyed by content string like everything else — the oral question itself.
@@ -961,10 +1202,10 @@ function markBtn(key){
 function renderL(){
   const out=$('#lOut');
   let h='<section class="sec"><div class="sec-head"><h2>Mundtlige spørgsmål</h2>'+
-     '<span class="sec-count">'+ORAL.length+'</span></div>'+
+     '<span class="sec-count">'+SC.oral.length+'</span></div>'+
      '<p class="sec-sub">The book\'s own <i>snak sammen</i> questions — the closest thing to the oral exam — '+
      'with the phrases to build an answer from.</p><div class="cards">';
-  ORAL.forEach(o=>{
+  SC.oral.forEach(o=>{
     h+='<article class="lcard'+(P.listen.has(o.q)?' got':'')+'">'+
       '<div class="lcard-top">'+markBtn(o.q)+'<p class="oq">'+esc(o.q)+'</p>'+sayBtn(o.q)+'</div>'+
       '<p class="what"><span class="ref">Kapitel '+o.ch+', lektion '+o.les+' · s. '+o.p+'</span></p>'+
@@ -988,7 +1229,7 @@ function renderL(){
 /* ═══ PRACTICE ═══ */
 function renderP(){
   const out=$('#pOut'); let h='';
-  SETS.forEach(set=>{
+  SC.sets.forEach(set=>{
     h+='<section class="drill"><div class="drill-head"><h3>'+esc(set.name)+'</h3>'+
       '<span class="sec-count">'+set.items.length+' spørgsmål</span></div>'+
       '<p class="drill-intro">'+esc(set.intro)+'</p>';
@@ -997,7 +1238,7 @@ function renderP(){
       h+='<div class="qrow'+(mark?' '+mark:'')+'" data-id="'+id+'" role="button" tabindex="0">'+
         '<span class="qnum">'+(i+1)+'</span>'+
         '<span class="qtext">'+esc(it.q)+'</span>'+
-        '<span class="ans"><span class="ansval">'+esc(it.a)+'</span>'+
+        '<span class="ans"><span class="ansval">'+esc(it.a)+'</span>'+sayBtn(sayText(it.a))+
         '<span class="answhy">'+it.w+'</span>'+
         '<span class="scorebtns">'+
           '<button class="sbtn ok" type="button" data-v="ok" aria-pressed="'+(mark==='ok')+'">Jeg havde ret</button>'+
@@ -1007,10 +1248,10 @@ function renderP(){
     h+='</section>';
   });
   h+='<section class="sec"><div class="sec-head"><h2>Skriveopgaver</h2>'+
-     '<span class="sec-count">'+WRITING.length+'</span></div>'+
+     '<span class="sec-count">'+SC.writing.length+'</span></div>'+
      '<p class="sec-sub">The book\'s written tasks, each with a checklist of the grammar to get into it. '+
      'Tick them off mentally as you write — that is what the marker is looking for.</p><div class="cards">';
-  WRITING.forEach(w=>{
+  SC.writing.forEach(w=>{
     h+='<article class="wcard"><h3>'+esc(w.title)+'</h3>'+
       '<p class="what"><span class="ref">s. '+w.p+'</span> — '+esc(w.task)+'</p>'+
       '<ul class="musts">'+w.must.map(m=>'<li>'+m+'</li>').join('')+'</ul></article>';
@@ -1020,7 +1261,8 @@ function renderP(){
   out.querySelectorAll('.qrow').forEach(r=>{
     const t=()=>r.classList.toggle('open');
     r.addEventListener('click',e=>{ if(!e.target.closest('.sbtn')) t(); });
-    r.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); t(); }});
+    r.addEventListener('keydown',e=>{ if(e.target!==r) return;   // let the buttons inside keep their own keys
+      if(e.key==='Enter'||e.key===' '){ e.preventDefault(); t(); }});
     r.querySelectorAll('.sbtn').forEach(b=>{
       b.addEventListener('click',e=>{
         e.stopPropagation();
@@ -1121,13 +1363,13 @@ function makeOne(type, used){
   if(type==='listen' && !TTS) type='da2en';
   if(type==='blank'){
     const items=[];
-    SETS.forEach(set=>set.items.forEach((_,i)=>items.push({set,i,k:set.id+':'+i})));
+    SC.sets.forEach(set=>set.items.forEach((_,i)=>items.push({set,i,k:set.id+':'+i})));
     const c=weightedPick(items,x=>inMiss(x.k)?5:(P.drills[x.k]==='ok'?1:3),used,x=>x.k);
     return c ? qBlank(c.set,c.i) : null;
   }
   if(type==='verb'){
     const items=[];
-    VERBS.forEach(v=>VFORMS.forEach(f=>{
+    SC.verbs.forEach(v=>VFORMS.forEach(f=>{
       if(v[f[0]] && v[f[0]]!=='–') items.push({v,f,k:'v:'+v.i+':'+f[0]});
     }));
     /* blocked by the verb, not the form, so one session never asks the same
@@ -1135,7 +1377,7 @@ function makeOne(type, used){
     const c=weightedPick(items,x=>inMiss(x.k)?5:(P.verbs.has(x.v.i)?1:3),used,x=>'v:'+x.v.i);
     return c ? qVerb(c.v,c.f[0]) : null;
   }
-  const pool = ALL_WORDS.filter(w=>w.t<=2);
+  const pool = SC.tier12;
   const c = weightedPick(pool,w=>inMiss('w:'+w.da)?5:(S.known.has(w.da)?1:3),used,w=>'w:'+w.da);
   return c ? qWord(type,c) : null;
 }
@@ -1153,6 +1395,16 @@ function rebuildMiss(m){
   const w=wordByDa(m.k.slice(2));
   return w ? qWord((m.t==='listen'&&!TTS)?'da2en':m.t, w) : null;
 }
+/* Mistakes from chapters outside the scope stay saved but are not shown or
+   drilled. rebuildMiss() itself stays unscoped: the boot prune runs on it,
+   and a scoped prune would delete them. */
+function missInScope(m){
+  const cut=m.k.lastIndexOf(':');
+  if(m.t==='blank'){ const set=SETS.find(x=>x.id===m.k.slice(0,cut)); return !set || inScope(set); }
+  if(m.t==='verb'){ const v=VERBS.find(x=>x.i===m.k.slice(2,cut)); return !v || inScope(v); }
+  const w=wordByDa(m.k.slice(2)); return !w || inScope(w);
+}
+const scopedMiss = () => P.miss.filter(missInScope);
 function planFor(scope){
   if(scope==='words')  return ['da2en','en2da','listen','da2en','en2da','listen',
                                'da2en','en2da','listen','en2da','da2en','en2da'];
@@ -1170,7 +1422,7 @@ function planFor(scope){
 function buildSession(scope){
   const used=new Set(), qs=[];
   if(scope==='miss'){
-    P.miss.slice(0,SESSION_N).forEach(m=>{
+    scopedMiss().slice(0,SESSION_N).forEach(m=>{
       const q=rebuildMiss(m);
       if(q && !used.has(q.k)){ used.add(q.k); qs.push(q); }
     });
@@ -1354,7 +1606,7 @@ function drawEnd(){
       '<span class="ra">'+esc(q.answer)+(q.audio?' '+sayBtn(q.audio):'')+'</span></li>').join('')+'</ul>';
   }
   h+='<div class="tr-foot"><button class="pbtn" id="trAgain">Again</button>'+
-     (P.miss.length?'<button class="pbtn ghost" id="trMiss">Train my mistakes ('+P.miss.length+')</button>':'')+
+     (scopedMiss().length?'<button class="pbtn ghost" id="trMiss">Train my mistakes ('+scopedMiss().length+')</button>':'')+
      '<button class="pbtn ghost" id="trClose">Close</button></div>';
   $('#trBody').innerHTML=h;
   const scope=T.scope;
@@ -1382,25 +1634,25 @@ document.addEventListener('keydown',e=>{
 });
 
 /* ═══ STATUS ═══ */
-const TIER12 = ALL_WORDS.filter(w=>w.t<=2);
-const DRILL_TOTAL = SETS.reduce((n,x)=>n+x.items.length,0);
-const STAR_RULES = RULES.filter(r=>r.star);
-
+/* Counts are taken over the scoped arrays, never P.*.size — that way a stale
+   mark, or one from a chapter outside the scope, can't inflate a number. */
 function stats(){
-  const rulesPct = RULES.length ? P.rules.size/RULES.length : 0;
-  const starDone = STAR_RULES.filter(r=>P.rules.has(r.title)).length;
-  const starPct  = STAR_RULES.length ? starDone/STAR_RULES.length : 0;
-  const verbsPct = VERBS.length ? P.verbs.size/VERBS.length : 0;
-  const w12Done  = TIER12.filter(w=>S.known.has(w.da)).length;
-  const w12Pct   = TIER12.length ? w12Done/TIER12.length : 0;
-  const vals     = Object.values(P.drills);
+  const rulesDone= SC.rules.filter(r=>P.rules.has(r.title)).length;
+  const rulesPct = SC.rules.length ? rulesDone/SC.rules.length : 0;
+  const starDone = SC.star.filter(r=>P.rules.has(r.title)).length;
+  const starPct  = SC.star.length ? starDone/SC.star.length : 0;
+  const verbsDone= SC.verbs.filter(v=>P.verbs.has(v.i)).length;
+  const verbsPct = SC.verbs.length ? verbsDone/SC.verbs.length : 0;
+  const w12Done  = SC.tier12.filter(w=>S.known.has(w.da)).length;
+  const w12Pct   = SC.tier12.length ? w12Done/SC.tier12.length : 0;
+  const vals     = SC.sets.flatMap(x=>x.items.map((_,i)=>P.drills[x.id+':'+i])).filter(Boolean);
   const attempted= vals.length;
   const correct  = vals.filter(v=>v==='ok').length;
-  const dPct     = DRILL_TOTAL ? correct/DRILL_TOTAL : 0;
+  const dPct     = SC.drillTotal ? correct/SC.drillTotal : 0;
   const accuracy = attempted ? correct/attempted : null;
   const gScore   = .5*starPct + .5*rulesPct;
   const ready    = .30*gScore + .20*verbsPct + .25*w12Pct + .25*dPct;
-  return {rulesPct,starDone,starPct,verbsPct,w12Done,w12Pct,attempted,correct,dPct,accuracy,gScore,ready};
+  return {rulesDone,rulesPct,starDone,starPct,verbsDone,verbsPct,w12Done,w12Pct,attempted,correct,dPct,accuracy,gScore,ready};
 }
 const pc = x => Math.round(x*100);
 function meter(val,color){
@@ -1410,7 +1662,7 @@ function verdict(r){
   if(r>=.85) return ['Bodilgodkendt.','Everything is marked off and the drills are going your way. Keep it ticking over rather than cramming.'];
   if(r>=.6)  return ['Godt på vej.','The bones are there. Spend what is left on whatever sits lowest below — that is where the marks are.'];
   if(r>=.3)  return ['I gang.','A solid start. The ★ priority rules and the tier 1–2 words are worth more than anything else right now.'];
-  if(r>0)    return ['Lige begyndt.','Nothing wrong with that. Start with the ten ★ rules in Grammatik — they are the ones covered by both the book and your class.'];
+  if(r>0)    return ['Lige begyndt.','Nothing wrong with that. Start with the ★ rules in Grammatik — they are the ones most likely to be tested.'];
   return ['Ikke begyndt endnu.','Mark a rule as known, tick a word, or score yourself on a drill, and this page starts keeping track.'];
 }
 function examDays(){
@@ -1425,15 +1677,24 @@ function renderStatus(){
   const [vTitle,vText] = verdict(t.ready);
   const areas = [
     {k:'grammar', name:'Grammatik', val:t.gScore, color:'var(--t1)',
-     detail:P.rules.size+' af '+RULES.length+' regler · '+t.starDone+' af '+STAR_RULES.length+' ★'},
+     detail:t.rulesDone+' af '+SC.rules.length+' regler · '+t.starDone+' af '+SC.star.length+' ★'},
     {k:'verbs', name:'Verber', val:t.verbsPct, color:'var(--t2)',
-     detail:P.verbs.size+' af '+VERBS.length+' bøjninger'},
+     detail:t.verbsDone+' af '+SC.verbs.length+' bøjninger'},
     {k:'words', name:'Ord', val:t.w12Pct, color:'var(--t3)',
-     detail:t.w12Done+' af '+TIER12.length+' i niveau 1–2'},
+     detail:t.w12Done+' af '+SC.tier12.length+' i niveau 1–2 · '+srsDue().length+' til gentagelse i dag'},
     {k:'practice', name:'Øv dig', val:t.dPct, color:'var(--t4)',
-     detail:t.correct+' rigtige af '+DRILL_TOTAL+' opgaver'},
+     detail:t.correct+' rigtige af '+SC.drillTotal+' opgaver'},
   ];
-  let h = '<section class="sec" style="margin-top:24px">'+
+  let h = '<section class="sec scope" style="margin-top:24px">'+
+    '<div class="sec-head"><h2>Dine kapitler</h2><span class="sec-count">'+
+      (SCOPE.size===CHAPTERS.length?'alle':'kapitel '+chRange(SCOPE))+'</span></div>'+
+    '<p class="sec-sub">Pick the chapters your test covers. Every count, bar and tab follows. '+
+    'Your marks are kept either way — this only changes what is shown and counted.</p>'+
+    '<div class="chips" id="scopeChips" role="group" aria-label="Kapitler">'+
+      CHAPTERS.map(n=>'<button class="chip" type="button" data-ch="'+n+'" aria-pressed="'+SCOPE.has(n)+'">Kapitel '+n+'</button>').join('')+
+      '<button class="chip" type="button" data-ch="all" aria-pressed="'+(SCOPE.size===CHAPTERS.length)+'">Alle</button>'+
+    '</div></section>'+
+    '<section class="sec" style="margin-top:24px">'+
     '<div class="hero">'+
       '<div class="big">'+pc(t.ready)+'<sup>%</sup></div>'+
       '<div class="htext"><h2>'+vTitle+'</h2><p>'+vText+'</p></div>'+
@@ -1461,7 +1722,7 @@ function renderStatus(){
         (lastS?' &middot; most recently '+esc(lastS.d)+' ('+lastS.ok+'/'+lastS.n+')':'')+'.'
       : 'Nothing is stored anywhere but this browser, and the notebook stays exactly as it is.')+'</p>'+
     '<div class="trrow"><button class="pbtn" data-train="all">Train now</button>'+
-    (P.miss.length?'<button class="pbtn ghost" data-train="miss">My mistakes ('+P.miss.length+')</button>':'')+
+    (scopedMiss().length?'<button class="pbtn ghost" data-train="miss">My mistakes ('+scopedMiss().length+')</button>':'')+
     '<button class="pbtn ghost" data-train="words">Words only</button>'+
     '<button class="pbtn ghost" data-train="verbs">Verbs only</button></div>'+
     '<div class="exam"><label for="examDate">Eksamensdato</label>'+
@@ -1472,11 +1733,12 @@ function renderStatus(){
     '</div></div></section>';
 
   /* ── the misses ── */
-  if(P.miss.length){
-    const rows = P.miss.slice(0,8).map(m=>rebuildMiss(m)).filter(Boolean);
+  const miss = scopedMiss();
+  if(miss.length){
+    const rows = miss.slice(0,8).map(m=>rebuildMiss(m)).filter(Boolean);
     if(rows.length){
       h += '<section class="sec"><div class="sec-head"><h2>Mine fejl</h2>'+
-        '<span class="sec-count">'+P.miss.length+'</span></div>'+
+        '<span class="sec-count">'+miss.length+'</span></div>'+
         '<p class="sec-sub">Everything you have got wrong in training, newest first. '+
         'They come back weighted heavily in every session, and drop off this list once you get them right.</p>'+
         '<ul class="recap">'+rows.map(q=>
@@ -1487,7 +1749,7 @@ function renderStatus(){
   }
 
   /* weakest drill sets */
-  const setRows = SETS.map(set=>{
+  const setRows = SC.sets.map(set=>{
     let att=0, ok=0;
     set.items.forEach((_,i)=>{ const v=P.drills[set.id+':'+i]; if(v){att++; if(v==='ok') ok++;} });
     return {name:set.name, att, ok, n:set.items.length, acc: att?ok/att:null};
@@ -1512,25 +1774,38 @@ function renderStatus(){
   h += '<section class="sec"><div class="sec-head"><h2>Sådan tælles det</h2></div>'+
     '<p class="sec-sub">This is <b>self-reported</b> — it counts what you have marked, not what you actually know. '+
     'It is a checklist that keeps score, not a mock exam. The headline weighs grammar 30 % (half of that the ★ rules), '+
-    'words 25 % (tier 1–2 only — tiers 3 and 4 are optional), drills 25 %, verbs 20 %. '+
+    'words 25 % (tier 1–2 only — tiers 3 and 4 are optional), drills 25 %, verbs 20 %, '+
+    'all counted over the chapters you have chosen above. '+
     'Lyt &amp; tal has its own bar but is not weighed into the headline. '+
     'Training is not weighed in either, and does not need to be: getting a word or a verb right '+
     'twice ticks it off in the notebook, and a drill answered in training scores that drill — '+
-    'so it reaches the same four numbers through the same door as marking things by hand.'+
+    'so it reaches the same four numbers through the same door as marking things by hand. '+
+    'Dagens ord does the same: a word it has pushed a week or more ahead gets ticked.'+
     (P.last?' Last marked: <b>'+esc(P.last)+'</b>.':'')+'</p>'+
-    '<p style="margin-top:14px"><button class="linkish" id="sReset">Nulstil alt (rules, verbs, words, drills, training)</button></p>'+
+    '<p style="margin-top:14px"><button class="linkish" id="sReset">Nulstil alt (rules, verbs, words, drills, training, Dagens ord)</button></p>'+
     '</section>';
 
   out.innerHTML = h;
   out.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>showTab(b.dataset.go)));
   const ed = $('#examDate');
   if(ed) ed.addEventListener('change',()=>{ P.exam = ed.value || null; saveH(); renderStatus(); });
+  out.querySelectorAll('#scopeChips .chip').forEach(b=>b.addEventListener('click',()=>{
+    const k=b.dataset.ch;
+    if(k==='all') SCOPE=new Set(CHAPTERS);
+    else {
+      const n=+k;
+      if(SCOPE.has(n)){ if(SCOPE.size>1) SCOPE.delete(n); }   // never leave it empty
+      else SCOPE.add(n);
+    }
+    setScope();
+  }));
   const rb = $('#sReset');
   if(rb) rb.addEventListener('click',()=>{
     if(!confirmReset()) return;
     P.rules.clear(); P.verbs.clear(); P.listen.clear(); P.drills={}; S.known.clear();
     P.miss=[]; P.hits={}; P.sess=[];
-    saveH(); saveW(); renderG(); renderV(); renderW(); renderL(); renderP(); syncProgress();
+    R.cards={}; R.newDay={d:'',n:0}; saveR(); Q=null;
+    saveH(); saveW(); renderG(); renderV(); renderW(); renderL(); renderP(); renderSrs(); syncProgress();
   });
 }
 let resetArmed=false, resetTimer=null;
@@ -1539,7 +1814,7 @@ function confirmReset(){
   if(resetArmed){ resetArmed=false; clearTimeout(resetTimer); return true; }
   resetArmed=true; b.textContent='Sikker? Klik igen for at slette alt.';
   resetTimer=setTimeout(()=>{ resetArmed=false; const x=$('#sReset');
-    if(x) x.textContent='Nulstil alt (rules, verbs, words, drills, træning)'; },4000);
+    if(x) x.textContent='Nulstil alt (rules, verbs, words, drills, training, Dagens ord)'; },4000);
   return false;
 }
 function tabBadges(){
@@ -1558,11 +1833,10 @@ function tabBadges(){
 /* One global bar in the sticky nav (the same readiness number the Status hero
    shows) plus a bar per tab. Everything is derived from P and S.known, so the
    two localStorage keys stay the only place progress lives. */
-const LISTEN_TOTAL = L_KEYS.length;
-/* Count against the live keys, never P.listen.size — a stale entry from a
-   removed card would otherwise push this over 100 %. */
-const listenDone = () => L_KEYS.reduce((n,k)=>n+(P.listen.has(k)?1:0),0);
-const listenPct = () => LISTEN_TOTAL ? listenDone()/LISTEN_TOTAL : 0;
+/* Count against the live, scoped cards, never P.listen.size — a stale entry
+   from a removed card would otherwise push this over 100 %. */
+const listenDone = () => SC.oral.reduce((n,o)=>n+(P.listen.has(o.q)?1:0),0);
+const listenPct = () => SC.oral.length ? listenDone()/SC.oral.length : 0;
 
 function setBar(pctSel, fillSel, cntSel, val, text){
   $(pctSel).textContent = pc(val)+'%';
@@ -1574,21 +1848,47 @@ function updateBars(){
   $('#globFill').style.width = pc(t.ready)+'%';
   $('#globVal').textContent  = pc(t.ready)+'%';
   setBar('#gPct','#gpFill','#gCnt', t.gScore,
-    P.rules.size+' of '+RULES.length+' rules marked · '+t.starDone+' of '+STAR_RULES.length+' ★');
+    t.rulesDone+' of '+SC.rules.length+' rules marked · '+t.starDone+' of '+SC.star.length+' ★');
   setBar('#vPct','#vpFill','#vCnt', t.verbsPct,
-    P.verbs.size+' of '+VERBS.length+' conjugations marked');
+    t.verbsDone+' of '+SC.verbs.length+' conjugations marked');
   updateWProgress();
   setBar('#lPct','#lpFill','#lCnt', listenPct(),
-    listenDone()+' of '+LISTEN_TOTAL+' worked through');
+    listenDone()+' of '+SC.oral.length+' worked through');
   setBar('#pPct','#ppFill','#pCnt', t.dPct,
-    t.correct+' of '+DRILL_TOTAL+' right · '+t.attempted+' answered');
+    t.correct+' of '+SC.drillTotal+' right · '+t.attempted+' answered');
+  $('#gLabel').textContent = SCOPE.size===CHAPTERS.length ? 'Samlet' : 'Kap. '+chRange(SCOPE);
 }
 function syncProgress(){ renderStatus(); tabBadges(); updateBars(); }
+function setScope(){
+  computeScope(); saveH(); Q=null;
+  /* a chapter chip in Ord that has just left the scope would filter to nothing */
+  if(S.wCh!=='all' && !SCOPE.has(chNum(S.wCh))) S.wCh='all';
+  [...wChips.children].forEach(c=>{
+    if(isCh(c.dataset.k)) c.hidden = !SCOPE.has(chNum(c.dataset.k));
+    const kk=c.dataset.k;
+    c.setAttribute('aria-pressed', kk===S.wCh || (kk===S.wCat && kk!=='all') ||
+      (kk==='all' && S.wCat==='all' && S.wCh==='all'));
+  });
+  refreshChips(srcChips, k=> k==='all' ? SC.rules.length : SC.rules.filter(r=>r.src===k).length);
+  refreshChips(grpChips, k=> k==='all' ? SC.verbs.length
+    : (k==='sheet'||k==='book') ? SC.verbs.filter(v=>v.src===k).length
+    : SC.verbs.filter(v=>v.grp===k).length);
+  refreshChips(wChips, k=> k==='all' ? SC.words.length
+    : isCh(k) ? SC.words.filter(w=>w.ch===chNum(k)).length
+    : SC.words.filter(w=>w.c===k).length);
+  renderFigures(); renderG(); renderV(); renderW(); renderL(); renderP(); renderSrs(); syncProgress();
+}
 
-$('#gReset').addEventListener('click',()=>{ P.rules.clear();  saveH(); renderG(); syncProgress(); });
-$('#vReset').addEventListener('click',()=>{ P.verbs.clear();  saveH(); renderV(); syncProgress(); });
-$('#lReset').addEventListener('click',()=>{ P.listen.clear(); saveH(); renderL(); syncProgress(); });
-$('#pReset').addEventListener('click',()=>{ P.drills={};      saveH(); renderP(); syncProgress(); });
+/* A tab's Reset clears only what that tab is showing — the chosen chapters.
+   Marks in chapters outside the scope are left alone; "Nulstil alt" on
+   Status is the one that wipes everything. */
+$('#gReset').addEventListener('click',()=>{ SC.rules.forEach(r=>P.rules.delete(r.title)); saveH(); renderG(); syncProgress(); });
+$('#vReset').addEventListener('click',()=>{ SC.verbs.forEach(v=>P.verbs.delete(v.i));     saveH(); renderV(); syncProgress(); });
+$('#lReset').addEventListener('click',()=>{ SC.oral.forEach(o=>P.listen.delete(o.q));     saveH(); renderL(); syncProgress(); });
+$('#pReset').addEventListener('click',()=>{
+  SC.sets.forEach(x=>x.items.forEach((_,i)=>{ delete P.drills[x.id+':'+i]; }));
+  saveH(); renderP(); syncProgress();
+});
 
 /* ═══ THEME ═══ */
 const KEY_T = 'dtg3-theme-v1';
@@ -1666,7 +1966,7 @@ $('#wTest').textContent = S.wTest?'Show translations':'Hide translations';
 $('#wHide').setAttribute('aria-pressed',S.wHide);
 $('#vDrill').setAttribute('aria-pressed',S.vDrill);
 $('#vDrill').textContent = S.vDrill?'Show the forms':'Hide the forms';
-renderG(); renderV(); renderW(); renderL(); renderP(); syncProgress();
+setScope();
 showTab(S.tab);
 })();
 </script>

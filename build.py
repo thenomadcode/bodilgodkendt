@@ -11,7 +11,7 @@ writes two things:
                          GitHub Pages serves, and dist/site/index.html is
                          also the file to open locally
 
-Order matters: words1 and words2 must come before the rest, because hub.html's
+Order matters: the words modules must come before the rest, because hub.html's
 script merges them at load time.
 """
 import pathlib
@@ -27,6 +27,10 @@ SITE = DIST / "site"
 MODULES = [
     "words1.js",    # chapter 1 vocabulary  -> WORDS, TIERS, CATS
     "words2.js",    # chapter 2 vocabulary  -> WORDS_CH2
+    "words3.js",    # chapter 3 vocabulary  -> WORDS_CH3
+    "words4.js",    # chapter 4 vocabulary  -> WORDS_CH4
+    "words5.js",    # chapter 5 vocabulary  -> WORDS_CH5
+    "words6.js",    # chapter 6 vocabulary  -> WORDS_CH6
     "rules.js",     # grammar               -> RULE_GROUPS, RULES
     "verbs.js",     # conjugations          -> VERBS
     "listen.js",    # oral prompts          -> ORAL
@@ -39,7 +43,7 @@ MODULES = [
 SITE_ASSETS = ["icon.svg", "icon-32.png", "icon-180.png", "icon-192.png", "icon-512.png"]
 
 DESCRIPTION = (
-    "Danish to Go 3, chapters 1–2, cross-referenced with Studieskolen modul 3.3: "
+    "Danish to Go 3, chapters 1–6, cross-referenced with Studieskolen modul 3.3: "
     "the grammar rules, the verb conjugations, the vocabulary, the oral questions "
     "and drills — with progress tracking that stays in your own browser."
 )
@@ -62,7 +66,7 @@ HEAD_EXTRA = f"""<meta name="description" content="{DESCRIPTION}">
 MANIFEST = """{
   "name": "Bodilgodkendt — dansk modul 3.3",
   "short_name": "Bodilgodkendt",
-  "description": "Danish to Go 3 chapters 1–2 and Studieskolen modul 3.3 in one study hub.",
+  "description": "Danish to Go 3 chapters 1–6 and Studieskolen modul 3.3 in one study hub.",
   "start_url": ".",
   "scope": ".",
   "display": "standalone",

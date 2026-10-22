@@ -191,13 +191,13 @@ const WORDS = [
 
 const TIERS = [
   {id:1, name:"Learn these first",
-   blurb:"High-frequency Danish you will use in almost every conversation. If you only take 50 words out of this chapter, take these."},
+   blurb:"High-frequency Danish you will use in almost every conversation. If you only take a few dozen words from each chapter, take these."},
   {id:2, name:"Worth drilling",
-   blurb:"Common outside the textbook too — the reflexive verbs, the feeling words, and the vocabulary of courses, work and mistakes."},
+   blurb:"Common outside the textbook too — the verbs, feeling words and topic vocabulary that each chapter is about."},
   {id:3, name:"Chapter core",
-   blurb:"The words this chapter is actually built on: time expressions for the grammar section, plus the idioms about learning. Useful, but more situational."},
+   blurb:"The words a chapter's texts and grammar are built on. Useful, but more situational."},
   {id:4, name:"Recognise, don't drill",
-   blurb:"Tied to one text or exercise — the diving story, the quiz, the language-coach interview. Understand them on the page and move on."},
+   blurb:"Tied to one text or exercise. Understand them on the page and move on."},
 ];
 
 const CATS = {verb:"Verb", phrase:"Phrase", adj:"Adjective", adv:"Adverb", noun:"Noun", time:"Time"};

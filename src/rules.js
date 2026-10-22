@@ -2,7 +2,9 @@
    src: "both" = in your class notes AND the book (highest test probability)
         "notes" = Studieskolen modul 3.3 notes only
         "book"  = Danish to Go 3 only
-   ref: where to look it up                                            */
+   ref: where to look it up
+   ch:  the chapter a book rule belongs to. Rules without one (the class-notes
+        material) are core and count whatever chapters are chosen.          */
 
 const RULE_GROUPS = [
 {id:"verbs", name:"Verber og tid", sub:"Tenses — the single biggest scoring area on the test"},
@@ -14,6 +16,8 @@ const RULE_GROUPS = [
 {id:"conj",  name:"Bindeord", sub:"Conjunctions and how they change word order"},
 {id:"time",  name:"Tidsudtryk", sub:"The expressions that force a particular tense"},
 {id:"pairs", name:"Forvekslinger", sub:"Word pairs that look the same in English and are not in Danish"},
+{id:"prep",  name:"Præpositioner", sub:"Fixed prepositions after adjectives and verbs — learn them as one unit"},
+{id:"pron",  name:"Pronominer", sub:"The little words that point — den or dem, sin or hans, nogen or nogle"},
 ];
 
 const RULES = [
@@ -45,15 +49,17 @@ const RULES = [
  table:[["Gruppe 1","bo → bor → bo<b>ede</b> → har bo<b>et</b>"],["Gruppe 2","køb<b>e</b> → køber → køb<b>te</b> → har køb<b>t</b>"],["Gruppe U","være → er → var → har været"]],
  trap:"Group 2 verbs drop the -e- : <i>købte</i>, not <i>købede</i>. Group 1 keeps it. This is the most common written-test slip."},
 
-{g:"verbs", src:"book", ref:"Book p.33", title:"Refleksive verber",
+{g:"verbs", src:"book", ref:"Book p.33", title:"Refleksive verber", ch:1,
  rule:"A reflexive verb is verb + reflexive pronoun. The pronoun is unstressed and follows <b>the verb it belongs to</b> — in a main clause, after the finite verb and any central adverb.",
  table:[["jeg → mig","du → dig"],["han/hun → sig","vi → os"],["I → jer","de → sig"]],
  ex:["Jeg kan ikke <b>vænne mig til</b> at skrive på dansk.","Du skal bare <b>øve dig</b> — så kommer det.","Kathrine <b>glæder sig til</b> næste gang.","Vi <b>kunne godt tænke os</b> at lære at surfe.","Hun <b>koncentrerer sig</b>, når hun spiller skak."],
  trap:"Danish uses <i>sig</i> for both han/hun and de. English has no equivalent, so this is easy to drop entirely — and dropping it changes the meaning or breaks the sentence."},
 
-{g:"verbs", src:"notes", ref:"Notes", title:"Imperativ",
- rule:"The imperative is the infinitive minus its final -e. No pronoun.",
- ex:["at arbejde → <b>arbejd!</b>","at læse → <b>læs!</b>","at gå → <b>gå!</b>","reflexive keeps the pronoun: <b>øv dig!</b> · <b>glæd dig!</b> · <b>væn dig til det!</b>"],
+{g:"verbs", src:"both", ref:"Notes · Book p.73, 102", title:"Imperativ",
+ rule:"The imperative is the infinitive minus its final -e. No pronoun. You use it for instructions, orders and advice.",
+ ex:["at arbejde → <b>arbejd!</b>","at læse → <b>læs!</b>","at gå → <b>gå!</b>","reflexive keeps the pronoun: <b>øv dig!</b> · <b>glæd dig!</b> · <b>væn dig til det!</b>",
+     "<b>Bøj</b> let i knæene, og <b>stræk</b> armene op mod loftet. — <i>the book's exercise instructions, p.73</i>",
+     "at placere → <b>placér!</b> — <i>the accent only marks the stress</i>"],
  trap:"Modal verbs (skulle, ville, kunne, måtte) and <i>synes, koste, kunne lide</i> have no imperative."},
 
 /* ───────── ORDSTILLING ───────── */
@@ -72,16 +78,26 @@ const RULES = [
  ex:["Han cykler på arbejde, når han <b>ikke er</b> træt.","Jeg ved, at hun <b>altid kommer</b> for sent.","Fordi han <b>ikke kunne</b> tale dansk, tog han et kursus."],
  star:true},
 
-{g:"order", src:"book", ref:"Book p.56", title:"at + S (+A) + V¹ (+V²)",
+{g:"order", src:"book", ref:"Book p.56", title:"at + S (+A) + V¹ (+V²)", ch:2,
  rule:"A clause starting with <b>at</b> always takes subordinate word order.",
  ex:["Asger: „Min morfar kan godt lide orden og systemer.“ → Asger siger, <b>at</b> hans morfar (S) <b>godt</b> (A) <b>kan</b> (V¹) <b>lide</b> (V²) orden og systemer.",
      "Ariana: „Min mor vil helst bare hygge sig derhjemme.“ → Ariana siger, <b>at</b> hendes mor helst bare vil hygge sig derhjemme."]},
 
-{g:"order", src:"book", ref:"Book p.56", title:"der (=S) + A + V¹ (+V²)",
+{g:"order", src:"book", ref:"Book p.56", title:"der (=S) + A + V¹ (+V²)", ch:2,
  rule:"A relative clause starting with <b>der</b> also takes subordinate word order. <i>Der</i> is itself the subject.",
  ex:["Rebecca: „Min søster hænger altid ud med sine venner.“ → Rebecca har en søster, <b>der</b> (S) <b>altid</b> (A) <b>hænger</b> (V) ud med sine venner.",
      "Asger har en bror, <b>der</b> altid har gang i titusinde ting på samme tid.",
      "Jonas har en onkel, <b>der</b> bare passer sig selv og lever sit liv."]},
+
+{g:"order", src:"book", ref:"Book p.75–76, 102", title:"★ Sætningskløvning — Der er …, der …", ch:3,
+ rule:"To put weight on who does something, split the sentence in two: <b>Der er</b> + the subject + <b>der</b> + the rest. It is especially common with quantities — <i>mange, nogle, flere, få, en af mine venner</i>.",
+ table:[["Uden kløvning","Mange danskere cykler på arbejde hver dag."],["Med kløvning","<b>Der er</b> mange danskere, <b>der</b> cykler på arbejde hver dag."],["Datid","<b>Der var</b> næsten 360.000, <b>der</b> var medlem af en fodboldklub i 2022."]],
+ ex:["<b>Der er</b> flere kvinder, <b>der</b> går til yoga for at få motion og slappe af i kroppen.",
+     "<b>Der er</b> en af mine venner, <b>der</b> cykler på arbejde hver dag hele året rundt.",
+     "<b>Der er</b> mange, <b>der</b> ikke kender reglerne i ishockey.",
+     "Spoken, the frame shrinks to almost nothing: <i>der er mange, der</i> ≈ [da:man:da] — <i>p.76</i>"],
+ trap:"The second <i>der</i> starts a relative clause, so it takes ledsætning word order: <i>Der er mange, der <b>ikke</b> kender reglerne</i> — never <i>der kender ikke</i>. And the first verb carries the tense: <i>Der <b>var</b> …, der <b>var</b> …</i>.",
+ star:true},
 
 /* ───────── RELATIV ───────── */
 {g:"rel", src:"both", ref:"Notes · Book p.34–35", title:"★ der or som?",
@@ -114,15 +130,24 @@ const RULES = [
         ["Ends in -t","sort, let → no extra t: <i>et sort hus</i>"],
         ["Ends in a vowel","ny → <b>nyt</b> · fri → <b>frit</b> · blå → <b>blåt</b>"]]},
 
-{g:"adj", src:"book", ref:"Chapter 2 texts", title:"Comparison — used constantly in chapter 2",
+{g:"adj", src:"book", ref:"Chapter 2 texts", title:"Comparison — used constantly in chapter 2", ch:2,
  rule:"Short adjectives add -ere / -est. Long ones and most -isk / -et adjectives use mere / mest.",
  table:[["Short","dyb → dybere → dybest · tæt → tættere → tættest · sjov → sjovere → sjovest"],
         ["Long","oprigtig → mere oprigtig → mest oprigtig · interesseret → mere interesseret"],
         ["Irregular","stor → større → størst · god → bedre → bedst · mange → flere → flest · lille → mindre → mindst · gammel → ældre → ældst"]],
  ex:["Venskaber med danskere er <b>dybere</b> og <b>mere oprigtige</b>.","Han var <b>lige så</b> interesseret i at cykle <b>som</b> mig.","<b>Jo</b> flere ting vi kan tjekke af, <b>jo</b> større potentiale er der for venskab.","Hvad er den <b>mindst</b> vigtige ting ved en god ven?"]},
 
+{g:"adj", src:"book", ref:"Book p.75–77, 97 · Online K3·L1 opg. 9", title:"mange · meget · få · lidt — compared", ch:3,
+ rule:"The countable / uncountable split carries straight into comparison. Pick the row first, then the form.",
+ table:[["Tælleligt","mange → <b>flere</b> → <b>flest</b> · få → <b>færre</b> → <b>færrest</b>"],["Utælleligt","meget → <b>mere</b> → <b>mest</b> · lidt → <b>mindre</b> → <b>mindst</b>"]],
+ ex:["<b>Færre</b> danskere dyrker konkurrencesport i dag end for tre år siden. — <i>p.76</i>",
+     "<b>Flere og flere</b> under 30 år er blevet vinterbadere. — <i>p.75</i>",
+     "<b>Endnu flere</b> laver styrketræning eller går til fitness. — <i>p.97</i>",
+     "<b>De fleste</b> deltager i DHL Stafetten på et hold sammen med kolleger. — <i>p.77</i>"],
+ trap:"<i>flere</i> is more of something you count, <i>mere</i> is more of something you don't. <i>Penge</i> counts as countable: <i>mange penge, flere penge</i>."},
+
 /* ───────── SUBSTANTIVER ───────── */
-{g:"noun", src:"notes", ref:"Notes", title:"The four forms",
+{g:"noun", src:"both", ref:"Notes · Book p.101", title:"The four forms",
  rule:"Every noun has four: indefinite and definite, singular and plural. The definite article is a <i>suffix</i>, not a separate word.",
  table:[["","ubestemt → bestemt"],["Ental","et bord → bord<b>et</b> · en dag → dag<b>en</b>"],["Flertal","bord<b>e</b> → bord<b>ene</b> · dag<b>e</b> → dag<b>ene</b>"],["-er plural","en uge → uger → ug<b>erne</b> · en måned → måneder → måned<b>erne</b>"],["No ending","et år → år → år<b>ene</b>"]]},
 
@@ -130,6 +155,20 @@ const RULES = [
  rule:"Countable and uncountable nouns take different quantity words.",
  table:[["Tælleligt","<b>mange</b> (many) · <b>flere</b> (more) — en bil, et æble, et hus"],["Utælleligt","<b>meget</b> (much) · <b>mere</b> (more) — vand, kaffe, kærlighed"]],
  ex:["Jeg har <b>mange</b> biler. · Har du <b>flere</b> æbler?","Jeg har <b>meget</b> kaffe. · Er der <b>mere</b> vand?"]},
+
+{g:"noun", src:"book", ref:"Book p.101 · Online K3·L1 opg. 8", title:"★ Ubestemt eller bestemt?", ch:3,
+ rule:"<b>Ubestemt</b> when something is new, or not known in the context. <b>Bestemt</b> when it is obvious to everyone what you mean. Danish also uses the definite form for parts of the body, where English uses <i>my / your</i>.",
+ table:[["New → ubestemt","Han har lige meldt sig ind i <b>en løbeklub</b>."],["Known → bestemt","<b>Løbeklubben</b> ligger heldigvis tæt på hans lejlighed."],["The body","Du skal bøje lidt i <b>benene</b>. · Jeg har ondt i <b>ryggen</b>."]],
+ ex:["Jeg havde især ondt i mit højre knæ, og jeg havde også krampe i <b>baglåret</b>. — <i>p.71</i>",
+     "Bøj let i dine hofter og <b>knæ</b>, så du næsten kan røre dine <b>tæer</b>. — <i>p.97</i>",
+     "Min <b>næse</b> er ret lille. — <i>possessive, so no -en</i>"],
+ trap:"After a possessive (<i>min, din, sine</i>) or an adjective, the noun stays <b>ubestemt</b>: <i>min næse, dine store fødder</i> — never <i>min næsen</i>. The <i>-en</i> and the <i>min</i> do the same job; you only get one.",
+ star:true},
+
+{g:"noun", src:"book", ref:"Book p.101", title:"Flertal — three endings, and the body exceptions", ch:3,
+ rule:"Plural indefinite ends in <b>-(e)r</b>, <b>-e</b> or <b>nothing</b>. Some English loans can also take <b>-s</b>. You can't hear which from the singular — learn it with the word.",
+ table:[["-(e)r","en skole → skoler · en albue → albuer · et øre → ører"],["-e","en arm → arme · en ryg → rygge · en skuespiller → skuespillere"],["— (none)","et ben → ben · et knæ → knæ · et lår → lår · en film → film"],["-s (loans)","et job → job / jobs"],["Irregular","en fod → <b>fødder</b> · en hånd → <b>hænder</b> · en tå → <b>tæer</b> · et øje → <b>øjne</b>"]],
+ trap:"Words in unstressed <b>-el / -er</b> lose that <i>e</i> in the plural: <i>en muskel → muskler · en skulder → skuldre · en finger → fingre · en ankel → ankler</i>."},
 
 /* ───────── ADVERBIER ───────── */
 {g:"adv", src:"notes", ref:"Notes", title:"★ Lange og korte adverbier",
@@ -161,9 +200,16 @@ const RULES = [
  table:[["på grund af","+ <b>noun</b> — because of"],["for at","+ <b>infinitive</b> — in order to"],["fordi","+ <b>whole clause</b> — because"]],
  ex:["Jeg flyttede til Danmark <b>på grund af</b> min vejleder.","Jeg flyttede til Danmark <b>for at</b> arbejde.","Jeg flyttede til Danmark, <b>fordi</b> jeg gerne ville prøve at bo i et andet land."]},
 
-{g:"conj", src:"book", ref:"Book p.58 · answers p.68", title:"før / for — and the rest of the gap-fill set",
+{g:"conj", src:"book", ref:"Book p.58 · answers p.68", title:"før / for — and the rest of the gap-fill set", ch:2,
  rule:"<b>før</b> = before (time). <b>for</b> = for, or \"because\" in writing. They sound close and the book tests them together with <i>der, når, så, at, selvom</i>.",
  ex:["<b>Før</b> Johannes mødte sin kæreste, troede han ikke, han ville blive far.","… han kan ikke få børn, <b>for</b> han har en medfødt genfejl.","… et barn, <b>der</b> biologisk set ikke var mit.","Men <b>når</b> jeg kigger på Otto i dag, kan jeg ikke forstå, hvorfor jeg tøvede.","… <b>selvom</b> de har samme biologiske forældre."]},
+
+{g:"conj", src:"book", ref:"Book p.90 · Online K3·L3 opg. 11", title:"for — \"because\", but with main-clause word order", ch:3,
+ rule:"<b>for</b> means the same as <i>fordi</i>, but it joins two main clauses. So the adverb stays <b>after</b> the verb, and anything put first makes the clause invert.",
+ table:[["for","Opera er ikke noget for mig, <b>for</b> jeg kan <b>ikke</b> forstå, hvad de synger."],["fordi","Opera er ikke noget for mig, <b>fordi</b> jeg <b>ikke</b> kan forstå, hvad de synger."]],
+ ex:["Marie elsker vandreture ude i skoven, <b>for</b> der <b>føler hun</b> ingen stress. — <i>p.90 — „der“ first, so V–S</i>",
+     "Du skal spise frugt og grøntsager hver dag, <b>for</b> det er sundt. — <i>p.90</i>"],
+ trap:"<i>for</i> can't start a sentence the way <i>fordi</i> can. <i>Fordi jeg var træt, gik jeg hjem</i> is fine; with <i>for</i> the reason always comes second."},
 
 /* ───────── TIDSUDTRYK ───────── */
 {g:"time", src:"both", ref:"Notes · Book p.34", title:"★ The three that decide your tense",
@@ -180,7 +226,7 @@ const RULES = [
  trap:"„Når“ in the past is possible — but only for something that happened again and again. One time in the past is always <i>da</i>.",
  star:true},
 
-{g:"time", src:"book", ref:"Book p.34", title:"Tidsadverbier",
+{g:"time", src:"book", ref:"Book p.34", title:"Tidsadverbier", ch:1,
  rule:"Words and phrases that place an action in time. They usually sit in the adverb slot, or first with inversion.",
  table:[["The set","siden · nu · hver dag · for … siden · i · aldrig · altid · om · snart · endnu · lige · efterhånden · med tiden · i begyndelsen · til sidst"]],
  ex:["Tove har gået til yoga <b>siden</b> 2021.","<b>I begyndelsen</b> syntes jeg, det var svært, men <b>nu</b> har jeg vænnet mig til det.","Ahmed har haft køretimer <b>hver dag</b> i denne uge, for han skal <b>snart</b> til køreprøve.","De har <b>aldrig</b> lært at svømme, men de skal begynde <b>om</b> en måned."]},
@@ -202,12 +248,12 @@ const RULES = [
  rule:"<b>lige</b> is about <i>time</i> — a moment ago, or briefly. <b>bare</b> is about the <i>thing</i> — only that and nothing else.",
  ex:["Jeg har <b>lige</b> købt en ny bluse. — <i>a minute ago</i>","Jeg har <b>bare</b> købt en ny bluse. — <i>and nothing more</i>","Jeg skal <b>lige</b> tjekke min kalender.","Du skal <b>bare</b> øve dig lidt."]},
 
-{g:"pairs", src:"book", ref:"Chapter 2", title:"ligne / minde om — to resemble",
+{g:"pairs", src:"book", ref:"Chapter 2", title:"ligne / minde om — to resemble", ch:2,
  rule:"<b>ligne</b> = look like or be like, direct. <b>minde om</b> = remind of, less direct.",
  ex:["Vi <b>ligner</b> nok meget hinanden.","Der <b>minder</b> vi nok også meget <b>om</b> hinanden.","Hvem i din familie <b>ligner</b> du mest?"],
  trap:"<b>hinanden</b> = each other. <b>sig selv</b> = himself/herself. <i>De ligner hinanden</i> ≠ <i>han ligner sig selv</i>."},
 
-{g:"pairs", src:"book", ref:"Chapter 2", title:"både … og · hverken … eller · begge",
+{g:"pairs", src:"book", ref:"Chapter 2", title:"både … og · hverken … eller · begge", ch:2,
  rule:"Fixed pairs, and they are all over chapter 2's speaking tasks.",
  ex:["<b>Både</b> Anne <b>og</b> Jane synes, de ligner hinanden.","… <b>hverken</b> jeres gamle forældre <b>eller</b> dig.","De er <b>begge to</b> ret kreative.","Vi har mange ting <b>tilfælles</b>."]},
 
@@ -216,7 +262,238 @@ const RULES = [
  table:[["gerne","would like to"],["hellere","would rather"],["helst","would most of all"]],
  ex:["Jeg vil <b>gerne</b> lære at dykke.","Min kæreste vil <b>hellere</b> bo i Danmark.","Pjotr vil <b>helst</b> lære sprog sammen med andre."]},
 
-{g:"pairs", src:"book", ref:"Chapter 1", title:"at lære — learn or teach",
+{g:"pairs", src:"book", ref:"Chapter 1", title:"at lære — learn or teach", ch:1,
  rule:"Danish uses one verb for both. Which one it is depends on whether there's a person object.",
  ex:["Jeg <b>lærer</b> dansk. — <i>I'm learning</i>","Min farfar <b>lærte</b> mig at svømme. — <i>taught me</i>","Jeg <b>lærer</b> nye folk <b>at kende</b>. — <i>get to know</i>","Jeg skal <b>lære</b> alt <b>udenad</b>. — <i>memorise</i>"]},
+{g:"pairs", src:"book", ref:"Book p.71 · Online K3·L2 opg. 8", title:"være / blive — is or becomes", ch:3,
+ rule:"<b>være</b> describes a state. <b>blive</b> describes a change — what you become or get to be.",
+ table:[["være","er · var · har været"],["blive","bliver · blev · <b>er</b> blevet"]],
+ ex:["Jeg <b>er</b> så glad i dag. — <i>state</i>","Jeg <b>bliver</b> så glad, når solen skinner. — <i>change</i>",
+     "Jeg <b>blev</b> også øm i mine balder. — <i>p.71</i>","Men nu <b>er</b> jeg <b>blevet</b> så glad for at cykle, at jeg har købt en splinterny racercykel. — <i>p.71</i>"],
+ trap:"<i>blive</i> takes <b>er</b> in førnutid — it is a change of state. <i>Jeg er blevet</i>, never <i>jeg har blevet</i>."},
+
+{g:"pairs", src:"book", ref:"Book p.71, 83–84 · Online K3·L3 opg. 9", title:"have / få — has or gets", ch:3,
+ rule:"<b>have</b> describes a state — what you have. <b>få</b> describes a change — what you get, receive or start to have.",
+ table:[["have","har · havde · har haft"],["få","får · fik · har fået"]],
+ ex:["Han <b>har</b> mørkt hår. — <i>state</i>","Der er mange, der <b>får</b> gråt hår, når de bliver gamle. — <i>change</i>",
+     "Jeg kan mærke, jeg er kommet i bedre form og <b>har fået</b> mere energi. — <i>p.71</i>",
+     "Når man har meget stillesiddende arbejde, kan man godt <b>få</b> lidt mave. — <i>p.71</i>"],
+ trap:"<b>få</b> + participle means getting something done: <i>få taget et røntgenbillede</i> (p.84), <i>få sovet noget mere</i> (p.83). Same idea: something changes."},
+
+/* ───────── PRÆPOSITIONER ───────── */
+{g:"prep", src:"book", ref:"Book p.71, 78–79, 83, 87–88 · Online K3·L3 opg. 5", title:"★ Feelings and interests — the fixed prepositions", ch:3,
+ rule:"An adjective or verb of feeling comes with its own preposition, and it rarely matches English. Learn the pair as one word.",
+ table:[["glad for","Jeg er rigtig glad for at cykle."],["vild med","Vi er helt vilde med det."],["interesseret i","Jeg er blevet interesseret i Østens filosofi."],
+        ["optaget af","Han er alt for optaget af sit arbejde."],["begejstret for","Jeg er ikke så begejstret for at rejse."],["bidt af","Hun blev hurtigt bidt af sporten."],
+        ["stolt over","Hun er meget stolt over sin krop."],["allergisk over for","Jeg er allergisk over for græs."],["gå op i","Jeg går meget op i meditation."]],
+ trap:"After the preposition comes a noun or <b>at + infinitive</b> — never a bare verb: <i>glad for <b>at</b> cykle</i>, <i>optaget af <b>at</b> tjene penge</i>.",
+ star:true},
+
+/* ───────── KAPITEL 4 ───────── */
+{g:"conj", src:"book", ref:"Book p.108, 133 · answers p.128", title:"★ så or derfor — same meaning, different word order", ch:4,
+ rule:"Both mean <i>so, that's why</i>. <b>så</b> is a conjunction: it joins two main clauses and changes nothing, so S · V. <b>derfor</b> is an adverb: put it first and the clause inverts, so V · S.",
+ table:[["så → S · V","Traditioner er vigtige, <b>så</b> alle i min familie <b>er</b> døbt."],["Derfor → V · S","Vi havde ikke så mange penge. <b>Derfor valgte vi</b> at holde festen hjemme."],["så derfor → V · S","Camilla og André ville gerne undgå kirken, <b>så derfor blev de</b> gift ude i naturen."]],
+ ex:["Naomis forældre er ikke særligt religiøse. <b>Derfor holdt de</b> en navnefest i stedet for dåb i kirken. — <i>p.128</i>",
+     "I Marthas familie har de altid gået i kirke, <b>så hun valgte</b> at blive konfirmeret i kirken. — <i>p.128</i>",
+     "Jeg vil gerne have en fest og gaver. <b>Derfor vil jeg</b> konfirmeres. — <i>p.133</i>"],
+ trap:"<i>så derfor</i> is common in speech, and the moment <i>derfor</i> is there it decides: <i>…, så derfor <b>prioriterede de</b> fri bar</i> (p.128). And <i>så</i> meaning <i>then</i> is an adverb, so it inverts too: <i>Så <b>gik vi</b> hen til en lille café</i> (p.106).",
+ star:true},
+
+{g:"conj", src:"book", ref:"Book p.110, 133 · answers p.128", title:"★ selvom or alligevel — even though, still", ch:4,
+ rule:"Both mark a contrast — something happens against what you'd expect. <b>selvom</b> is a conjunction and starts a ledsætning: S · A · V. <b>alligevel</b> is an adverb: first in the sentence it inverts; otherwise it sits in the adverb slot or at the very end.",
+ table:[["selvom + S · A · V","Nogle bliver konfirmeret, <b>selvom</b> de <b>ikke er</b> særligt religiøse."],["Alligevel + V · S","Nogle danskere kommer ikke så meget i kirken. <b>Alligevel vil de</b> gerne bevare kirkerne."],["alligevel, middle","Solen skinner. Det er <b>alligevel</b> ikke ret varmt."],["alligevel, end","Han har ikke lyst til at holde fest. Han gør det <b>alligevel</b>."]],
+ ex:["Camilla og André ville gerne undgå kirken — <b>alligevel ville de</b> gerne giftes. — <i>p.128</i>",
+     "Sakura blev døbt i en kirke, <b>selvom</b> hendes forældre <b>ikke er</b> særligt religiøse. — <i>p.128</i>",
+     "<b>Selvom</b> mange danskere er medlem af folkekirken, <b>går de</b> ikke så tit i kirke. — <i>p.128 — the selvom-clause comes first, so the main clause inverts</i>"],
+ trap:"<i>selvom</i> goes on the reason, <i>alligevel</i> on the surprise. <i>Selvom det regner, løber hun en tur</i> = <i>Det regner. Alligevel løber hun en tur.</i> Same fact, two word orders. (<i>selv om</i> as two words is also correct.)",
+ star:true},
+
+{g:"pron", src:"book", ref:"Book p.121 · answers p.132", title:"den · det · de · dem — pointing back", ch:4,
+ rule:"Pick the pronoun by what you are replacing: <b>den</b> for an en-word, <b>det</b> for an et-word or a whole idea, <b>de</b> for a plural subject and <b>dem</b> for a plural object.",
+ table:[["den","an en-word: <i>en polterabend → den · festen → den</i>"],["det","an et-word, or a whole idea or clause"],["de","plural, subject: <i>gæsterne → de</i>"],["dem","plural, object: <i>The Spice Boyz → kender du dem?</i>"]],
+ ex:["Jeg glæder mig til at arrangere hendes polterabend. Hvornår skal vi holde <b>den</b>? — <i>p.132</i>",
+     "<b>Det</b> lyder godt med spa om dagen og en karaokefest om aftenen. Hun vil elske <b>det</b>! — <i>the plan, not a noun</i>",
+     "Hvad tid skal gæsterne komme nytårsaften? Skal <b>de</b> komme kl. 17.00? Eller er <b>det</b> for tidligt? — <i>p.132</i>",
+     "Skal vi ikke lave en pakkeleg juleaften? <b>Det</b> synes de fleste er sjovt. — <i>p.132</i>"],
+ trap:"Put first for emphasis, the pronoun makes the sentence invert: <i><b>Den glemmer jeg</b> heldigvis aldrig.</i> And <i>de</i> vs <i>dem</i> is the same choice as <i>jeg</i> vs <i>mig</i>: does it do the verb, or is it on the receiving end?"},
+
+{g:"rel", src:"book", ref:"Book p.104, 109, 117 · Online K4·L3 opg. 4", title:"hvor · som · hvilket", ch:4,
+ rule:"Three ways to hang a clause on what came before, and each points back at something different. All three start a ledsætning, so the adverb goes before the verb.",
+ table:[["hvor","a place, a situation or a time: <i>et sted, hvor … · en fest, hvor …</i>"],["som","a noun: <i>en tradition, som …</i>"],["hvilket","the whole clause before it: <i>…, hvilket er dejligt</i>"]],
+ ex:["… begivenheder, traditioner eller mærkedage, <b>som</b> vi fejrer eller markerer på bestemte måder. — <i>p.104</i>",
+     "Der er også nogle, som vælger at holde en fest, <b>hvor</b> de navngiver barnet. — <i>p.104</i>",
+     "Vi har en familietradition, <b>hvor</b> vi tager i skoven og leder efter de første anemoner. — <i>p.117</i>",
+     "Faktisk er 74 % af danskerne medlem af folkekirken, <b>hvilket</b> svarer til 3 ud af 4 danskere. — <i>p.109</i>"],
+ trap:"<i>hvilket</i> never points at a single noun: <i>en strand, som hed Playa de Palma</i>, not <i>hvilket hed</i>. Test: if you could say <i>og det</i> (and that) instead, it is <i>hvilket</i>."},
+
+{g:"time", src:"book", ref:"Book p.112, 117, 129, 131", title:"Datoer — den + ordinal", ch:4,
+ rule:"A date is <b>den</b> + an ordinal number + the month, with a full stop after the number. <i>den 5. juni</i> is read <i>den femte juni</i>.",
+ table:[["Date","den 5. juni · d. 4. maj · den 24. — <i>written d. or den</i>"],["Weekday","den første fredag i november · lørdag den 18. maj"],["Part of a month or year","i begyndelsen af året · i slutningen af juni · først i / sidst i marts"],["Year","i 2009 · i år 1030 — <i>i, never på</i>"]],
+ ex:["På grundlovsdag fejrer man, at Danmark fik sin første grundlov — <b>den 5. juni 1849</b>. — <i>p.129</i>",
+     "J-dag er altid <b>den første fredag i november</b>. — <i>p.129</i>",
+     "Sankt Hans er et halvt år efter juleaften, nemlig <b>den 24. juni</b>. — <i>p.129</i>",
+     "Hvad med <b>lørdag den 18. maj</b>? Kan du der? — <i>p.131</i>"],
+ trap:"Months and weekdays take a small letter: <i>juni, fredag</i>. And Danish writes the day before the month — <i>den 5. juni</i>, never <i>juni den 5.</i>"},
+
+{g:"prep", src:"book", ref:"Book p.123–124", title:"enig med someone, enig i something", ch:4,
+ rule:"Agreeing takes a different preposition depending on what you agree with: a person takes <b>med</b>, a statement or an opinion takes <b>i</b>.",
+ table:[["enig / uenig med","+ a person: <i>Jeg er enig med dig.</i>"],["enig / uenig i","+ a thing, a statement or an <i>at</i>-clause"],["blive enige om","+ what you agree on together"]],
+ ex:["Jeg er <b>enig med</b> dig, fordi far er lige så vigtig som mor i familien. — <i>p.123</i>",
+     "Jeg er <b>uenig i</b>, at mors dag er for kommerciel, fordi man selv vælger, om man vil købe ting. — <i>p.123</i>",
+     "Skriv, hvad I bliver <b>enige om</b>. — <i>p.124</i>"],
+ trap:"<i>enig</i> is an adjective, so it agrees: <i>jeg er enig</i>, but <i>vi er enige</i>."},
+
+{g:"verbs", src:"book", ref:"Chapter 4 texts, p.104, 110, 113–114", title:"Passiv — -s or blive + participle", ch:4,
+ rule:"Danish has two passives. Add <b>-s</b> to the infinitive or the present (<i>fejres, markeres</i>), mostly for something general or repeated. Or use <b>blive</b> + the participle (<i>bliver fejret, blev døbt</i>), mostly for one event.",
+ table:[["-s","Nogle begivenheder <b>fejres</b> med fest og glæde. · Disse begivenheder skal <b>markeres</b>."],["blive + participle","Andre <b>bliver fejret</b> i én kultur, men ikke i en anden. · Sakura <b>blev døbt</b> i kirken."]],
+ ex:["Nogle vil ikke <b>konfirmeres</b> i en kirke. — <i>p.110</i>","Alligevel ville de gerne <b>giftes</b>. — <i>p.110</i>","Nogle særlige dage og fester <b>fejres</b> i hele kongeriget. — <i>p.114</i>"],
+ trap:"After a modal verb the -s goes on the infinitive: <i>skal markeres, vil konfirmeres</i>. Don't confuse it with the -s verbs that are not passive at all: <i>mødes, samles, synes</i>."},
+
+/* ───────── KAPITEL 5 ───────── */
+{g:"verbs", src:"book", ref:"Book p.137, 165 · answers p.157", title:"★ Position or movement — stå / stille, ligge / lægge, sidde / sætte", ch:5,
+ rule:"Danish has a verb pair for each way a thing can be placed. The <b>position</b> verb says where it is. The <b>movement</b> verb says someone puts it there — it always has an object. <i>hænge</i> does both.",
+ table:[["Position · statisk","stå · ligge · sidde · hænge"],["Bevægelse · dynamisk","stille · lægge · sætte · hænge (op)"],
+        ["Bøjning — position","står, stod, har stået · ligger, lå, har ligget · sidder, sad, har siddet · hænger, <b>hang</b>, har hængt"],
+        ["Bøjning — bevægelse","stiller, stillede, har stillet · lægger, lagde, har lagt · sætter, satte, har sat · hænger, <b>hængte</b>, har hængt"]],
+ ex:["Hvor skal sofaen <b>stå</b>, synes du? — Vi kan <b>stille</b> den hen langs væggen dér. — <i>p.136</i>",
+     "Hvad med tæppet fra min mor — skal det ikke <b>ligge</b> inde i stuen? — Du kan <b>lægge</b> det ud på køkkentrappen. — <i>p.136</i>",
+     "… en hyggekrog, hvor vi kan <b>sidde</b> og slappe af. — Du kan <b>sætte</b> et par ting op ovenpå skabet. — <i>p.136</i>",
+     "Vi kan <b>sætte</b> billederne på kommoden og <b>lægge</b> tæppet foran brændeovnen. — <i>p.165</i>"],
+ trap:"Ask: is it moving, or is it already there? With people the movement verb turns reflexive: <i>sætte sig, lægge sig, stille sig</i>. And <i>hænge</i> shows which one it is in the past: <i>Billedet <b>hang</b> over sofaen</i> (position) · <i>Jeg <b>hængte</b> det op</i> (movement).",
+ star:true},
+
+{g:"verbs", src:"book", ref:"Online K5·L3 opg. 10 · resurse: Verber", title:"Førdatid — havde / var + -et", ch:5,
+ rule:"Two events in the past, one finished before the other. The earlier one takes <b>førdatid</b> — <i>havde</i> + participle — and the later one datid. It is førnutid moved one step back: <i>har boet → havde boet</i>.",
+ table:[["Førdatid","havde boet · havde været · havde fundet · <b>var</b> gået"],["Datid","boede · var · fandt · gik"]],
+ ex:["Da de <b>havde været</b> på stranden i to timer, <b>gik</b> de hjem.","De <b>sagde</b>, hun <b>var gået</b> ned til søen.",
+     "Han <b>var</b> lige <b>gået</b> ned i kiosken. — <i>a move → var</i>","Han <b>havde gået</b> rundt i parken i en time. — <i>no change of place → havde</i>"],
+ trap:"<b>var</b> replaces <b>havde</b> by the same rule as <i>er</i> replaces <i>har</i>: a change, or a move from one place to another. <i>Hun var lige flyttet til Østerbro</i>, but <i>Hun havde flyttet mange gange</i>."},
+
+
+{g:"order", src:"book", ref:"Book p.139–140, 157–158", title:"★ for så … — inversion after så", ch:5,
+ rule:"<b>for så</b> gives a reason: <i>because then</i>. <i>for</i> starts a main clause, and <i>så</i> is an adverb sitting in first position — so the verb comes straight after it, before the subject.",
+ table:[["Two sentences","Vi har stillet skabet ud i gangen. Det fylder ikke så meget."],["With for så","Vi har stillet skabet ud i gangen, <b>for så fylder</b> (V) <b>det</b> (S) <b>ikke</b> (A) så meget."]],
+ ex:["Mit arbejdsbord står inde i stuen, <b>for så er jeg</b> tæt på køkkenet, når jeg sidder og arbejder. — <i>p.139</i>",
+     "Den skulle selvfølgelig stå foran døren til altanen, <b>for så kan jeg</b> sidde og slappe af i den. — <i>p.157</i>",
+     "… tæt på vores arbejdspladser og børnenes skole, <b>for så skal vi ikke</b> bruge tid på transport. — <i>p.158</i>"],
+ trap:"Never <i>for så jeg kan</i>. Don't mix it up with <i>så</i> alone meaning <i>so that</i> — that one starts a ledsætning with S before V: <i>Jeg stiller den over for sofaen, <b>så vi får</b> en hyggekrog</i> (p.136).",
+ star:true},
+
+{g:"order", src:"book", ref:"Online K5·L3 opg. 5, 9 · resurse: Ordstilling", title:"Indirekte spørgsmål — hv-ord / om + S · A · V", ch:5,
+ rule:"A question tucked inside a sentence — after <i>Ved du …</i>, <i>Kan du huske …</i>, <i>De taler om …</i> — starts with a hv-word, or with <b>om</b> for a yes/no question. It is a ledsætning: subject before verb, adverb before the verb.",
+ table:[["Direkte","Hvorfor regner det altid?"],["Indirekte","De taler om, hvorfor det <b>altid regner</b>."],["Ja/nej → om","Er det Nilen? → Jeg ved ikke, <b>om</b> det er Nilen."],["hvem/hvad = subject → + der","De taler om, hvem <b>der</b> ikke har boet på en ø."]],
+ ex:["Jeg ved ikke, <b>om</b> jeg har tid.","Ved du, <b>hvorfor</b> der er så meget sand i Sahara?","De taler om, hvorfor Thomas <b>aldrig har</b> været i USA.","De taler om, <b>hvad der</b> er det største land i verden."],
+ trap:"Don't keep the question word order: <i>Ved du, hvor bor han?</i> ✗ → <i>Ved du, hvor han bor?</i> And <b>om</b> = whether, <b>hvis</b> = if (a condition): <i>Jeg ved ikke, om han kommer</i> · <i>Hvis han kommer, går jeg</i>."},
+
+
+{g:"adj", src:"book", ref:"Book p.153–155 · answers p.163", title:"★ Superlativ — -est, -st or mest, and the -e", ch:5,
+ rule:"Short adjectives add <b>-est</b>, adjectives in -ig and -som add <b>-st</b>, and long ones use <b>mest</b>. In the definite form — after <i>den / det / de</i> or a genitive like <i>verdens</i> — the superlative also takes <b>-e</b>.",
+ table:[["1 stavelse → -est","pæn → pænest · flot → flottest · varm → varmest · kold → koldest"],["-ig / -som → -st","dårlig → dårligst · dejlig → dejligst · langsom → langsomst"],
+        ["Long, -e, -et → mest","mest interessant · mest imponerende · mest afsidesliggende"],["Irregular","stor → størst · gammel → ældst · god → bedst · meget → mest · lidt → mindst"],
+        ["Bestemt → + -e","<b>den</b> varmest<b>e</b> by · <b>det</b> koldest<b>e</b> sted · <b>verdens</b> højest<b>e</b> vandfald"]],
+ ex:["<b>Den varmeste</b> by i verden, hvor der bor mennesker, er Wyndham i Vestaustralien. — <i>p.153</i>",
+     "Aswan i Egypten er <b>det tørreste</b> sted på jorden, hvor der bor mennesker. — <i>p.153</i>",
+     "Tristan da Cunha, <b>det mest afsidesliggende</b> sted i verden, … — <i>p.154</i>",
+     "Hvor er der <b>varmest</b>? — <i>no den/det, so no -e. p.163</i>"],
+ trap:"No article, no -e: <i>Hvor er der varmest?</i> but <i>det varmeste sted</i>. With <i>mest</i> the -e goes on the adjective: <i>de mest interessante steder</i>. -ig words: <i>lykkeligst → den lykkeligste dag</i>.",
+ star:true},
+
+
+{g:"pron", src:"book", ref:"Book p.145–146, 166 · answers p.159", title:"★ sin, sit, sine — or hans, hendes, deres?", ch:5,
+ rule:"In the 3rd person singular, <b>sin / sit / sine</b> point back to the <b>subject of the same clause</b>. If the owner is someone else, use <b>hans / hendes</b>. <i>sin</i> changes with the thing owned; <i>hans</i> and <i>hendes</i> never change.",
+ table:[["sin · sit · sine","sin lejlighed · sit kvarter · sine naboer"],["hans · hendes · deres","same form whatever follows"],["The test","Owner = subject of the same clause → sin/sit/sine. Anyone else → hans/hendes."]],
+ ex:["<b>Han</b> flyttede til Danmark sammen med <b>sin</b> kone, fordi <b>hans</b> kone fik job her. — <i>p.166</i>",
+     "Hun er både glad for <b>sit</b> kvarter og <b>sine</b> naboer. — <i>p.166</i>",
+     "<b>Hendes</b> navn er Alev. Der boede hun sammen med <b>sine</b> forældre og <b>sin</b> lillebror. — <i>p.159</i>",
+     "Har du set <b>hans</b> nye altan? — <i>the subject is du, so hans</i>",
+     "Man kender ikke engang <b>sine</b> naboer. — <i>man as subject → sin/sit/sine. p.160</i>"],
+ trap:"<i>sin</i> can never be part of the subject: <i><b>Hans</b> kone fik job her</i>, never <i>sin kone fik job</i>. With a plural owner it is always <b>deres</b>: <i>De solgte deres hus</i>.",
+ star:true},
+
+{g:"pron", src:"book", ref:"Book p.165–166", title:"Personlige pronominer — subject, object, reflexive", ch:5,
+ rule:"A personal pronoun replaces a noun and follows it in gender (en/et) and number. It has one form as the subject and another as the object.",
+ table:[["Subjekt","jeg · du · han · hun · den · det · man · vi · I · de"],["Objekt","mig · dig · ham · hende · den · det · en · os · jer · <b>dem</b>"],["Refleksiv","mig · dig · <b>sig</b> (han/hun/den/det/man) · os · jer · <b>sig</b> (de)"]],
+ ex:["Huset er ret gammelt. <b>Det</b> er fra 1920. — <i>et hus → det</i>","Peter er flyttet til Nørrebro. Vi skal besøge <b>ham</b> på lørdag.","Han har inviteret <b>os</b> til at se den nye lejlighed.","De glæder <b>sig</b> til at flytte. — <i>reflexive</i>"],
+ trap:"The table on p.165–166 lists <i>sig</i> under objektsform for <i>man</i> and <i>de</i> — that is the reflexive form. As a plain object <i>de</i> becomes <b>dem</b>: <i>Jeg besøger dem</i>. <i>sig</i> only when it points back to the subject: <i>De glæder sig</i>."},
+
+
+{g:"prep", src:"book", ref:"Book p.135, 140 · answers p.157", title:"Where things are — the prepositions of place", ch:5,
+ rule:"The book's room descriptions use a small, fixed set. Learn each with a picture in your head.",
+ table:[["foran","Tæppet ligger foran brændeovnen."],["over","Lamperne hænger over spisebordet."],["midt i","Sengen står midt i rummet."],["op ad","Sofaen står op ad væggen langs vinduerne."],
+        ["rundt om","Lyskæderne hænger rundt om vinduerne."],["ved siden af","Billederne hænger over sofaen ved siden af reolen."],["over for","Jeg synes, lænestolen skal stå over for fjernsynet."],["ovenpå","Jeg har sat mine planter ovenpå kommoden."]],
+ trap:"<b>op ad</b> means up against, not up: <i>Sofaen står op ad væggen</i>. And <b>over for</b> (opposite) is two words before a noun — <i>over for sofaen</i>; on its own it is one: <i>huset overfor</i>."},
+
+/* ───────── KAPITEL 6 ───────── */
+{g:"verbs", src:"book", ref:"Book p.174, 204", title:"★ Modalverber — the full set", ch:6,
+ rule:"A modal verb is followed by a bare infinitive — no <i>at</i>. Each one has a nutid, a datid and a førnutid with <i>har</i>, and each covers several meanings.",
+ table:[["kunne","kan · kunne · har kunnet — possibility, ability, a suggestion"],
+        ["ville","vil · ville · har villet — a wish, an intention, an invitation, a prediction"],
+        ["skulle","skal · skulle · har skullet — a plan, a duty, a suggestion, a promise (+ nok)"],
+        ["måtte","må · måtte · har måttet — permission or a ban, a necessity"],
+        ["burde","bør · burde · har burdet — a good idea, the right thing to do"],
+        ["turde","tør · turde · har turdet — to dare"],
+        ["gide","gider · gad · har gidet — can be bothered; a request"],
+        ["behøve","behøver · behøvede · har behøvet — need to, only in questions and negatives"]],
+ ex:["<b>Kan</b> du komme til mødet? — <i>a possibility</i>","<b>Vil</b> du med på café på lørdag? — <i>an invitation</i>",
+     "Du <b>bør</b> tage en uddannelse. — <i>a good idea</i>","<b>Skal</b> vi ikke gå hjem? — <i>a suggestion</i> · Det <b>skal</b> vi nok. — <i>a promise</i>",
+     "<b>Gider</b> du åbne vinduet? — <i>a request</i>","Du <b>skulle</b> tage at prøve noget nyt! — <i>datid softens it into advice, p.174</i>"],
+ trap:"No <i>at</i> after a modal: <i>Jeg vil gerne <b>rejse</b></i>, never <i>vil at rejse</i>. <i>behøve</i> and <i>gide</i> are the two that may take it — the book has both <i>Jeg behøver ikke at tjene en masse penge</i> and <i>Du behøver ikke lave mere</i> (p.173, 204).",
+ star:true},
+
+
+{g:"order", src:"book", ref:"Book p.188, 202, 205", title:"★ Hvis …, hvad ville du så …?", ch:6,
+ rule:"A <i>hvis</i>-clause put first counts as position one, so the main clause starts with its verb. In the book's model the main clause adds <b>så</b> in the adverb slot. For a dream or a what-if, both verbs go into datid: <i>kunne … ville</i>.",
+ table:[["Ledsætning · S A V","Hvis du (S) <b>gerne</b> (A) <b>ville</b> (V¹) flytte (V²) til et andet land, …"],
+        ["Hovedsætning · V S A","… hvor <b>ville</b> (V¹) du (S) <b>så</b> (A) flytte (V²) hen?"]],
+ ex:["Hvis du kunne bo hvor som helst i verden, hvor <b>ville du så</b> bo? — <i>p.188</i>",
+     "Hvis du kunne være en berømt person i én dag, hvem <b>ville du så</b> være? — <i>p.202</i>",
+     "Hvis du skulle skrive en bog, hvad <b>skulle den så</b> handle om? — <i>p.202</i>",
+     "Hvad <b>ville du</b> vælge, hvis du kunne vælge en særlig oplevelse? — <i>hvis-clause second: no så, p.202</i>"],
+ trap:"Two word orders in one sentence: S–A–V inside the <i>hvis</i>-clause, V–S after the comma. And <i>så</i> goes after the subject, not before the verb: <i>hvor ville du så bo</i> — not <i>hvor så ville du bo</i>.",
+ star:true},
+
+
+{g:"adj", src:"book", ref:"Book p.171, 184, 190 · Online K6·L3 opg. 9", title:"egen / eget / egne — own", ch:6,
+ rule:"<i>egen</i> agrees with its noun: <b>egen</b> for en-words, <b>eget</b> for et-words, <b>egne</b> in the plural. It nearly always follows a possessive.",
+ table:[["en-word","min <b>egen</b> chef · min <b>egen</b> vin-virksomhed"],["et-word","mit <b>eget</b> lille hus ved vandet · mit <b>eget</b> liv"],["Plural","vores helt <b>egne</b> koncerter · deres <b>egne</b> drømme"]],
+ ex:["Det er også fedt, at jeg er min <b>egen</b> chef. — <i>p.171</i>","Jeg tager også ansvar for mit <b>eget</b> liv og mine valg og meninger. — <i>p.171</i>",
+     "… bygge mit <b>eget</b> lille hus ved vandet. — <i>p.184</i>","Vi drømmer om at arrangere vores helt <b>egne</b> koncerter. — <i>p.190</i>"],
+ trap:"Any other adjective takes the e-form after a possessive — <i>min store bil</i>. <i>egen</i> doesn't: <i>min <b>egen</b> bil, mit <b>eget</b> hus</i>. Only the plural gets the e: <i>mine <b>egne</b> børn</i>."},
+
+
+{g:"adv", src:"book", ref:"Book p.191–192, 205", title:"Listing reasons — først og fremmest, for det første, desuden, endelig", ch:6,
+ rule:"These adverbs put an argument in order. Put one first and the verb comes straight after it — it is the inversion rule again.",
+ table:[["Først og fremmest","<b>vil</b> jeg gerne ind på jura."],["For det første","<b>skal</b> jeg være færdig med min uddannelse."],["For det andet","<b>drømmer</b> jeg om et hus ved vandet."],["Desuden","<b>er</b> det vigtigt for mig at gøre en forskel i verden."],["Endelig","<b>synes</b> vi, at I er rigtig gode rollemodeller."]],
+ ex:["Først og fremmest handler jeres projekt om unge i rytmisk musik. For det andet <b>har vi</b> lagt vægt på, at I arbejder med unge med forskellig baggrund. — <i>p.191</i>"],
+ trap:"Every application and argued answer uses this chain. The slip is <i>For det første jeg skal …</i> — after the adverb, the verb comes first."},
+
+
+{g:"pairs", src:"book", ref:"Book p.173, 204", title:"må ikke / behøver ikke — mustn't or needn't", ch:6,
+ rule:"<b>må ikke</b> = not allowed. <b>behøver ikke</b> = not necessary. English <i>must not</i> is <i>må ikke</i>; <i>don't have to</i> is <i>behøver ikke</i>.",
+ table:[["må ikke","forbidden — Du <b>må ikke</b> gå op på taget."],["behøver ikke","not needed — Du <b>behøver ikke</b> lave mere."],["må gerne","allowed, welcome — Jobbet <b>må gerne</b> være kreativt."]],
+ ex:["Men jeg <b>behøver ikke</b> at tjene en masse penge. — <i>Simon, p.173</i>","Hvordan <b>må</b> Simons arbejde helt sikkert <b>ikke</b> være? — <i>p.174</i>","<b>Må</b> jobbet gerne være konkurrencepræget? — <i>p.174</i>"],
+ trap:"English speakers hear <i>must</i> in <i>må</i> and say <i>Du må ikke komme</i> when they mean you don't have to. That tells the person they are forbidden to come."},
+
+{g:"pairs", src:"book", ref:"Book p.171, 177, 186, 200 · Online K6·L2 opg. 4", title:"gør / laver — do or make", ch:6,
+ rule:"Both translate as <i>do</i> and <i>make</i>. <b>gøre</b> = act, have an effect, or stand in for another verb. <b>lave</b> = produce something, be busy with something, or fix it.",
+ table:[["gøre","gøre en forskel · gøre mig glad · Taler du engelsk? Det <b>gør</b> jeg også."],["lave","lave mad · lave frivilligt arbejde · lave en fejl · Hvad <b>laver</b> du til daglig?"]],
+ ex:["De vil gerne hjælpe andre og <b>gøre</b> en forskel. — <i>p.177</i>","Det <b>gør</b> mig bare glad! — <i>p.186</i>",
+     "Hvad <b>laver</b> Daniel, og hvilke arbejdsopgaver har han? — <i>p.171</i>","Jeg kan også godt grine af mig selv, hvis jeg <b>laver</b> en fejl. — <i>p.200</i>"],
+ trap:"Making sense is neither: <i>Det <b>giver</b> mening</i> (p.173). And <i>Det gør ikke noget</i> = it doesn't matter."},
+
+{g:"pron", src:"book", ref:"Book p.76, 171, 173, 175, 197 · Online K6·L2 opg. 8, L3 opg. 8", title:"nogen / noget / nogle", ch:6,
+ rule:"<b>nogen</b> and <b>noget</b> mean <i>any</i> — in questions and negatives. <i>nogen</i> goes with en-words and plurals, <i>noget</i> with et-words and uncountables. <b>nogle</b> means <i>some</i>, in plain statements, with plurals.",
+ table:[["nogen + en-word","Er der <b>nogen</b> genbrugsbutik i Valby?"],["noget + et-word / uncountable","Har du <b>noget</b> job? · Har du <b>noget</b> tøj, du ikke bruger?"],["nogen + plural (? / ikke)","Altså, jeg har jo ikke rigtig <b>nogen</b> kolleger."],["nogle + plural (statement)","Jeg har lige købt <b>nogle</b> nye høretelefoner."],["Alone","<b>nogen</b> = anyone, someone · <b>noget</b> = anything, something · <b>nogle</b> = some people"]],
+ ex:["Der er <b>nogle</b>, der synes, at mit job ikke er et rigtigt job. — <i>p.171</i>","Er der <b>nogen</b> slags jobs, I ikke tør søge? — <i>p.175</i>",
+     "Jeg kunne godt tænke mig <b>noget</b>, der er fast. — <i>p.173</i>","Der er ikke <b>nogen</b> her, der er mere eller mindre end <b>nogen</b>. — <i>p.197</i>"],
+ trap:"Spoken, <i>nogen</i> and <i>nogle</i> sound the same — <i>nogen, der / nogle, der</i> ≈ [no:nda] (p.76). So you have to decide in writing: question or negative → <i>nogen</i>; plain statement → <i>nogle</i>."},
+
+
+{g:"prep", src:"book", ref:"Book p.170–173, 180, 186, 190–191", title:"Work and dreams — the fixed prepositions", ch:6,
+ rule:"Chapter 6's set. Same deal as the feelings card: the preposition belongs to the word, so learn them together.",
+ table:[["drømme om","Jeg drømmer faktisk også om at skrive en bog."],["lægge vægt på","Det er ikke det, jeg lægger mest vægt på."],["være færdig med","Først og fremmest vil jeg gerne være færdig med min uddannelse."],
+        ["være god til","Du skal være god til at påvirke andre."],["være bange for","Du er ikke bange for at prøve noget nyt."],["have noget imod","Jeg har heller ikke noget imod at have travlt."],
+        ["tage ansvar for","Jeg tager også ansvar for mit eget liv."],["deltage i","deltage i underholdningsprogrammet Y-faktor"],["søge om","Vi vil gerne søge om støtte til at købe printere."]],
+ ex:["Vi har lagt vægt <b>på, at</b> I arbejder med unge med forskellig baggrund. — <i>a whole clause can follow with „, at“, p.191</i>"],
+ trap:"After the preposition: a noun, <b>at</b> + infinitive, or <b>at</b> + a whole clause — never a bare verb. <i>drømme om <b>at</b> rejse</i>, <i>god til <b>at</b> samarbejde</i>."},
 ];
