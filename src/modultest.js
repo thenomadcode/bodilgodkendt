@@ -23,6 +23,10 @@
    Progress is keyed by id (dtg3-test-v1). Renaming an id orphans its best
    score or draft, the same rule as everywhere else on the page. */
 
+/* The real dates of Chris's module 3 test. Status and the Modultest tab count
+   down to both. */
+const TEST_DATES = {skriftlig:"2026-11-19", mundtlig:"2026-11-24"};
+
 const READ_T = [
 {id:"cl-loeb", type:"cloze", title:"Mit nye liv med løb", sub:"A personal blog post about starting to run",
  text:"Sidste forår {0} jeg at løbe. Jeg havde haft ondt i ryggen i lang tid, og min læge sagde, at jeg skulle bevæge mig {1} i hverdagen. I starten var det hårdt, {2} jeg kun kunne løbe fem minutter ad gangen.\n\nNu løber jeg tre gange om ugen sammen {3} en løbeklub. Vi mødes {4} parken klokken halv syv om morgenen. Det er hyggeligt at løbe sammen med de andre i klubben, og {5} har lært mig meget om træning og kost.\n\nJeg har aldrig været i så {6} form, som jeg er nu. Jeg sover bedre, og jeg har mere energi, {7} jeg kommer hjem fra arbejde. Min kone synes også, at jeg er blevet gladere. Hun har faktisk {8}, at hun vil starte i klubben i næste måned.\n\nHvis du gerne vil i gang, er mit bedste råd: Start langsomt, og find nogle søde mennesker, du kan løbe {9}.",
@@ -327,6 +331,373 @@ const READ_T = [
   {q:"Hvem betaler ikke noget for at træne?", a:2, w:"Nanna runs in the forest, and 'det koster ikke noget'. Birgitte pays 1.500 kroner a year, and Yusuf 299 kroner a month."},
   {q:"Hvem har dyrket den samme sport siden barndommen?", a:0, w:"Birgitte has played handball 'siden jeg var otte år'. Yusuf had to stop football after his injury, and Nanna only started at 40."},
   {q:"Hvem spiser sundere nu end før?", a:1, w:"Yusuf: 'flere grøntsager og meget mindre slik end før'. Birgitte eats what she likes, and Nanna 'burde nok spise sundere' but does not."}
+ ]},
+
+{id:"cl-fastelavn", type:"cloze", title:"Fastelavn i børnehaven", sub:"A notice from a kindergarten to parents about the Shrovetide party",
+ text:"Kære forældre\n\nVi {0} fastelavn i Solsikken fredag den 13. februar, og alle børn må gerne komme udklædt hjemmefra. Husk varmt tøj under kostumet, {1} vi skal være ude på legepladsen en stor del af formiddagen.\n\nKlokken 9.30 slår vi katten {2} tønden. Det barn, {3} slår det sidste stykke ned, bliver kattekonge. Bagefter spiser vi fastelavnsboller i salen. De store børn {4} bollerne i går sammen med pædagogerne, og de er meget stolte {5} dem.\n\nSidste år var der {6} børn, som blev kede af det, fordi de ikke vandt. Derfor får alle en lille slikpose med hjem i år.\n\nHvis jeres barn er bange {7} masker eller ikke vil klæde sig ud, er det helt i orden. Festen slutter klokken 12, og efter frokost er resten af dagen {8} normalt.\n\nHvis I har spørgsmål, er I velkomne til at kontakte {9} på telefon 33 12 45 67.\n\nVenlig hilsen\nPersonalet i Solsikken",
+ gaps:[
+  {o:["fejrede","fejret","fejrer"], a:2, w:"The party is a future plan ('børn må gerne komme'), so nutid with future meaning: fejrer."},
+  {o:["fordi","selvom","men"], a:0, w:"Being outside is the reason to bring warm clothes, so fordi."},
+  {o:["fra","af","ud"], a:1, w:"The fixed phrase is slå katten af tønden."},
+  {o:["der","hvem","hvor"], a:0, w:"der is the subject of the relative clause about 'det barn'; hvem is not used as a relative subject."},
+  {o:["bager","bagt","bagte"], a:2, w:"datid: 'i går' is a finished time in the past."},
+  {o:["til","med","af"], a:2, w:"The fixed phrase is være stolt af noget."},
+  {o:["mange","meget","mere"], a:0, w:"'børn' can be counted, so mange."},
+  {o:["af","for","på"], a:1, w:"The fixed phrase is være bange for noget."},
+  {o:["end","som","da"], a:1, w:"'as usual' is som normalt; end needs a comparative before it."},
+  {o:["vi","vores","os"], a:2, w:"Object of 'kontakte', so the object form os."}
+ ]},
+{id:"cl-cykler", type:"cloze", title:"Hvorfor cykler danskerne så meget?", sub:"A short magazine article about cycling in Denmark",
+ text:"I Danmark er der flere cykler end mennesker, og cyklen er en naturlig del af hverdagen. Mange cykler til arbejde hele året, også {0} det regner eller sner.\n\nDer er flere grunde til det. Landet er fladt, og byerne har {1} cykelstier, {2} er adskilt fra bilerne. Det er også billigt {3} cykle, for man skal hverken betale for benzin eller parkering. Og så får man motion uden at lægge mærke {4} det.\n\nSådan har det ikke altid været. I 1960'erne {5} mange familier deres første bil, og der kom færre cyklister på vejene. Men i dag er cyklen populær igen – også hos børnefamilierne. Mange forældre har {6} en ladcykel, så de kan køre børnene i børnehave og handle ind på vejen hjem.\n\nKommunerne vil gerne have, at endnu {7} mennesker tager cyklen, og derfor bygger de nye cykelstier hvert år.\n\nOg hvad {8} vejret? Danskerne svarer bare, at der ikke findes {9} vejr, kun forkert tøj.",
+ gaps:[
+  {o:["da","når","som"], a:1, w:"Something that happens again and again in the present ('hele året') takes når; da is for one time in the past."},
+  {o:["god","godt","gode"], a:2, w:"'cykelstier' is plural, so the adjective takes -e: gode."},
+  {o:["der","hvad","hvor"], a:0, w:"der is the subject of the relative clause about 'cykelstier'."},
+  {o:["og","for","at"], a:2, w:"After 'det er billigt' comes at + infinitive: at cykle."},
+  {o:["på","til","ved"], a:1, w:"The fixed phrase is lægge mærke til (notice)."},
+  {o:["købte","køber","købt"], a:0, w:"datid: 'i 1960'erne' is a finished time in the past."},
+  {o:["får","fået","fik"], a:1, w:"førnutid: 'har' + past participle fået."},
+  {o:["mange","flere","mere"], a:1, w:"'endnu' + comparative of something countable (mennesker): flere."},
+  {o:["om","ved","med"], a:2, w:"'What about …?' is hvad med …?"},
+  {o:["dårligt","dårlige","dårlig"], a:0, w:"'vejr' is an et-word, indefinite: dårligt vejr."}
+ ]},
+{id:"cl-vagt", type:"cloze", title:"Kan du tage min vagt?", sub:"An email to a colleague asking to swap a shift",
+ text:"Hej Mette\n\nJeg håber, du har haft en god weekend. Jeg skriver, fordi jeg har brug {0} din hjælp.\n\nMin søn {1} syg i går aftes, og han har stadig høj feber. Jeg kan ikke sende ham i skole, {2} han er rask igen, så jeg bliver hjemme i morgen. Kan du tage min vagt fra klokken 8 til 16? Så tager jeg gerne {3} af dine vagter i næste uge.\n\nJeg har allerede talt {4} vores chef, Lene. Hun siger, at det er i orden, hvis vi bytter, og hun foreslog, at jeg spurgte {5}, fordi du kender afdelingen bedst.\n\nDer kommer en ny kunde klokken 10, men det er ikke et svært møde. Jeg har lagt {6} papirer, du skal bruge, på mit skrivebord.\n\nHvis du ikke {7} tid, er det helt i orden – så finder jeg en anden løsning. Kan du svare mig i løbet {8} dagen?\n\nTusind tak {9} hjælpen!\n\nHilsen\nKarim",
+ gaps:[
+  {o:["til","for","af"], a:1, w:"The fixed phrase is have brug for (need)."},
+  {o:["bliver","blevet","blev"], a:2, w:"datid: 'i går aftes' is a finished time in the past."},
+  {o:["mens","før","når"], a:1, w:"He cannot go to school until he is well, so før ('not … before')."},
+  {o:["et","den","en"], a:2, w:"'vagt' is an en-word: en af dine vagter."},
+  {o:["med","for","på"], a:0, w:"tale med nogen = talk to someone; the next sentence shows they had a conversation."},
+  {o:["du","dig","din"], a:1, w:"Object of 'spurgte', so the object form dig."},
+  {o:["det","den","de"], a:2, w:"'papirer' is plural, so the determiner is de."},
+  {o:["har","have","haft"], a:0, w:"A plain condition in the present: hvis du ikke har tid. have is the infinitive, haft needs har before it."},
+  {o:["på","af","i"], a:1, w:"The fixed phrase is i løbet af (during)."},
+  {o:["for","til","med"], a:0, w:"Danish thanks someone for something: tak for."}
+ ]},
+{id:"cl-aarhus", type:"cloze", title:"Mit første år i Aarhus", sub:"A blog post about the first year after moving to Denmark",
+ text:"For et år siden {0} min kæreste og jeg fra Mexico til Aarhus. Hun havde {1} et job på universitetet, og jeg var spændt, men også lidt nervøs.\n\nDe første måneder var svære. Jeg savnede min familie, og jeg forstod næsten ingenting, når folk talte dansk. Derfor begyndte jeg {2} et danskkursus tre aftener om ugen. Det var en god idé. På kurset mødte jeg {3} andre, som også var nye i byen, og vi blev hurtigt gode venner.\n\nNu har jeg {4} i Danmark i et år. Jeg cykler overalt, og jeg er faktisk blevet glad {5} rugbrød. Det, jeg savner mest, er solen. Om vinteren er dagene meget {6} end i Mexico.\n\nMine naboer er søde. De siger altid hej på trappen, {7} de inviterer mig sjældent ind. Min lærer siger, at venskaber i Danmark tager tid, og hun har nok ret: I sidste uge {8} min nabo Jens mig på kaffe for første gang!\n\nNæste år vil jeg gerne finde et job, {9} jeg kan bruge min uddannelse som ingeniør.",
+ gaps:[
+  {o:["flytter","flyttede","flyttet"], a:1, w:"datid: 'for et år siden' is a finished time in the past."},
+  {o:["fik","får","fået"], a:2, w:"førfortid: 'havde' + past participle fået."},
+  {o:["på","af","om"], a:0, w:"You begynde på a course."},
+  {o:["meget","mere","mange"], a:2, w:"'andre' means other people, which can be counted, so mange."},
+  {o:["boet","bor","boede"], a:0, w:"førnutid: 'har' + past participle boet – the writer still lives here ('i et år' up to now)."},
+  {o:["af","for","til"], a:1, w:"The fixed phrase is være/blive glad for (be fond of)."},
+  {o:["kort","kortere","korte"], a:1, w:"'end' follows, so the comparative: kortere."},
+  {o:["så","fordi","men"], a:2, w:"They say hello but rarely invite the writer in – a contrast, so men."},
+  {o:["inviterede","inviterer","inviteret"], a:0, w:"datid: 'i sidste uge' is a finished time in the past."},
+  {o:["der","hvor","som"], a:1, w:"The clause already has a subject (jeg) and means 'in which', so hvor."}
+ ]},
+{id:"cl-cafe", type:"cloze", title:"Anmeldelse: Café Kringlen", sub:"An online review of a neighbourhood café",
+ text:"I lørdags {0} jeg brunch med to veninder på Café Kringlen, som ligger {1} Nørrebro. Caféen åbnede for et halvt år siden, og jeg havde hørt mange {2} ting om den.\n\nStedet er lille, men meget hyggeligt, med levende lys og gamle møbler. Vi måtte vente {3} et bord i et kvarter, fordi der var fyldt.\n\nMaden var rigtig god. Især brødet var lækkert. De bager {4} selv hver morgen. Kaffen var også god, men 45 kroner for en cappuccino er {5} meget, synes jeg.\n\nPersonalet var smilende og venligt, {6} de havde travlt. Vores tjener {7} os et godt tip om et loppemarked i nærheden, så vi gik en tur derhen bagefter.\n\nJeg kommer helt sikkert igen, {8} jeg kun bor fem minutter derfra. Næste gang vil jeg prøve {9} æblekage, som alle taler om.\n\nFire ud af fem stjerner\nSara",
+ gaps:[
+  {o:["spiser","spiste","spist"], a:1, w:"datid: 'i lørdags' is a finished time in the past."},
+  {o:["i","ved","på"], a:2, w:"Copenhagen districts take på: på Nørrebro, på Østerbro."},
+  {o:["gode","godt","god"], a:0, w:"'ting' is plural here (mange ting), so gode."},
+  {o:["til","på","efter"], a:1, w:"The fixed phrase is vente på (wait for)."},
+  {o:["den","dem","det"], a:2, w:"It refers to 'brødet', an et-word, so det."},
+  {o:["for","til","af"], a:0, w:"for meget = too much."},
+  {o:["fordi","selvom","hvis"], a:1, w:"Friendly even though they were busy – a contrast, so selvom."},
+  {o:["giver","givet","gav"], a:2, w:"datid: the whole visit is told in the past."},
+  {o:["fordi","selvom","men"], a:0, w:"Living close by is the reason she will come back, so fordi (and the word order kun bor shows a subordinate clause)."},
+  {o:["deres","sin","hans"], a:0, w:"The cake belongs to the café (they), not to the subject jeg, so deres; sin/hans would be wrong here."}
+ ]},
+{id:"cl-bageri", type:"cloze", title:"Bageriet Kornet søger ekspedient", sub:"A job advertisement from a bakery",
+ text:"Vi er et lille bageri i Odense, og vi har {0} 1998 bagt brød og kager til byens borgere. Nu søger vi en ny kollega til butikken.\n\nDu skal hjælpe vores kunder, og du skal også {1} kaffe og gøre butikken ren, når vi lukker. Vi åbner klokken 6.30, så du skal kunne lide {2} stå tidligt op.\n\nVi søger en person, {3} er glad og smilende og kan lide at tale med mennesker. Det er en fordel, hvis du har {4} i en butik før, men det er ikke et krav. Du skal kunne tale og forstå dansk, men du behøver ikke at være {5} til at skrive.\n\nVi tilbyder en god løn og gratis frokost. Og så får du lov {6} at tage brød med hjem, når vi lukker.\n\nSend en kort ansøgning til Pia Holm, og fortæl, hvorfor du gerne vil arbejde {7} os. Hvis du har spørgsmål, er du velkommen til at ringe til hende {8} hverdage mellem 10 og 14.\n\nVi glæder os {9} at høre fra dig!",
+ gaps:[
+  {o:["for","siden","til"], a:1, w:"From a point in time up to now, with 'har': siden 1998."},
+  {o:["laver","lave","lavet"], a:1, w:"After a modal verb (skal) comes the infinitive: lave."},
+  {o:["at","og","for"], a:0, w:"'kunne lide' is followed by at + infinitive: at stå."},
+  {o:["hvad","hvor","som"], a:2, w:"som is the subject of the relative clause about 'en person'."},
+  {o:["arbejdede","arbejdet","arbejder"], a:1, w:"førnutid: 'har' + past participle arbejdet."},
+  {o:["gode","godt","god"], a:2, w:"It describes 'du' (one person, en-form): være god til."},
+  {o:["til","for","på"], a:0, w:"The fixed phrase is få lov til (at) – be allowed to."},
+  {o:["ved","hos","af"], a:1, w:"You work hos a company or a person: arbejde hos os."},
+  {o:["om","i","på"], a:2, w:"Danish says på hverdage (on weekdays)."},
+  {o:["for","til","på"], a:1, w:"glæde sig til = look forward to something in the future."}
+ ]},
+
+{id:"ch-lejlighed", type:"chat", title:"Lejligheden", x:"Jonas", y:"Birgitte", sit:"Jonas skriver til Birgitte, som udlejer en lejlighed.",
+ m:["Hej Birgitte. Jeg har set din annonce på nettet. Er lejligheden på Søndergade stadig ledig?",
+    "Ja, meget gerne. Men hvad er huslejen om måneden?",
+    "Jeg har fri efter klokken 16 på hverdage. Må jeg tage min kæreste med?",
+    "Ja, torsdag passer os fint. Er der et sted, hvor vi kan stille vores cykler?",
+    "Nej, vi har ingen bil. Vi cykler overalt. Tak, og vi ses på torsdag!"],
+ ex:"Hej Jonas. Ja, den er stadig ledig. Vil du gerne se den?",
+ opts:["Lejligheden er på 65 kvadratmeter og har to værelser. Har du nogen husdyr?",
+       "Ja, selvfølgelig. Kan I komme på torsdag klokken 17?",
+       "Ja, der er en parkeringsplads til bilen bag huset. Hvornår vil I flytte ind?",
+       "Den er på 7.500 kroner plus varme og vand. Hvornår har du tid til at se den?",
+       "Nej, desværre. Der kan kun komme én person ad gangen. Har du tid på lørdag i stedet?",
+       "Ja, der er et cykelskur i gården. Har I også en bil?"],
+ key:[3,1,5],
+ w:["Birgitte gives the rent and asks when he has time – Jonas answers 'efter klokken 16 på hverdage'.",
+    "Birgitte says the girlfriend can come and suggests Thursday – Jonas answers 'torsdag passer os fint'.",
+    "Birgitte mentions the bike shed and asks if they have a car – Jonas answers 'Nej, vi har ingen bil'."]},
+
+{id:"ch-boernehaven", type:"chat", title:"Den syge dreng", x:"Yasmin", y:"Lone", sit:"Yasmin skriver til Lone, som er pædagog i hendes søns børnehave.",
+ m:["Godmorgen Lone. Det er Yasmin, Emils mor. Emil kommer ikke i børnehave i dag.",
+    "Ja, han har feber og ondt i halsen. Han sov meget dårligt i nat.",
+    "Ja, vi har en tid klokken 11. Hvornår må han komme i børnehave igen?",
+    "Min mand bliver hjemme med ham i morgen. Men hvad med skovturen på fredag? Kan Emil stadig komme med?",
+    "Det skal vi nok huske. Tak for hjælpen, Lone. Jeg skriver, når han er rask igen."],
+ ex:"Godmorgen Yasmin. Tak for beskeden. Er han syg?",
+ opts:["Ja, hvis han er rask igen. Husk bare at give ham madpakke og regntøj med.",
+       "Det var godt at høre. Kommer han så i morgen?",
+       "Stakkels Emil! Flere af børnene har været syge i denne uge. Skal han til lægen?",
+       "Nej, desværre. Turen er kun for de store børn. Hvor gammel er Emil nu?",
+       "Når han har været feberfri i et døgn. Hvem af jer bliver hjemme med ham?",
+       "Det ved jeg ikke. Hvad sagde lægen?"],
+ key:[2,4,0],
+ w:["Lone asks if Emil is going to the doctor – Yasmin answers 'vi har en tid klokken 11'.",
+    "Lone says when he may come back and asks who stays home with him – Yasmin answers 'Min mand bliver hjemme med ham'.",
+    "Lone says yes to the trip and reminds her of a packed lunch and rain clothes – Yasmin answers 'Det skal vi nok huske'."]},
+
+{id:"ch-sommerhus", type:"chat", title:"Sommerhuset", x:"Mads", y:"Sara", sit:"Mads skriver til sin veninde Sara.",
+ m:["Hej Sara! Vi er nogle venner, der har lejet et sommerhus ved Vesterhavet i den sidste weekend i august. Vil du med?",
+    "Anders, Maja og tre af mine kolleger. Huset har tre soveværelser og en stor terrasse.",
+    "Det bliver 800 kroner for hele weekenden. Har du en bil, eller skal du køre med nogen?",
+    "Ja, du kan køre med Anders og mig. Vi kører fredag klokken 15. Kan du nå det?",
+    "Ja, tag dit eget sengetøj og et håndklæde med. Det er ikke med i lejen. Jeg glæder mig!"],
+ ex:"Hej Mads. Det lyder dejligt! Hvem kommer ellers med?",
+ opts:["Ja, jeg kører i min egen bil. Hvor skal vi mødes?",
+       "Ja, det kan jeg godt. Hvor ligger huset helt præcist?",
+       "Hvor hyggeligt! Hvad kommer det til at koste for hver person?",
+       "Nej tak, jeg skal arbejde den weekend. Måske næste gang?",
+       "Ja, jeg har fri klokken 13 på fredag. Skal jeg tage noget med?",
+       "Jeg har ikke nogen bil. Er der plads til mig i en af jeres biler?"],
+ key:[2,5,4],
+ w:["Sara asks what it costs per person – Mads answers '800 kroner for hele weekenden'.",
+    "Sara has no car and asks for a seat – Mads answers 'Ja, du kan køre med Anders og mig'.",
+    "Sara can make it and asks if she should bring anything – Mads answers 'tag dit eget sengetøj og et håndklæde med'."]},
+
+{id:"ch-dba-cykel", type:"chat", title:"Cyklen på DBA", x:"Lukas", y:"Mette", sit:"Lukas skriver til Mette, som sælger en cykel på DBA.",
+ m:["Hej Mette. Jeg har set din annonce på DBA. Er den blå cykel stadig til salg?",
+    "Ja, den skal være til min datter, som er 12 år. Hvor stor er cyklen?",
+    "Hun er cirka 155 centimeter, så det passer fint. Er der noget galt med cyklen?",
+    "Ja, meget gerne. Vi kan komme i morgen ved 16-tiden. Vil du tage 1.000 kroner for den?",
+    "Ja, det kan jeg godt. Det er en aftale. Vi ses i morgen klokken 16!"],
+ ex:"Hej Lukas. Ja, den er stadig til salg. Er du interesseret?",
+ opts:["Ja, det er fint med mig. Hvor bor I henne?",
+       "Den er tre år gammel og har syv gear. Hvornår vil du se den?",
+       "Ja, baglygten virker ikke, og derfor er den billig. Hvor meget vil du give for den?",
+       "Jeg vil helst have 1.100 kroner, for den er næsten ny. Kan du betale med MobilePay?",
+       "Den passer til en, der er mellem 150 og 165 centimeter høj. Hvor høj er din datter?",
+       "Nej, den er i god stand. Jeg har lige fået skiftet bremserne. Vil I komme og prøve den?"],
+ key:[4,5,3],
+ w:["Mette says what height the bike fits and asks how tall the daughter is – Lukas answers 'Hun er cirka 155 centimeter'.",
+    "Mette says nothing is wrong and invites them to try it – Lukas answers 'Ja, meget gerne' and suggests a time.",
+    "Mette asks for 1.100 and whether he can pay with MobilePay – Lukas answers 'Ja, det kan jeg godt. Det er en aftale'."]},
+
+{id:"in-rafaels-nye-job", type:"insert", title:"Rafaels nye job",
+ paras:[
+  {t:"Rafael er 38 år og kommer fra Brasilien. Han er ingeniør, og sidste år flyttede han til Aarhus med sin kone, som havde fået job på universitetet. ___ Han sendte over tyve ansøgninger, men fik kun afslag. Til sidst begyndte han at tvivle på, om han nogensinde ville få et arbejde i Danmark.",
+   o:["Han fandt selv et job allerede den første uge.","Derfor søgte han slet ikke job det første år.","Det var meget sværere for ham selv at finde arbejde.","Han havde nemlig fået et job, før de flyttede."],
+   a:2, w:"Twenty applications and only rejections show that finding work was hard for him. A and D say he already had a job, and B contradicts the applications he sent."},
+  {t:"Efter otte måneder blev Rafael endelig kaldt til jobsamtale hos en virksomhed, der laver vindmøller. ___ To dage senere ringede chefen og tilbød ham jobbet. Rafael var så glad, at han inviterede hele familien ud at spise samme aften.",
+   o:["Han var meget nervøs, men samtalen gik bedre, end han havde frygtet.","Men samtalen gik dårligt, og han hørte aldrig fra dem igen.","Derfor sagde han nej til samtalen.","Chefen sagde med det samme, at han ikke var den rette til jobbet."],
+   a:0, w:"The boss rings two days later and offers him the job, so the interview went well. B and D say it went badly, and in C he never goes to the interview."},
+  {t:"Den første dag på jobbet var Rafael overrasket over mange ting. Alle sagde 'du' til chefen, og ingen gik med slips. ___ Klokken halv tolv samledes alle i kantinen til frokost, og klokken fire var kontoret næsten tomt. I Brasilien arbejdede han tit til klokken syv om aftenen.",
+   o:["Men ellers var alt præcis som i Brasilien.","Til gengæld arbejdede hans kolleger altid til sent om aftenen.","Han spiste frokost alene ved sit skrivebord.","Han undrede sig også over, hvor tidligt kollegerne spiste og gik hjem."],
+   a:3, w:"The next sentences are about early lunch and an empty office at four, unlike Brazil. A ignores that contrast, B contradicts 'klokken fire … tomt', and C contradicts 'samledes alle i kantinen'."},
+  {t:"Det sværeste for Rafael var sproget. Til møderne talte kollegerne engelsk for hans skyld, men i frokostpausen talte de dansk. ___ Derfor begyndte han på sprogskole to aftener om ugen, og han bad kollegerne om at tale dansk med ham, også når det gik langsomt.",
+   o:["Det var ikke noget problem, for han forstod det hele.","Så sad han tit og forstod ikke, hvad de grinede af.","Han talte nemlig allerede flydende dansk.","Derfor spiste han altid frokost sammen med dem."],
+   a:1, w:"'Derfor begyndte han på sprogskole' needs a problem before it: he did not understand the lunch talk. A and C say there was no problem, and D gives no reason to start language school."},
+  {t:"Nu har Rafael været i firmaet i halvandet år. Han taler dansk til møderne, og hver torsdag spiller han fodbold med nogle af kollegerne. ___ For han har både fået et godt job og gode venner. 'Det tog tid, men nu føler jeg mig hjemme her,' siger han.",
+   o:["Men han vil gerne flytte tilbage til Brasilien.","Han har dog stadig ikke lært nogen af kollegerne at kende.","Han er glad for, at han ikke gav op, da det var svært.","Derfor leder han efter et nyt job i et andet firma."],
+   a:2, w:"'For han har både fået et godt job og gode venner' explains why he is glad he kept going. A and D clash with 'føler jeg mig hjemme', and B contradicts the football with colleagues."}
+ ]},
+
+{id:"in-familien-uden-bil", type:"insert", title:"Familien uden bil",
+ paras:[
+  {t:"Ditte og Kasper bor i Odense med deres to børn på seks og ni år. I mange år kørte de alle steder hen i bil, også når de bare skulle handle ind. ___ Bilen var gammel og gik tit i stykker, og de brugte mange penge på benzin, forsikring og reparationer.",
+   o:["De var meget glade for deres nye bil.","Men sidste vinter begyndte de at tale om at sælge den.","Derfor købte de en bil mere sidste vinter.","Bilen kostede dem nemlig næsten ingen penge."],
+   a:1, w:"The next sentence lists reasons to get rid of the car (old, often broken, expensive). A calls it new, C buys another one, and D contradicts 'mange penge'."},
+  {t:"Det var Kasper, der havde idéen. Han havde læst, at de fleste ture i byen er kortere end fem kilometer. ___ Ditte var mere usikker. Hun var bange for, hvordan de skulle klare sig, når det regnede, eller når de skulle besøge hendes forældre på Langeland.",
+   o:["Ditte var med det samme enig og glad for idéen.","Derfor ville han gerne købe en større bil.","Han synes nemlig, at det er farligt at cykle i byen.","De ture kunne de lige så godt tage på cykel, mente han."],
+   a:3, w:"The short trips are Kasper's argument for cycling, and 'Ditte var mere usikker' contrasts with his confidence. A contradicts 'usikker', and B and C go against his own idea."},
+  {t:"Til sidst blev de enige om at prøve et år uden bil. De solgte bilen og købte i stedet en ladcykel, som kan have begge børn i kassen foran. ___ Det første år sparede familien over 30.000 kroner, selvom de nogle gange lejede en bil til de lange ture.",
+   o:["Ladcyklen var dyr, men den var meget billigere end bilen.","Ladcyklen var så dyr, at de ikke sparede noget.","Derfor lejede de aldrig en bil.","Men efter en måned købte de en ny bil."],
+   a:0, w:"Saving 30,000 kroner confirms the bike was cheaper than the car. B contradicts the saving, C contradicts 'nogle gange lejede en bil', and D contradicts a whole year without a car."},
+  {t:"Hverdagen blev anderledes. Nu cykler Kasper børnene i skole hver morgen, før han cykler videre på arbejde. ___ Om vinteren er det koldt og mørkt, og nogle morgener regner det så meget, at alle er våde, når de kommer frem. Så savner Ditte bilen.",
+   o:["Han synes, det er dejligt hver eneste dag, uanset vejret.","Derfor tager de altid bussen, når det regner.","Men det er ikke altid lige sjovt.","Om vinteren kører de nemlig i en lejet bil."],
+   a:2, w:"The rest of the paragraph lists the bad side (cold, dark, wet). A says every day is lovely, and B and D contradict them arriving wet."},
+  {t:"Alligevel vil familien ikke have en bil igen. ___ Kasper har tabt fem kilo, og Ditte siger, at hun har mere energi end før. Børnene er også blevet gode til at cykle selv, og de kender byen meget bedre nu.",
+   o:["De er nemlig alle sammen kommet i bedre form.","Men de har bestemt, at de køber en til sommer.","Børnene vil nemlig hellere køre i bil.","Til gengæld er de blevet mere trætte end før."],
+   a:0, w:"Weight loss, more energy and children cycling show they are all fitter. B contradicts 'vil ikke have en bil igen', C gives a reason for a car, and D contradicts 'mere energi'."}
+ ]},
+
+{id:"in-ana-synger-dansk", type:"insert", title:"Ana synger sig til dansk",
+ paras:[
+  {t:"Ana kommer fra Portugal og har boet i Roskilde i to år. Hun går på sprogskole og kan læse og skrive ret godt på dansk. ___ Når hun skal sige noget, bliver hun nervøs, og danskerne skifter tit til engelsk. Så får hun ikke øvet sig.",
+   o:["Hun taler også dansk helt uden problemer.","Derfor taler hun kun dansk med sine naboer.","Hun synes nemlig, at udtalen er nem.","Men hun har svært ved at tale og udtale ordene."],
+   a:3, w:"'Men' sets speaking against reading and writing, and the next sentence describes her nerves and Danes switching to English. A and C say speaking is easy, and B contradicts 'får hun ikke øvet sig'."},
+  {t:"En dag foreslog hendes lærer, at hun skulle prøve at synge i kor. ___ Når man synger, skal man nemlig udtale hvert ord tydeligt og i det rigtige tempo. Ana tænkte over det i en uge, før hun meldte sig ind i et kor i byen.",
+   o:["Læreren mente, at Ana sang alt for dårligt.","Ana sagde ja med det samme.","Læreren mente, at det var en god måde at øve udtale på.","Koret synger nemlig kun på engelsk."],
+   a:2, w:"The 'nemlig' sentence explains why singing trains pronunciation. A clashes with the suggestion, B contradicts 'tænkte over det i en uge', and D makes the choir useless for Danish."},
+  {t:"Koret øver hver onsdag aften i en gammel kirke. Det består af 25 mennesker i alle aldre, og de synger mest gamle danske sange. ___ Mange af ordene i sangene var nye for hende, og nogle af dem bruger man ikke længere. Men dirigenten forklarede, hvad de betød, og Ana skrev dem ned i en lille bog.",
+   o:["Ana forstod alle teksterne fra første dag.","I starten forstod Ana kun lidt af teksterne.","Derfor synger de mest moderne popsange.","Ana kunne nemlig alle sangene i forvejen."],
+   a:1, w:"Many words were new and the conductor had to explain them, so she understood little at first. A and D contradict that, and C contradicts 'gamle danske sange'."},
+  {t:"Efter øvningen drikker koret altid kaffe sammen. ___ De andre spørger hende om Portugal og fortæller om deres egne liv, og de taler langsomt og tydeligt. Ingen af dem skifter til engelsk.",
+   o:["Det er den bedste del af aftenen for Ana, for her får hun talt dansk.","Men Ana går altid hjem, før de drikker kaffe.","Her taler de mest engelsk, så Ana kan følge med.","Ana sidder tit alene, fordi ingen taler med hende."],
+   a:0, w:"The others talk with her slowly and never switch to English, so coffee time is where she speaks Danish. B has her leave, C contradicts 'Ingen af dem skifter til engelsk', and D contradicts them talking with her."},
+  {t:"Nu har Ana sunget i koret i et år, og hendes lærer siger, at hendes udtale er blevet meget bedre. ___ Til jul skal koret nemlig give koncert i kirken, og dirigenten har bedt hende om at synge et vers alene. 'Det havde jeg aldrig troet for et år siden,' siger Ana.",
+   o:["Men Ana har ikke tænkt sig at fortsætte i koret.","Derfor er hun holdt op med at synge.","Hun synger dog stadig kun, når ingen hører det.","Ana er både glad og lidt nervøs for tiden."],
+   a:3, w:"'Nemlig' explains her mixed feelings: a Christmas concert with a solo verse. A and B have her stop, and C contradicts singing alone in a concert."}
+ ]},
+
+{id:"in-familien-nguyens-jul", type:"insert", title:"Familien Nguyens første danske jul",
+ paras:[
+  {t:"Linh og Tuan kom til Danmark fra Vietnam for tre år siden med deres søn, Minh. De første to år holdt de ikke jul, for det er ikke en tradition i deres familie. ___ Derfor besluttede de, at de i år ville holde en rigtig dansk jul.",
+   o:["Men Minh kom hjem fra børnehaven og fortalte om nisser, juletræ og gaver.","Og det havde de heller ikke lyst til i år.","Minh var nemlig slet ikke interesseret i julen.","De havde holdt dansk jul mange gange før."],
+   a:0, w:"'Derfor … ville holde en rigtig dansk jul' needs a reason for the change: Minh's stories from kindergarten. B and C give reasons not to, and D contradicts 'De første to år holdt de ikke jul'."},
+  {t:"Linh vidste ikke, hvad danskerne spiser til jul, så hun spurgte sin kollega, Birgitte. ___ Hun forklarede, at mange spiser flæskesteg eller and med brune kartofler og rødkål, og at man får risalamande til dessert. Hun skrev også opskrifterne ned til Linh.",
+   o:["Birgitte holder nemlig aldrig selv jul.","Birgitte blev glad for at hjælpe.","Men Birgitte vidste det heller ikke.","Birgitte sagde, at hun skulle spørge en anden."],
+   a:1, w:"Birgitte explains the whole menu and writes down recipes, so she was happy to help. A and C say she knows nothing about Christmas, and D contradicts her answering herself."},
+  {t:"Den 23. december skulle de købe juletræ. Tuan ville gerne have et lille træ, for deres lejlighed er ikke særlig stor. ___ Da de kom hjem, kunne træet kun lige stå i stuen, og stjernen i toppen rørte loftet. Tuan grinede og sagde, at næste år bestemmer han.",
+   o:["Derfor købte de et meget lille træ.","De fandt et lille træ, som passede perfekt.","Men Minh fik lov til at vælge, og han valgte det største.","De besluttede at holde jul uden juletræ."],
+   a:2, w:"The tree barely fits and Tuan says he will decide next year, so someone else chose a big one. A and B contradict the star touching the ceiling, and D has no tree at all."},
+  {t:"Juleaften kom Birgitte og hendes mand på besøg. Til dessert serverede Linh risalamande med kirsebærsauce. ___ Den, der finder den hele mandel, får nemlig en gave. Minh fandt den, men han gemte den i munden længe, så de voksne måtte spise flere portioner.",
+   o:["Birgitte sagde, at man aldrig skal have mandler i.","Men ingen af gæsterne kunne lide dessert.","Derfor fik alle en gave, før de spiste.","Birgitte havde lært hende, at der skal være en hel mandel i skålen."],
+   a:3, w:"'Den hele mandel' with the definite form needs the almond to be introduced first, and 'nemlig' explains its purpose. A contradicts the almond, B contradicts the extra portions, and C ignores the almond gift."},
+  {t:"Efter maden dansede de rundt om juletræet og sang, selvom Linh og Tuan ikke kunne teksterne. ___ Han havde lært sangene i børnehaven og sang højere end alle de andre. Familien er allerede enige om, at de skal holde dansk jul igen næste år.",
+   o:["Birgitte kunne heller ikke huske sangene.","Til gengæld kunne Minh dem allerede.","Derfor sang Minh slet ikke med.","Minh var for træt og var allerede gået i seng."],
+   a:1, w:"'Han havde lært sangene i børnehaven' points back to Minh knowing the songs. A is about Birgitte (not 'han'), and C and D contradict him singing louder than everyone."}
+ ]},
+
+{id:"in-fra-bank-til-bageri", type:"insert", title:"Fra bank til bageri",
+ paras:[
+  {t:"Mikkel er 42 år og har arbejdet i en bank i 15 år. Han tjente godt, men han var ikke glad for sit arbejde. ___ Han sad foran en computer hele dagen og følte, at han ikke lavede noget, man kunne se eller røre ved. Om aftenen var han træt, men ikke på en god måde.",
+   o:["Han elskede nemlig at sidde ved computeren hele dagen.","Derfor søgte han en højere stilling i banken.","Arbejdet var nemlig blevet kedeligt for ham.","Men han kunne godt lide at arbejde med tal hele dagen."],
+   a:2, w:"The gap explains 'ikke glad for sit arbejde', and the next sentence gives the details of the boredom. A and D say he liked the work, and B makes no sense when the rest is about wanting out."},
+  {t:"Mikkels store interesse har altid været at bage. Hver weekend bagte han brød til familien, og naboerne bestilte tit boller hos ham. ___ Hun sagde, at han skulle gøre sin hobby til sit arbejde, og at livet var for kort til et job, man ikke kunne lide.",
+   o:["Men han havde aldrig talt med nogen om det.","Hans kone syntes, at han skulle blive i banken.","Han tænkte aldrig på at blive bager.","En dag spurgte hans kone, hvorfor han ikke blev bager."],
+   a:3, w:"'Hun sagde' needs a woman who encourages him: his wife asking why he did not become a baker. B says she wanted him to stay, and A and C leave no one for 'Hun' to point to."},
+  {t:"Det var en svær beslutning. Mikkel skulle tage en uddannelse, og som elev ville han kun tjene en lille del af sin gamle løn. ___ Derfor solgte de deres sommerhus, og Mikkels kone fik flere timer på sit arbejde. I august begyndte Mikkel på bagerskolen sammen med elever på 18 og 19 år.",
+   o:["Familien skulle altså klare sig med færre penge.","Men økonomien var heldigvis ikke noget problem.","Derfor sagde han nej til uddannelsen.","Han fik nemlig samme løn som i banken."],
+   a:0, w:"Selling the summer house and working more hours ('Derfor') follows from having less money. B and D say money was no problem, and C contradicts him starting at baking school."},
+  {t:"Uddannelsen var hårdere, end Mikkel havde troet. ___ Han skulle møde klokken fire om morgenen og stå op det meste af dagen. Hans ben og ryg gjorde ondt, og de første måneder faldt han i søvn på sofaen, så snart han kom hjem.",
+   o:["Han var aldrig træt, selvom arbejdet var hårdt.","Især var arbejdstiderne svære at vænne sig til.","Han kunne nemlig sove længe hver morgen.","Derfor holdt han op efter en måned."],
+   a:1, w:"Starting at four in the morning confirms the hard hours. A contradicts falling asleep on the sofa, C contradicts 'klokken fire', and D contradicts 'de første måneder' and the next paragraph."},
+  {t:"I dag er Mikkel færdig som bager og har åbnet sit eget lille bageri i byen. ___ Der står ofte kø ud på gaden lørdag morgen, og hans surdejsbrød er tit udsolgt før klokken ti. Mikkel tjener stadig mindre end i banken, men han har aldrig været gladere.",
+   o:["Bageriet er blevet populært meget hurtigt.","Men der kommer kun få kunder.","Derfor er han gået tilbage til banken.","Han tjener nu meget mere end i banken."],
+   a:0, w:"Queues and sold-out bread show the bakery is popular. B contradicts the queues, C contradicts 'aldrig været gladere', and D contradicts 'tjener stadig mindre'."}
+ ]},
+
+{id:"in-yasmins-faelleshave", type:"insert", title:"Yasmins fælleshave",
+ paras:[
+  {t:"Yasmin bor i en stor boligblok i udkanten af Aalborg. Mellem blokkene ligger en stor græsplæne, som ingen bruger. ___ Mange af beboerne kender ikke engang deres naboer, og børnene leger mest indenfor. Yasmin synes, det er trist, for hun voksede selv op i en landsby, hvor alle kendte hinanden.",
+   o:["Den er fuld af børn og voksne hver eftermiddag.","Derfor kender alle i blokkene hinanden godt.","Beboerne mødes nemlig tit på plænen til fest.","Der er i det hele taget meget lidt fællesskab i området."],
+   a:3, w:"The next sentence gives examples of little community (neighbours are strangers, children stay inside). A and C contradict 'ingen bruger', and B contradicts 'kender ikke engang deres naboer'."},
+  {t:"Sidste forår fik Yasmin en idé. Hun ville lave en fælleshave på plænen, hvor beboerne kunne dyrke grøntsager sammen. ___ Han syntes, det var en god idé, og boligforeningen gav hende lov og 5.000 kroner til jord og frø.",
+   o:["Hun skrev til formanden for boligforeningen og fortalte om sin plan.","Men hun turde ikke fortælle det til nogen.","Hun spurgte sin veninde, Sara, om hun ville hjælpe.","Boligforeningen sagde dog nej med det samme."],
+   a:0, w:"'Han' and the permission from the housing association point back to the chairman she wrote to. B and D contradict the approval, and C names a woman, not 'han'."},
+  {t:"Yasmin hængte sedler op i alle opgangene og inviterede til et møde i fælleshuset. Hun var bange for, at ingen ville komme. ___ Der kom over 30 beboere, og mange af dem havde selv erfaring med at dyrke grøntsager fra deres hjemlande.",
+   o:["Og hun fik ret, for kun to naboer kom.","Derfor aflyste hun mødet.","Men hun blev glædeligt overrasket.","Mødet blev nemlig holdt en mandag morgen, hvor de fleste var på arbejde."],
+   a:2, w:"'Men' turns her fear around, and over 30 residents came. A and D predict few people, and B contradicts the meeting taking place."},
+  {t:"I maj gik arbejdet i gang. Beboerne byggede højbede af gamle paller og plantede kartofler, tomater, krydderurter og blomster. ___ De har lavet en plan, så der hver dag er nogen, der vander og luger. På den måde behøver ingen at bruge for meget tid på haven.",
+   o:["Yasmin passer haven helt alene hver dag.","Alle hjælper på skift med at passe haven.","Derfor er der ingen, der vander planterne.","Men ingen har tid til at passe haven."],
+   a:1, w:"The rota ('en plan, så der hver dag er nogen') is how they take turns. A contradicts 'ingen behøver at bruge for meget tid', and C and D contradict the daily watering."},
+  {t:"Nu er det efterår, og haven har givet mere, end nogen havde regnet med. ___ Beboerne holdt en høstfest, hvor alle lavede mad af grøntsagerne fra haven, og der kom retter fra mindst ti lande på bordet. 'Haven har gjort os til naboer,' siger Yasmin.",
+   o:["Men næsten alle planterne gik ud i sommer.","Derfor vil beboerne lukke haven igen.","Det skulle selvfølgelig fejres.","Grøntsagerne har Yasmin solgt til en restaurant i byen."],
+   a:2, w:"The harvest festival in the next sentence is the celebration. A contradicts the big harvest, B contradicts Yasmin's happy quote, and D clashes with everyone cooking the vegetables at the party."}
+ ]},
+
+{id:"mt-sommerferie", type:"match", title:"Tre personer fortæller om deres sommerferie",
+ people:[
+  {n:"Sara", t:"I år lejede vi et hus med pool i Sydfrankrig, min mand, vores to drenge og jeg. Vi kørte i bil hele vejen, og det tog to dage. Huset var dejligt, og der var ingen andre gæster, så vi havde poolen helt for os selv. Men vejret var et problem. Det regnede ikke en eneste dag, og der var 38 grader næsten hver dag. Det var alt for varmt for mig, og jeg kunne ikke sove om natten. Vi havde lagt et budget, men restauranterne var dyre, og børnene ville have is hele tiden, så vi brugte næsten dobbelt så mange penge, som vi havde planlagt. Og afslappende var det ikke. Drengene vågnede klokken seks hver morgen og skulle underholdes hele dagen. Jeg trænger næsten til en ferie efter ferien! Næste år vil jeg prøve noget helt andet."},
+  {n:"Troels", t:"Hver sommer lejer vi det samme sommerhus ved Vesterhavet, og det har vi gjort i tolv år. Vi deler huset med min brors familie, så det koster ikke ret meget. Jeg kunne aldrig finde på at rejse alene. For mig handler ferie om at være sammen med familien. I år regnede det næsten hver eneste dag, og vi kunne kun bade i havet én gang. Men det gjorde ikke noget. Vi spillede kort, læste bøger og gik lange ture i regntøj. Vi ser ikke andre mennesker hele ugen, og det kan jeg godt lide. Jeg sov længe hver morgen, og for første gang i et år tænkte jeg slet ikke på mit arbejde. Jeg kom hjem helt afslappet. Vi har allerede bestilt huset til næste sommer."},
+  {n:"Ida", t:"I sommer rejste jeg alene for første gang. Jeg tog toget gennem Europa i tre uger og besøgte otte byer. Før jeg tog af sted, var jeg ret nervøs, men det gik meget bedre, end jeg troede. Jeg sov på vandrehjem, og der mødte jeg mange søde mennesker fra hele verden. Med to af dem rejste jeg videre til Wien, og vi skriver stadig sammen. Jeg havde sparet op hele foråret, og fordi jeg lavede min egen mad og ikke boede på hotel, brugte jeg præcis det beløb, jeg havde planlagt. Det var meget varmt i Italien, men det havde jeg ikke noget imod. De sidste dage lå jeg bare på stranden og slappede af. Jeg ved ikke, hvor jeg skal hen næste år, men jeg rejser helt sikkert alene igen."}
+ ],
+ qs:[
+  {q:"Hvem brugte flere penge end planlagt?", a:0, w:"Sara: 'vi brugte næsten dobbelt så mange penge, som vi havde planlagt'. Troels's holiday 'koster ikke ret meget', and Ida spent 'præcis det beløb, jeg havde planlagt'."},
+  {q:"Hvem tog på ferie uden sin familie?", a:2, w:"Ida: 'I sommer rejste jeg alene for første gang'. Sara went with her husband and sons, and Troels 'kunne aldrig finde på at rejse alene'."},
+  {q:"Hvem har allerede planlagt, hvor ferien skal gå hen næste år?", a:1, w:"Troels: 'Vi har allerede bestilt huset til næste sommer'. Sara only wants 'noget helt andet', and Ida says 'Jeg ved ikke, hvor jeg skal hen næste år'."},
+  {q:"Hvem fik ikke hvilet sig på ferien?", a:0, w:"Sara: 'afslappende var det ikke' and she needs 'en ferie efter ferien'. Troels came home 'helt afslappet', and Ida 'slappede af' on the beach."},
+  {q:"Hvem havde dårligt vejr det meste af ferien?", a:1, w:"Troels: 'I år regnede det næsten hver eneste dag'. For Sara 'Det regnede ikke en eneste dag', and Ida had hot weather and did not mind it."},
+  {q:"Hvem fik nye venner på rejsen?", a:2, w:"Ida met 'mange søde mennesker fra hele verden' and still writes to two of them. Troels: 'Vi ser ikke andre mennesker hele ugen', and at Sara's house 'der var ingen andre gæster'."},
+  {q:"Hvem kunne ikke lide varmen?", a:0, w:"Sara: 'Det var alt for varmt for mig'. Ida also had heat but 'havde ikke noget imod' it, and Troels had rain, not heat."}
+ ]},
+
+{id:"mt-kvarter", type:"match", title:"Tre personer fortæller om deres kvarter",
+ people:[
+  {n:"Gitte", t:"Jeg bor i en lille lejlighed på tredje sal midt i byen, og jeg flyttede hertil for tre år siden. Jeg elsker at bo her. Der er caféer, butikker og et supermarked lige om hjørnet, og jeg har ikke brug for en bil, for jeg kan gå eller cykle overalt. Om fredagen og lørdagen er der dog meget larm fra barerne på gaden, og jeg sover tit dårligt i weekenden. Til gengæld føler jeg mig altid tryg, for der er mennesker på gaden til langt ud på natten. Mine naboer kender jeg ikke. Vi siger bare hej på trappen, og jeg ved ikke engang, hvad min underbo hedder. Det eneste, jeg savner, er natur. Den nærmeste park er lille og altid fuld af mennesker. Men jeg flytter aldrig herfra."},
+  {n:"Klaus", t:"Jeg er vokset op på denne vej i en forstad, og i dag bor jeg i mine forældres gamle hus. Jeg har altså boet her i 58 år. Det er et roligt kvarter med parcelhuse og haver, og om aftenen er der så stille, at man kun hører fuglene. Den nærmeste skov ligger en halv time væk i bil. Jeg kender næsten alle på vejen, og hver sommer holder vi vejfest med grill og musik. Når nogen er på ferie, vander vi deres blomster. Vi låser ikke engang døren om dagen. Desværre lukkede den lokale købmand sidste år, så nu tager jeg bilen, når jeg skal handle. Mine børn siger, at huset er for stort til mig, men jeg bliver her, så længe jeg kan."},
+  {n:"Aisha", t:"For et år siden flyttede min mand og jeg til et nyt boligområde i udkanten af byen. Lejligheden er stor og lys, og det bedste er naturområdet lige bag huset, hvor jeg går tur hver morgen. Men der er mange ting, jeg ikke kan lide. Kvarteret er næsten tomt om aftenen, og stierne er mørke. Når jeg kommer sent hjem fra arbejde, tør jeg ikke gå alene fra stationen, så min mand henter mig. Der er ikke ret mange butikker endnu, kun et supermarked, og bussen kører kun hver halve time, så vi har købt en bil. Jeg har talt med et par af naboerne, men de fleste kender jeg ikke. Vi har allerede kigget på lejligheder tættere på centrum."}
+ ],
+ qs:[
+  {q:"Hvem kender de fleste af sine naboer?", a:1, w:"Klaus: 'Jeg kender næsten alle på vejen'. Gitte does not even know her downstairs neighbour's name, and Aisha: 'de fleste kender jeg ikke'."},
+  {q:"Hvem er utryg ved at gå hjem om aftenen?", a:2, w:"Aisha: 'tør jeg ikke gå alene fra stationen'. Gitte 'føler mig altid tryg', and Klaus does not even lock the door."},
+  {q:"Hvem bliver forstyrret af støj?", a:0, w:"Gitte: 'meget larm fra barerne på gaden, og jeg sover tit dårligt'. Klaus's street is so quiet 'at man kun hører fuglene', and Aisha's area is 'næsten tomt om aftenen'."},
+  {q:"Hvem har tænkt sig at flytte?", a:2, w:"Aisha: 'Vi har allerede kigget på lejligheder tættere på centrum'. Gitte: 'jeg flytter aldrig herfra', and Klaus 'bliver her, så længe jeg kan'."},
+  {q:"Hvem klarer sig uden bil?", a:0, w:"Gitte: 'jeg har ikke brug for en bil'. Klaus 'tager bilen, når jeg skal handle', and Aisha 'har købt en bil'."},
+  {q:"Hvem har boet i det samme kvarter hele sit liv?", a:1, w:"Klaus: 'Jeg er vokset op på denne vej … boet her i 58 år'. Gitte moved in three years ago, and Aisha one year ago."},
+  {q:"Hvem bor helt tæt på naturen?", a:2, w:"Aisha: 'naturområdet lige bag huset'. Gitte 'savner … natur', and Klaus's nearest forest is 'en halv time væk i bil'."}
+ ]},
+
+{id:"mt-frivillig", type:"match", title:"Tre personer fortæller om at være frivillig",
+ people:[
+  {n:"Søren", t:"Jeg arbejdede som tømrer i 40 år, og da jeg gik på pension for tre år siden, vidste jeg ikke, hvad jeg skulle bruge tiden til. Min kone døde året før, og mine børn er voksne og bor langt væk, så jeg var meget ensom. En nabo foreslog, at jeg skulle hjælpe til i en genbrugsbutik. Nu står jeg i butikken hver tirsdag formiddag, og jeg reparerer også gamle møbler, før vi sælger dem. Det er kun fire timer om ugen, men det betyder meget for mig. Jeg har fået nye venner blandt de andre frivillige, og vi drikker altid kaffe sammen bagefter. Penge og karriere tænker jeg ikke på længere. Jeg vil bare gerne gøre noget nyttigt."},
+  {n:"Priya", t:"Jeg læser til lærer, og hver onsdag eftermiddag er jeg frivillig i en lektiecafé på biblioteket. Børnene er mellem ti og fjorten år, og mange af dem har forældre, som ikke kan hjælpe dem med dansk og matematik. Det er kun to timer om ugen, så det er nemt at passe ind ved siden af studiet. Jeg er født i Danmark, så sproget er ikke noget problem for mig, men jeg taler også engelsk og hindi med nogle af familierne. Det bedste er, når et barn endelig forstår noget, som det har kæmpet med længe. Jeg startede, fordi jeg gerne ville have erfaring, og det har faktisk hjulpet. En skole så det på mit CV og gav mig et studiejob som vikar."},
+  {n:"Carlos", t:"Jeg kommer fra Chile og har boet i Danmark i fire år. Da min søn begyndte at spille fodbold, manglede klubben en træner, og jeg sagde ja, selvom jeg ikke kendte nogen. Nu træner jeg hans hold to aftener om ugen, og i weekenden er der kampe, så det bliver let til 8-10 timer om ugen. Ved siden af har jeg et fuldtidsjob på et lager, så nogle gange er det lidt for meget. Men jeg har lært utroligt meget dansk. Børnene retter mig, når jeg siger noget forkert, og forældrene snakker med mig ved banen. Jeg havde allerede venner fra arbejdet, men nu kender jeg halvdelen af byen. Jeg får ingen penge for det, og det har ikke hjulpet mig til et bedre job, men det er det hele værd."}
+ ],
+ qs:[
+  {q:"Hvem blev frivillig på grund af sit eget barn?", a:2, w:"Carlos started when 'min søn begyndte at spille fodbold' and the club needed a coach. Søren's children are grown up and live far away, and Priya started 'fordi jeg gerne ville have erfaring'."},
+  {q:"Hvem var ensom, før det frivillige arbejde begyndte?", a:0, w:"Søren: 'så jeg var meget ensom'. Carlos 'havde allerede venner fra arbejdet', and Priya says nothing about being lonely."},
+  {q:"Hvem har fået arbejde takket være sit frivillige arbejde?", a:1, w:"Priya: 'En skole så det på mit CV og gav mig et studiejob'. For Carlos 'det har ikke hjulpet mig til et bedre job', and Søren no longer thinks about 'karriere'."},
+  {q:"Hvem bruger flest timer på at være frivillig?", a:2, w:"Carlos: '8-10 timer om ugen'. Søren does 'kun fire timer', and Priya 'kun to timer om ugen'."},
+  {q:"Hvem er holdt op med at arbejde?", a:0, w:"Søren 'gik på pension for tre år siden'. Priya is a student, and Carlos has 'et fuldtidsjob på et lager'."},
+  {q:"Hvem hjælper børn med deres skolearbejde?", a:1, w:"Priya helps in a 'lektiecafé' with Danish and maths. Carlos also works with children, but he coaches football, and Søren works in a shop."},
+  {q:"Hvem er blevet bedre til dansk som frivillig?", a:2, w:"Carlos: 'jeg har lært utroligt meget dansk'. Priya is born in Denmark, so 'sproget er ikke noget problem for mig', and Søren says nothing about language."}
+ ]},
+
+{id:"mt-jul", type:"match", title:"Tre personer fortæller om deres jul",
+ people:[
+  {n:"Niels", t:"Hos os er julen, som den altid har været. Hele familien kommer hjem til os den 24., i alt 14 personer, og jeg står i køkkenet fra tidlig morgen. Jeg laver både and, flæskesteg, brune kartofler og risalamande, præcis som min mor gjorde. Min kone pynter træet med den samme gamle julepynt, som vi har haft i 30 år. Efter maden danser vi om juletræet og synger salmer, og så pakker vi gaver op. Det tager flere timer, for der er mange! Jeg har aldrig fundet mandlen, men det gør ikke noget. Mine børn spørger, om vi ikke skal prøve noget nyt, men det kommer ikke til at ske. Jeg elsker hvert minut af julen, også alt arbejdet i køkkenet."},
+  {n:"Yuki", t:"Jeg er fra Japan, hvor julen ikke er en stor familiefest. Da jeg var barn, spiste vi bare kylling og jordbærkage, og den 25. gik alle på arbejde. Sidste år holdt jeg min første danske jul hos min kærestes familie i Jylland. Hans mor lavede al maden, og jeg fik kun lov til at skrælle kartofler. Jeg var nervøs for, om jeg havde købt de rigtige gaver til alle, men de blev glade. Det mærkeligste var at gå rundt om juletræet og holde hinanden i hånden, mens vi sang. Jeg kendte ikke sangene, men jeg prøvede at synge med. Til dessert fik vi risalamande, og jeg fandt mandlen! Alle grinede og sagde, at det var begynderheld. Jeg glæder mig allerede til næste jul."},
+  {n:"Pernille", t:"Da jeg var barn, elskede jeg julen, men som voksen synes jeg, at den er blevet alt for stressende. I december var der julefrokoster hver weekend, og jeg skulle købe gaver til 20 mennesker. Hvert år var det det samme, og jeg var helt udmattet, når vi nåede juleaften. For tre år siden besluttede min mand og jeg at gøre noget helt andet. Nu rejser vi til Thailand den 20. december og kommer først hjem efter nytår. Vi har aftalt med familien, at vi ikke giver hinanden gaver mere. Juleaften spiser vi fisk på en restaurant ved stranden. Min mor var sur i starten, men nu har hun accepteret det. Jeg savner faktisk ikke flæskestegen."}
+ ],
+ qs:[
+  {q:"Hvem holder jul et sted, hvor det er varmt?", a:2, w:"Pernille travels to Thailand and eats 'på en restaurant ved stranden'. Niels celebrates at home, and Yuki was with her boyfriend's family in Jylland."},
+  {q:"Hvem var heldig ved desserten juleaften?", a:1, w:"Yuki: 'jeg fandt mandlen!' Niels: 'Jeg har aldrig fundet mandlen', and Pernille eats fish at a restaurant instead."},
+  {q:"Hvem laver selv julemaden?", a:0, w:"Niels: 'jeg står i køkkenet fra tidlig morgen' and makes everything himself. At Yuki's Christmas 'Hans mor lavede al maden', and Pernille eats at a restaurant."},
+  {q:"Hvem synes, at julen giver for meget stress?", a:2, w:"Pernille: 'alt for stressende … helt udmattet'. Niels 'elsker hvert minut', and Yuki is already looking forward to next Christmas."},
+  {q:"Hvem holdt dansk jul for første gang sidste år?", a:1, w:"Yuki: 'Sidste år holdt jeg min første danske jul'. Niels does it as his mother did, and Pernille loved Christmas already as a child."},
+  {q:"Hvem vil ikke lave om på familiens juletraditioner?", a:0, w:"Niels: the children want to try something new, 'men det kommer ikke til at ske'. Pernille changed everything three years ago, and Yuki's family traditions in Japan were different."},
+  {q:"Hvem er holdt op med at give julegaver?", a:2, w:"Pernille: 'vi ikke giver hinanden gaver mere'. Niels's family unwraps presents for hours, and Yuki bought presents for everyone."}
+ ]},
+
+{id:"mt-foraeldre", type:"match", title:"Tre personer fortæller om at være forælder i Danmark",
+ people:[
+  {n:"Lucía", t:"Jeg kommer fra Spanien og har to børn på to og fire år. Min mand og jeg arbejder begge fuld tid, og da vores familie bor i Madrid, er der ingen bedsteforældre, der kan hente børnene. Det er hårdt nogle gange. Da vores første barn blev født, var jeg hjemme i fem måneder. Det mest overraskende i Danmark var, at babyer sover udenfor i barnevognen, også om vinteren. Jeg syntes, det var helt skørt, men nu gør jeg det selv, og min datter sover meget bedre. I børnehaven har jeg mødt mange søde forældre, og nogle af dem er blevet gode venner. Jeg kan godt lide, at børn her må lege meget og ikke skal præstere hele tiden. Skærme er ikke et problem hos os endnu. Vi taler spansk derhjemme, så mit dansk er stadig bedre end børnenes."},
+  {n:"Esben", t:"Da vores yngste søn blev født sidste år, var jeg hjemme med ham i otte måneder, mens min kone gik tilbage på arbejde. Mange af mine venner tog kun et par uger, men jeg ville ikke gå glip af noget. Det var den bedste tid i mit liv, men også den mest trættende. Nu går han i vuggestue, og vi får heldigvis meget hjælp af mine forældre, som bor i nærheden. De henter ham hver torsdag og passer ham, når han er syg. Det, der bekymrer mig mest, er skærme. Vores ældste søn på seks år vil helst sidde med sin tablet hele tiden, og vi diskuterer det næsten hver dag. Jeg har ikke meget tid til at snakke med de andre forældre, for jeg har altid travlt, når jeg henter."},
+  {n:"Ibrahim", t:"Vi flyttede fra Syrien til Danmark for seks år siden, og vi har tre børn. Den yngste er kun fire måneder. Jeg havde bare to ugers fri, da hun blev født, for jeg var lige startet i et nyt job. Min kone synes stadig, det er mærkeligt, at danske babyer sover udenfor i kulden, så vores datter sover altid indenfor. Mine to sønner går i skole, og de er glade for det, men jeg synes, de leger for meget og lærer for lidt. Jeg ville ønske, at lærerne var strengere og gav flere lektier. Til forældremøder taler de andre forældre mest sammen, og jeg har svært ved at komme ind i samtalen. Mine forældre bor stadig i Syrien, så børnene ser kun deres bedsteforældre på video. Drengene taler allerede meget bedre dansk end jeg."}
+ ],
+ qs:[
+  {q:"Hvem var hjemme med sit barn i mere end et halvt år?", a:1, w:"Esben: 'var jeg hjemme med ham i otte måneder'. Lucía was at home 'i fem måneder', and Ibrahim only had 'to ugers fri'."},
+  {q:"Hvem synes, at skolen er for lidt streng?", a:2, w:"Ibrahim: 'Jeg ville ønske, at lærerne var strengere'. Lucía likes the opposite: 'at børn her må lege meget og ikke skal præstere hele tiden', and Esben's worry is screens, not school."},
+  {q:"Hvem har fået venner blandt de andre forældre?", a:0, w:"Lucía: 'nogle af dem er blevet gode venner'. Ibrahim 'har svært ved at komme ind i samtalen', and Esben has no time to talk to the other parents."},
+  {q:"Hvem kan få hjælp af sine forældre til at passe børnene?", a:1, w:"Esben's parents 'henter ham hver torsdag og passer ham'. Lucía's family lives in Madrid, and Ibrahim's parents are still in Syria."},
+  {q:"Hvem lader sin baby sove ude i kulden?", a:0, w:"Lucía thought it was 'helt skørt', 'men nu gør jeg det selv'. Ibrahim's daughter 'sover altid indenfor', and Esben does not mention it."},
+  {q:"Hvem taler dårligere dansk end sine børn?", a:2, w:"Ibrahim: 'Drengene taler allerede meget bedre dansk end jeg'. Lucía: 'mit dansk er stadig bedre end børnenes', and Esben says nothing about it."},
+  {q:"Hvem er bekymret for, hvor meget børnene bruger skærme?", a:1, w:"Esben: 'Det, der bekymrer mig mest, er skærme'. Lucía: 'Skærme er ikke et problem hos os endnu', and Ibrahim does not mention screens."}
+ ]},
+
+{id:"mt-digitale-vaner", type:"match", title:"Tre personer fortæller om deres digitale vaner",
+ people:[
+  {n:"Stine", t:"Jeg er 23 år og læser medicin. Hvis jeg skal være ærlig, bruger jeg min telefon omkring seks timer om dagen, mest på sociale medier. Det er også dér, jeg får mine nyheder. Det største problem er, at jeg ligger med telefonen i sengen til langt ud på natten, og så sover jeg dårligt og er træt til forelæsningerne. For en måned siden slettede jeg TikTok, og det har hjulpet lidt. Jeg har også prøvet at holde en telefonfri weekend, men jeg holdt kun til lørdag middag. Ved siden af studiet arbejder jeg på en café, og der må vi ikke have telefonen fremme, hvilket faktisk er rart. Det er sjovt, for det er mig, der hjælper min mormor, når hun ikke kan finde ud af sin tablet."},
+  {n:"Poul", t:"Jeg er 74 år, og for fem år siden havde jeg ikke engang en smartphone. Men da min datter flyttede til Australien med sine børn, måtte jeg lære det. Mit barnebarn viste mig, hvordan man bruger den, og jeg gik også på et kursus på biblioteket. Nu taler jeg med familien på video hver søndag, og min telefon er altid tændt, hvis de ringer. Jeg kan også bruge MitID og betale regninger på nettet, og det er jeg ret stolt af. Facebook og den slags har jeg aldrig haft, og det har jeg heller ikke brug for. Jeg læser stadig avisen på papir hver morgen til kaffen. Om aftenen ser jeg tv, men jeg slukker altid klokken ti og sover fint."},
+  {n:"Leila", t:"Jeg arbejder som programmør, så jeg sidder foran en computer otte timer om dagen, og om eftermiddagen har jeg tit møder på Teams. Når jeg kommer hjem, har jeg ikke lyst til flere skærme, og jeg hader videoopkald, også med familien. Derfor har vi indført nogle regler derhjemme. Der må ikke være telefoner ved spisebordet eller i soveværelset, og jeg sover meget bedre nu. I weekenden slukker jeg helt for min telefon fra fredag aften til søndag aften. Mine venner ved, at de bare kan komme forbi, hvis det er vigtigt. Jeg har ikke slettet nogen apps, for jeg bruger dem sjældent. Nyhederne læser jeg på computeren i frokostpausen. Mine børn synes, jeg er gammeldags, men jeg er meget gladere nu."}
+ ],
+ qs:[
+  {q:"Hvem holder fri fra telefonen hver weekend?", a:2, w:"Leila 'slukker jeg helt for min telefon fra fredag aften til søndag aften'. Stine tried but 'holdt kun til lørdag middag', and Poul's phone 'er altid tændt'."},
+  {q:"Hvem får sine nyheder fra en trykt avis?", a:1, w:"Poul: 'Jeg læser stadig avisen på papir'. Stine gets news on social media, and Leila reads it 'på computeren'."},
+  {q:"Hvem sover dårligt på grund af sin telefon?", a:0, w:"Stine lies with the phone in bed 'og så sover jeg dårligt'. Leila 'sover meget bedre nu', and Poul 'sover fint'."},
+  {q:"Hvem har haft brug for hjælp til at lære sin telefon at kende?", a:1, w:"Poul: 'Mit barnebarn viste mig, hvordan man bruger den', plus a library course. Stine is the one who gives help, to her grandmother, and Leila is a programmer."},
+  {q:"Hvem kigger på en skærm det meste af arbejdsdagen?", a:2, w:"Leila 'sidder foran en computer otte timer om dagen'. Stine's café job does not allow phones, and Poul does not work."},
+  {q:"Hvem har fjernet en app fra sin telefon?", a:0, w:"Stine: 'For en måned siden slettede jeg TikTok'. Leila 'har ikke slettet nogen apps', and Poul has never had Facebook."},
+  {q:"Hvem holder kontakt med sin familie via video?", a:1, w:"Poul: 'Nu taler jeg med familien på video hver søndag'. Leila 'hader videoopkald, også med familien', and Stine does not mention it."}
  ]}
 ];
 
@@ -407,7 +778,59 @@ const WRITE_T = [
  from:"Henrik",
  mail:"Hej!\n\nVelkommen tilbage fra ferie! Jeg håber, at du har haft nogle dejlige uger. Hvor holdt du ferie, og hvem var du sammen med? Hvad lavede I? Var I heldige med vejret? Og har du lyst til at tage derhen igen?\n\nHer på kontoret har der været meget stille, fordi halvdelen af afdelingen også har haft ferie. Jeg glæder mig til at høre om det hele.\n\nVi ses på mandag!\n\nHilsen\nHenrik",
  qs:["hvor du holdt ferie","hvem du var sammen med","hvad I lavede","hvordan vejret var","om du vil tage derhen igen"],
- model:"Hej Henrik\n\nTak for din mail! Ja, jeg har haft en dejlig ferie.\n\nVi lejede et sommerhus på Bornholm i en uge. Jeg var der sammen med min kone, vores søn og min svigermor.\n\nVi cyklede meget rundt på øen, og en dag sejlede vi til Christiansø. Om eftermiddagen badede vi i havet eller slappede af i haven, og om aftenen grillede vi tit. Min søn syntes, at det var sjovest at lede efter sten og muslinger på stranden.\n\nVi var heldige med vejret. Det regnede kun én dag, og da så vi en film og spillede kort.\n\nJeg vil gerne tilbage til Bornholm, fordi naturen er så smuk. Næste gang vil jeg også besøge Hammershus.\n\nVi ses på mandag!\n\nHilsen\nRavi"}
+ model:"Hej Henrik\n\nTak for din mail! Ja, jeg har haft en dejlig ferie.\n\nVi lejede et sommerhus på Bornholm i en uge. Jeg var der sammen med min kone, vores søn og min svigermor.\n\nVi cyklede meget rundt på øen, og en dag sejlede vi til Christiansø. Om eftermiddagen badede vi i havet eller slappede af i haven, og om aftenen grillede vi tit. Min søn syntes, at det var sjovest at lede efter sten og muslinger på stranden.\n\nVi var heldige med vejret. Det regnede kun én dag, og da så vi en film og spillede kort.\n\nJeg vil gerne tilbage til Bornholm, fordi naturen er så smuk. Næste gang vil jeg også besøge Hammershus.\n\nVi ses på mandag!\n\nHilsen\nRavi"},
+
+{id:"kl-tog", kind:"klage", title:"Klage til togselskabet RegionTog",
+ sit:"Du skulle med toget fra Odense til København til en vigtig jobsamtale. Toget fra RegionTog var meget forsinket, og du kom for sent.",
+ task:"Skriv en klage til RegionTog. Du skal fortælle:",
+ points:["hvor du skulle hen, og hvorfor","hvad der skete på turen","hvilke problemer det gav dig","hvad du forventer, at togselskabet gør"],
+ model:"Til RegionTog\n\nTirsdag den 7. oktober skulle jeg med jeres tog fra Odense til København kl. 7.12, fordi jeg skulle til en jobsamtale kl. 10.\n\nToget kørte til tiden fra Odense, men ved Slagelse holdt det stille i over en time. Personalet sagde ikke, hvorfor vi holdt stille, og der var ingen information på skærmene. Der var heller ikke nok siddepladser, så jeg måtte stå op hele vejen.\n\nDa jeg endelig kom frem, var jeg en time for sent til samtalen. Jeg var meget ked af det, fordi jeg havde glædet mig til at møde firmaet. Heldigvis fik jeg en ny tid, men jeg måtte købe en ny billet til 298 kr.\n\nJeg forventer, at I betaler begge billetter tilbage, og at I giver bedre information, når et tog er forsinket.\n\nMed venlig hilsen\nMarco Rossi"},
+
+{id:"kl-internet", kind:"klage", title:"Klage til internetudbyderen NetLink",
+ sit:"Du har et internetabonnement hos NetLink. I over en måned har internettet i din lejlighed været meget langsomt, og det forsvinder tit helt.",
+ task:"Skriv en klage til NetLink. Du skal fortælle:",
+ points:["hvor længe du har haft abonnementet, og hvad det koster","hvad problemet er","hvorfor det er et problem for dig","hvad du vil have, at NetLink gør"],
+ model:"Til NetLink\n\nJeg har haft et internetabonnement hos jer i to år, og jeg betaler 349 kr. om måneden for hurtigt internet.\n\nSiden begyndelsen af september har internettet været meget langsomt, og flere gange om ugen forsvinder det helt. Jeg har genstartet routeren mange gange, men det hjælper ikke. Da jeg ringede til jeres kundeservice, lovede man, at en tekniker ville kontakte mig, men det er ikke sket.\n\nDet er et stort problem for mig, fordi jeg arbejder hjemme to dage om ugen. Hvis internettet forsvinder under et møde, kan jeg ikke arbejde. Min søn kan heller ikke lave sine lektier, når der ikke er internet.\n\nJeg vil have, at I sender en tekniker i denne uge. Jeg forventer også, at jeg ikke skal betale for september.\n\nMed venlig hilsen\nSara Haddad"},
+
+{id:"kl-maler", kind:"klage", title:"Klage til malerfirmaet Hansen & Søn",
+ sit:"Du har betalt malerfirmaet Hansen & Søn for at male din stue og dit køkken. Du er ikke tilfreds med arbejdet.",
+ task:"Skriv en klage til Hansen & Søn. Du skal fortælle:",
+ points:["hvad I havde aftalt, og hvad det kostede","hvad der var galt med arbejdet","hvad der skete, da du kontaktede firmaet","hvad du forventer, at firmaet gør"],
+ model:"Til Hansen & Søn\n\nI august aftalte jeg med jeres firma, at I skulle male min stue og mit køkken. Arbejdet skulle tage tre dage og koste 12.000 kr., og jeg betalte det hele, da malerne var færdige.\n\nDa de var gået, opdagede jeg mange problemer. Væggene i stuen har store pletter, og flere steder kan man stadig se den gamle farve. Malerne har også spildt maling på mit trægulv, og den kan ikke vaskes af.\n\nJeg ringede til jer dagen efter og sendte billeder. Først sagde I, at en maler ville komme og se på det, men siden har ingen svaret på mine opkald.\n\nJeg forventer, at I kommer og maler stuen og køkkenet igen, og at I betaler for at få gulvet ordnet.\n\nMed venlig hilsen\nNadia Petrova"},
+
+{id:"kl-sprogskole", kind:"klage", title:"Klage til Sprogskolen Dansk Nu",
+ sit:"Du går på danskkursus hos Sprogskolen Dansk Nu. Din klasse har haft mange problemer i dette semester.",
+ task:"Skriv en klage til sprogskolen. Du skal fortælle:",
+ points:["hvilket hold du går på, og hvor længe du har gået der","hvad problemerne er","hvordan det påvirker dig og din læring","hvad du ønsker, at sprogskolen gør"],
+ model:"Til Sprogskolen Dansk Nu\n\nJeg går på modul 3 på jeres skole på Vesterbro, og jeg har gået på skolen siden januar. Vi har undervisning mandag og onsdag aften.\n\nDette semester har der været mange problemer. Vi har haft fire forskellige lærere, og tre gange er undervisningen blevet aflyst uden varsel. Klassen er også blevet meget stor, så vi er nu 24 kursister i et lille lokale.\n\nDet er et problem for mig, fordi jeg skal til modultest i december. Når vi er så mange, får jeg næsten aldrig lov til at tale, og jeg føler ikke, at jeg lærer nok. Selvom jeg laver lektier hver dag, er jeg bekymret for testen.\n\nJeg ønsker, at vi får en fast lærer, og at de aflyste timer bliver lagt ind igen før testen.\n\nMed venlig hilsen\nKenji Tanaka"},
+
+{id:"ml-foedselsdag", kind:"mail", title:"Svar til Emma om din fødselsdag",
+ sit:"Du har fået en e-mail fra din veninde Emma.",
+ from:"Emma",
+ mail:"Hej!\n\nTillykke igen med fødselsdagen! Jeg er så ked af, at jeg ikke kunne komme, men jeg var syg. Hvordan fejrede du dagen, og hvor mange gæster kom der? Hvad fik I at spise? Fik du nogle gode gaver? Og hvad var det bedste ved dagen?\n\nJeg har købt en lille gave til dig. Hvornår kan jeg give dig den?\n\nKærlig hilsen\nEmma",
+ qs:["hvordan du fejrede dagen","hvor mange gæster der kom","hvad I fik at spise","hvilke gaver du fik","hvad det bedste ved dagen var","hvornår Emma kan give dig gaven"],
+ model:"Hej Emma\n\nTak for din søde mail! Jeg håber, at du har det bedre nu.\n\nJeg fejrede min fødselsdag lørdag med en fest i vores lejlighed. Der kom 15 gæster, både venner fra sprogskolen og nogle kolleger.\n\nMin mand lavede mad fra mit hjemland, og vi spiste også en dansk lagkage, som min nabo havde bagt. Det smagte dejligt.\n\nJeg fik mange gode gaver, for eksempel en kogebog og et gavekort til biografen.\n\nDet bedste ved dagen var, at alle sang fødselsdagssang på dansk, selvom mange af gæsterne ikke er danske. Bagefter dansede vi til kl. 2 om natten.\n\nDu kan komme forbi på torsdag efter arbejde, hvis du har tid. Så drikker vi kaffe sammen.\n\nKærlig hilsen\nLeila"},
+
+{id:"ml-hund", kind:"mail", title:"Svar til Mikkel om jeres nye hund",
+ sit:"Du har fået en e-mail fra din kollega Mikkel.",
+ from:"Mikkel",
+ mail:"Hej!\n\nJeg har set billederne af jeres nye hund på Facebook. Den er så sød! Hvad hedder den, og hvor gammel er den? Hvorfor besluttede I jer for at få en hund? Hvordan går det med at passe den, når I er på arbejde? Og hvordan har jeres børn taget imod den?\n\nVi har også snakket om at få en hund, så jeg vil gerne høre, hvordan det går.\n\nHilsen\nMikkel",
+ qs:["hvad hunden hedder, og hvor gammel den er","hvorfor I fik en hund","hvordan I passer hunden, når I er på arbejde","hvordan børnene har taget imod den"],
+ model:"Hej Mikkel\n\nTak for din mail! Ja, vi har fået en hund, og vi er meget glade for hende.\n\nHun hedder Luna, og hun er en labrador på fire måneder.\n\nVi fik en hund, fordi børnene har ønsket sig en i flere år. Desuden vil jeg gerne gå flere ture, og nu skal jeg ud hver morgen, uanset hvordan vejret er.\n\nDet er lidt svært at passe hende, når vi er på arbejde. Om formiddagen kommer min svigermor og går tur med hende, og om eftermiddagen er børnene hjemme fra skole kl. 14.\n\nBørnene elsker hende! De leger med hende i haven hver dag, og min datter vil gerne sove sammen med hende. Men det har vi sagt nej til.\n\nHvis du vil, kan du komme og hilse på Luna i weekenden.\n\nHilsen\nJuan"},
+
+{id:"ml-jul", kind:"mail", title:"Svar til Birgitte om din første danske jul",
+ sit:"Du har fået en e-mail fra din veninde Birgitte.",
+ from:"Birgitte",
+ mail:"Kære …\n\nGodt nytår! Jeg håber, at du har haft en dejlig jul. Det var jo din første jul i Danmark, ikke? Hvor holdt du juleaften, og hvem var du sammen med? Hvad spiste I? Dansede I om juletræet? Og hvad syntes du om de danske juletraditioner?\n\nHos os var hele familien samlet, og vi spiste alt for meget.\n\nKærlig hilsen\nBirgitte",
+ qs:["hvor du holdt juleaften","hvem du var sammen med","hvad I spiste","om I dansede om juletræet","hvad du syntes om de danske juletraditioner"],
+ model:"Kære Birgitte\n\nGodt nytår til dig og din familie! Ja, det var min første jul i Danmark, og den var meget hyggelig.\n\nJeg holdt juleaften hos min kollega Anne i Køge. Jeg var sammen med hendes mand, deres to børn og hendes forældre.\n\nVi spiste flæskesteg og and med brune kartofler og rødkål. Til dessert fik vi risalamande, og jeg fandt mandlen! Derfor fik jeg mandelgaven, som var en stor marcipangris.\n\nEfter maden dansede vi om juletræet og sang julesange. Jeg kunne ikke synge med på alle sangene, fordi jeg ikke kendte teksterne.\n\nJeg synes, at de danske traditioner er dejlige, fordi hele familien er sammen. Men jeg har aldrig spist så meget før!\n\nKærlig hilsen\nAisha"},
+
+{id:"ml-festival", kind:"mail", title:"Svar til Signe om Roskilde Festival",
+ sit:"Du har fået en e-mail fra din veninde Signe.",
+ from:"Signe",
+ mail:"Hej!\n\nJeg kan se på dine billeder, at du var på Roskilde Festival i sidste uge. Hvor er jeg misundelig! Hvem tog du af sted med, og hvor længe var I der? Hvilke koncerter så du, og hvilken var den bedste? Hvordan var det at sove i telt? Og skal du med igen næste år?\n\nJeg var desværre nødt til at arbejde hele ugen.\n\nMange hilsner\nSigne",
+ qs:["hvem du tog af sted med","hvor længe I var der","hvilke koncerter du så","hvilken koncert der var den bedste","hvordan det var at sove i telt","om du skal med igen næste år"],
+ model:"Hej Signe\n\nTak for din mail! Det var en fantastisk oplevelse, og jeg er stadig lidt træt.\n\nJeg tog af sted sammen med tre venner fra mit arbejde, og vi var der fra onsdag til søndag.\n\nVi så mange koncerter, både med danske og udenlandske bands. Den bedste var en dansk rapper, som spillede lørdag aften. Selvom jeg ikke forstod alle ordene, sang jeg med på omkvædet sammen med tusindvis af mennesker.\n\nDet var ikke så godt at sove i telt. Torsdag regnede det hele dagen, og om natten blev vores telt vådt indvendigt. Desuden var der musik og larm til kl. 5 om morgenen.\n\nMen jeg vil helt sikkert med igen næste år! Har du lyst til at tage med?\n\nMange hilsner\nPavel"}
 ];
 
 const ORAL_T = {

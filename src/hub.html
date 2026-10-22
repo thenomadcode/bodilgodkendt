@@ -492,6 +492,12 @@ body.has-tts .say{display:inline-grid;vertical-align:-6px}
 .mtrow h4{font-family:Newsreader,Georgia,serif;font-weight:600;font-size:17px;margin:0}
 .mtrow p{margin:1px 0 0;font-size:13px;color:var(--ink-2)}
 .mtrow .btn{flex:none}
+.dot{flex:none;width:20px;height:20px;border-radius:99px;border:1.5px solid var(--line);display:grid;
+  place-items:center;color:transparent}
+.dot.on{background:var(--ok);border-color:var(--ok);color:var(--surface)}
+.dot svg{width:11px;height:11px}
+.todo{font-size:12px;color:var(--ink-3);border:1px dashed var(--line);border-radius:99px;padding:1px 9px;white-space:nowrap}
+.mocks .mtk{flex:1 1 100%;font-size:12px;color:var(--ink-3);padding-left:94px;line-height:1.45}
 .best{font-size:12.5px;font-variant-numeric:tabular-nums;color:var(--ink-3);white-space:nowrap}
 .best.ok{color:var(--ok);font-weight:600}
 .best.no{color:var(--accent);font-weight:600}
@@ -649,7 +655,11 @@ textarea.wtxt:focus-visible{outline:2px solid var(--focus);outline-offset:1px;bo
 .pics .ics{font-size:20px;letter-spacing:4px;white-space:nowrap}
 @media (max-width:520px){
   .choice.row{grid-template-columns:1fr}
-  .mtrow{flex-wrap:wrap}
+  .mtrow{flex-wrap:wrap;row-gap:8px}
+  .mtrow .mtt{flex:1 1 calc(100% - 34px)}
+  .mtrow .dot+.mtt~.best,.mtrow .dot+.mtt~.todo{margin-left:32px}
+  .mtrow .btn{margin-left:auto}
+  .mocks .mtk{padding-left:0}
   .pics .ics{display:none}
 }
 .empty{padding:44px 16px;text-align:center;color:var(--ink-3);font-size:15px}
@@ -1831,14 +1841,29 @@ document.addEventListener('keydown',e=>{
    kept out of stats().ready on purpose; the real test is pass/fail, so it
    gets a verdict, not a share of the headline. Its own storage key. */
 const KEY_M = 'dtg3-test-v1';
-let M = {best:{}, mocks:[], drafts:{}, checks:{}, topics:[], maps:{}, oral:{}};
+/* best   reading score per task id: {s, n, k tries, d last date}
+   wlog   writing attempts per prompt id: {k, d, ok, n words} — practice and mock alike
+   mocks  the last 20 mocks, each with the task ids it contained
+   onlyNew  the "not done yet" filter on the tab */
+const M0 = () => ({best:{}, wlog:{}, mocks:[], drafts:{}, checks:{}, topics:[], maps:{}, oral:{}, onlyNew:false});
+let M = M0();
 try{ const o=JSON.parse(localStorage.getItem(KEY_M)||'{}');
-     ['best','drafts','checks','maps','oral'].forEach(k=>{
+     if(typeof o.onlyNew==='boolean') M.onlyNew=o.onlyNew;
+     ['best','wlog','drafts','checks','maps','oral'].forEach(k=>{
        if(o[k] && typeof o[k]==='object' && !Array.isArray(o[k])) M[k]=o[k]; });
      if(Array.isArray(o.mocks)) M.mocks=o.mocks;
      if(Array.isArray(o.topics)) M.topics=o.topics.filter(id=>ORAL_T.topics.some(t=>t.id===id)).slice(0,2);
    }catch(e){}
 function saveM(){ try{ localStorage.setItem(KEY_M, JSON.stringify(M)); }catch(e){} }
+const MON = ['jan.','feb.','mar.','apr.','maj','jun.','jul.','aug.','sep.','okt.','nov.','dec.'];
+function fmtD(d){ const p=String(d||'').split('-'); return p.length===3 ? (+p[2])+'. '+MON[+p[1]-1] : ''; }
+/* "done" is the same idea everywhere: a reading task once checked, a prompt
+   once written in (practice or mock), an oral task once run through. */
+const readDone  = t => !!M.best[t.id];
+const writeDone = t => !!(M.wlog[t.id] || M.drafts[t.id]);
+const tries = id => ((M.best[id]||{}).k || 0) + ((M.wlog[id]||{}).k || 0);
+const DOT = on => '<span class="dot'+(on?' on':'')+'" aria-label="'+(on?'Lavet':'Ikke lavet')+'">'+TICK+'</span>';
+const titleOf = id => { const t=READ_T.find(x=>x.id===id)||WRITE_T.find(x=>x.id===id); return t ? t.title : id; };
 
 const LET  = 'ABCDEFGH';
 const attr = s => esc(s).replace(/"/g,'&quot;');
@@ -1964,6 +1989,7 @@ function openMT(state){
   setClock(''); setProg('');
 }
 function closeMT(){
+  if(MT && MT.onClose) MT.onClose();
   stopClock();
   try{ speechSynthesis.cancel(); }catch(e){}
   $('#mt').hidden=true; document.body.style.overflow='';
@@ -2023,7 +2049,7 @@ function nextOfType(t){
 }
 function recordRead(X){
   const id=X.t.id, s=scoreX(X), n=nItems(X.t), b=M.best[id]||{s:-1,k:0};
-  M.best[id]={s:Math.max(b.s,s), n, k:(b.k||0)+1, d:new Date().toISOString().slice(0,10)};
+  M.best[id]={s:Math.max(b.s,s), n, k:(b.k||0)+1, d:today(), last:s};
   saveM();
 }
 $('#mtBody').addEventListener('change',e=>{
@@ -2062,6 +2088,12 @@ const GRAM_CHECK = [
 const OPEN_RE  = /^\s*(hej|hejsa|kære|til|goddag|dear|hi)\b/i;
 const CLOSE_RE = /\b(hilsen|hilsner|venlig|knus|kh|vh|mvh)\b/i;
 const wordsIn = s => (String(s).trim().match(/\S+/g)||[]).length;
+function logWrite(t, text, ticks){
+  if(!wordsIn(text)) return;
+  const o=M.wlog[t.id]||{k:0};
+  M.wlog[t.id]={k:o.k+1, d:today(), ok:writeComplete(t,text,ticks), n:wordsIn(text)};
+  saveM();
+}
 function writeAuto(t, text){
   const lines = String(text).split('\n').map(s=>s.trim()).filter(Boolean);
   const out = [
@@ -2147,14 +2179,16 @@ function openWrite(id){
   body(writeHTML(t, W.text, W.ticks)+'<div class="tr-foot"><button class="pbtn" id="wDone">Gem og luk</button>'+
     '<span class="tr-hint">Saved as you type, in this browser.</span></div>');
   bindWrite(t, W);
+  MT.onClose = () => logWrite(t, W.text, W.ticks);
   $('#wDone').addEventListener('click',closeMT);
 }
 
 /* ── the mock test ── */
-/* Picks the least-practised task of each type, so repeated mocks rotate
-   through everything before they repeat. Two chats, like the real 2A and 2B. */
+/* Picks the least-practised task of each type — reading and writing, practice
+   and mock attempts alike — so repeated mocks work through everything before
+   anything repeats. Two chats, like the real 2A and 2B. */
 function pickLeast(list, n){
-  return shuffle(list.slice()).sort((a,b)=>((M.best[a.id]||{}).k||0)-((M.best[b.id]||{}).k||0)).slice(0,n);
+  return shuffle(list.slice()).sort((a,b)=>tries(a.id)-tries(b.id)).slice(0,n);
 }
 function startMock(mode){
   const Xs = mode==='write' ? [] :
@@ -2220,7 +2254,10 @@ function finishMock(){
   const wres = MT.Ws.map(W=>({t:W.t, ok:writeComplete(W.t,W.text,W.ticks), n:wordsIn(W.text), W}));
   const writeOk = wres.every(w=>w.ok);
   const pass = readOk && writeOk;
-  M.mocks.unshift({d:new Date().toISOString().slice(0,10), mode:MT.mode, r:rs, rn, w:wres.map(w=>w.ok), pass});
+  MT.Ws.forEach(W=>logWrite(W.t, W.text, W.ticks));
+  M.mocks.unshift({d:today(), mode:MT.mode, r:rs, rn, w:wres.map(w=>w.ok), pass,
+    items:MT.Xs.map(X=>({id:X.t.id, s:scoreX(X), n:nItems(X.t)})),
+    writes:wres.map(w=>({id:w.t.id, ok:w.ok, n:w.n}))});
   M.mocks = M.mocks.slice(0,20); saveM();
   MT.result={rs,rn,readOk,wres,pass};
   drawMockDone();
@@ -2378,9 +2415,16 @@ function oralDone(key, title, ok, text){
 /* ── the tab ── */
 function mockSummary(){
   if(!M.mocks.length) return '<p class="dhint">No mock taken yet.</p>';
-  return '<ul class="mocks">'+M.mocks.slice(0,5).map(m=>'<li><span class="d">'+esc(m.d)+'</span>'+stamp(m.pass,'sm')+
+  return '<ul class="mocks">'+M.mocks.slice(0,5).map(m=>'<li><span class="d">'+fmtD(m.d)+'</span>'+stamp(m.pass,'sm')+
     '<span>'+(m.rn?'læsning '+m.r+'/'+m.rn:'')+(m.rn&&m.w.length?' · ':'')+
-    (m.w.length?'skrivning '+m.w.filter(Boolean).length+'/'+m.w.length:'')+'</span></li>').join('')+'</ul>';
+    (m.w.length?'skrivning '+m.w.filter(Boolean).length+'/'+m.w.length:'')+'</span>'+
+    (m.items||m.writes ? '<span class="mtk">'+(m.items||[]).map(x=>esc(titleOf(x.id))+' '+x.s+'/'+x.n)
+      .concat((m.writes||[]).map(x=>esc(titleOf(x.id))+' '+(x.ok?'✓':'✗'))).join(' · ')+'</span>' : '')+
+    '</li>').join('')+'</ul>'+(M.mocks.length>5?'<p class="dhint">'+M.mocks.length+' mocks in all; the last five are shown.</p>':'');
+}
+function writeStats(){
+  return {done: WRITE_T.filter(writeDone).length, total: WRITE_T.length,
+          ok: WRITE_T.filter(t=>(M.wlog[t.id]||{}).ok || writeComplete(t, M.drafts[t.id]||'', M.checks[t.id]||[])).length};
 }
 function readStats(){
   const tried = READ_T.filter(t=>M.best[t.id]);
@@ -2389,17 +2433,20 @@ function readStats(){
 }
 function renderM(){
   const out=$('#mOut'); if(!out) return;
-  const rsx=readStats(), wDone=WRITE_T.filter(t=>writeComplete(t, M.drafts[t.id]||'', M.checks[t.id]||[])).length;
-  const days=examDays();
+  const rsx=readStats(), wsx=writeStats();
+  const filt = list => M.onlyNew ? list.filter(t=>!(readDone(t)||(t.kind&&writeDone(t)))) : list;
   let h='<section class="sec" style="margin-top:24px"><div class="sec-head"><h2>Modultest 3</h2>'+
-    '<span class="sec-count">'+(days!==null && days>=0 ? days+' dage til' : 'DU3 · modul 3')+'</span></div>'+
+    '<span class="sec-count">DU3 · modul 3</span></div>'+
+    '<div class="exam" style="border-top:0;padding-top:0;margin-top:10px">'+countdownHTML()+'</div>'+
     '<p class="sec-sub">The test itself, in its own formats. Reading here is marked by the page, not by you — '+
     'so these are the scores to trust. Written texts are original, on the book\'s themes; none of it is the real test.</p>'+
     '<div class="dash">'+
       '<article class="dcard"><h3>Læsning · 50 min</h3><div class="dnum">'+(rsx.acc===null?'—':pc(rsx.acc)+'<small>%</small>')+'</div>'+
-        '<p class="dhint">'+rsx.tried+' af '+rsx.total+' opgaver prøvet. Four task types, no dictionary.</p></article>'+
-      '<article class="dcard"><h3>Skrivning</h3><div class="dnum">'+wDone+'<small>af '+WRITE_T.length+'</small></div>'+
-        '<p class="dhint">A complaint with four set points, and an e-mail reply of at least 90 words.</p></article>'+
+        meter(rsx.tried/rsx.total,'var(--t3)')+
+        '<p class="dhint"><b>'+rsx.tried+' af '+rsx.total+'</b> opgaver lavet. The number is your best score across them.</p></article>'+
+      '<article class="dcard"><h3>Skrivning</h3><div class="dnum">'+wsx.done+'<small>af '+wsx.total+' skrevet</small></div>'+
+        meter(wsx.done/wsx.total,'var(--t2)')+
+        '<p class="dhint">'+wsx.ok+' with every point covered. A complaint, and an e-mail of at least 90 words.</p></article>'+
       '<article class="dcard"><h3>Mundtlig</h3><div class="dnum">'+M.topics.length+'<small>af 2 emner</small></div>'+
         '<p class="dhint">Two prepared topics, then a picture conversation. Judged bestået / ikke bestået.</p></article>'+
     '</div>'+
@@ -2409,29 +2456,36 @@ function renderM(){
       '<button class="pbtn ghost" data-mock="read">Kun læsning</button><button class="pbtn ghost" data-mock="write">Kun skrivning</button></div>'+
       mockSummary()+'</div></section>';
 
-  h+='<section class="sec"><div class="sec-head"><h2>Læsning</h2><span class="sec-count">'+READ_T.length+' opgaver</span></div>'+
-    '<p class="sec-sub">One at a time, with the answer and the reason as soon as you check.</p>';
+  h+='<section class="sec"><div class="sec-head"><h2>Læsning</h2><span class="sec-count">'+rsx.tried+' af '+READ_T.length+' lavet</span></div>'+
+    '<p class="sec-sub">One at a time, with the answer and the reason as soon as you check. A task done inside a mock counts as done.</p>'+
+    '<div class="chips"><button class="chip" type="button" data-onlynew aria-pressed="'+M.onlyNew+'">Kun dem, jeg ikke har lavet</button></div>';
   RTYPES.forEach(type=>{
-    const list=readOf(type); if(!list.length) return;
-    h+='<div class="mtype"><h3>'+esc(RT[type].name)+'</h3><p class="how">'+esc(RT[type].how)+'</p><div class="mtlist">'+
-      list.map(t=>{ const b=M.best[t.id];
-        return '<div class="mtrow"><div class="mtt"><h4>'+esc(t.title)+'</h4>'+(t.sub?'<p>'+esc(t.sub)+'</p>':'')+'</div>'+
-          (b?'<span class="best '+(b.s/b.n>=PASS?'ok':'no')+'">bedst '+b.s+'/'+b.n+'</span>':'<span class="best">'+nItems(t)+' spørgsmål</span>')+
-          '<button class="btn" data-read="'+t.id+'">'+(b?'Igen':'Start')+'</button></div>'; }).join('')+'</div></div>';
+    const all=readOf(type); if(!all.length) return;
+    const list=filt(all), done=all.filter(readDone).length;
+    h+='<div class="mtype"><h3>'+esc(RT[type].name)+' · '+done+' af '+all.length+' lavet</h3><p class="how">'+esc(RT[type].how)+'</p><div class="mtlist">'+
+      (list.length ? list.map(t=>{ const b=M.best[t.id];
+        return '<div class="mtrow">'+DOT(!!b)+'<div class="mtt"><h4>'+esc(t.title)+'</h4>'+(t.sub?'<p>'+esc(t.sub)+'</p>':'')+'</div>'+
+          (b?'<span class="best '+(b.s/b.n>=PASS?'ok':'no')+'">bedst '+b.s+'/'+b.n+' · '+fmtD(b.d)+(b.k>1?' · '+b.k+'×':'')+'</span>'
+            :'<span class="todo">Ikke lavet</span>')+
+          '<button class="btn" data-read="'+t.id+'">'+(b?'Igen':'Start')+'</button></div>'; }).join('')
+        : '<p class="dhint">Alle lavet. Turn the filter off to do one again.</p>')+'</div></div>';
   });
   h+='</section>';
 
-  h+='<section class="sec"><div class="sec-head"><h2>Skrivning</h2><span class="sec-count">'+WRITE_T.length+' opgaver</span></div>'+
+  h+='<section class="sec"><div class="sec-head"><h2>Skrivning</h2><span class="sec-count">'+wsx.done+' af '+WRITE_T.length+' skrevet</span></div>'+
     '<p class="sec-sub">The two kinds of text the test asks for. Each has its checklist, the phrases to open and close with, '+
     'and a model answer to compare with once yours is written. Drafts are kept in this browser.</p>';
   [['klage','Opgave 1 · Klage','A formal complaint. The task lists four points; a text that skips one does not pass, however good the Danish.'],
    ['mail','Opgave 2 · Svar på en e-mail','A friendly reply. Answer every question in the e-mail, in at least 90 words, and open and close it properly.']].forEach(([k,name,how])=>{
-    h+='<div class="mtype"><h3>'+name+'</h3><p class="how">'+how+'</p><div class="mtlist">'+
-      WRITE_T.filter(t=>t.kind===k).map(t=>{
-        const d=M.drafts[t.id]||'', ok=writeComplete(t,d,M.checks[t.id]||[]);
-        return '<div class="mtrow"><div class="mtt"><h4>'+esc(t.title)+'</h4><p>'+esc(t.sit)+'</p></div>'+
-          (d?'<span class="best'+(ok?' ok':'')+'">'+(ok?'✓ ':'')+wordsIn(d)+' ord</span>':'')+
-          '<button class="btn" data-write="'+t.id+'">'+(d?'Fortsæt':'Skriv')+'</button></div>'; }).join('')+'</div></div>';
+    const all=WRITE_T.filter(t=>t.kind===k), list=filt(all);
+    h+='<div class="mtype"><h3>'+name+' · '+all.filter(writeDone).length+' af '+all.length+' skrevet</h3><p class="how">'+how+'</p><div class="mtlist">'+
+      (list.length ? list.map(t=>{
+        const d=M.drafts[t.id]||'', lg=M.wlog[t.id], ok=writeComplete(t,d,M.checks[t.id]||[]) || (lg&&lg.ok);
+        const n = d ? wordsIn(d) : lg ? lg.n : 0;
+        return '<div class="mtrow">'+DOT(writeDone(t))+'<div class="mtt"><h4>'+esc(t.title)+'</h4><p>'+esc(t.sit)+'</p></div>'+
+          (writeDone(t)?'<span class="best'+(ok?' ok':'')+'">'+(ok?'✓ ':'')+n+' ord'+(lg?' · '+fmtD(lg.d):'')+'</span>':'<span class="todo">Ikke skrevet</span>')+
+          '<button class="btn" data-write="'+t.id+'">'+(d?'Fortsæt':'Skriv')+'</button></div>'; }).join('')
+        : '<p class="dhint">Alle skrevet. Turn the filter off to write one again.</p>')+'</div></div>';
   });
   h+='</section>';
 
@@ -2442,7 +2496,10 @@ function renderM(){
     (M.topics.length<2?'<p class="why">'+(M.topics.length?'Pick one more.':'Pick the two you will prepare.')+' Avoid easy ones like my flat or my family — the test guidance rules them out as too simple.</p>':'')+
     '<div class="cards">'+M.topics.map(id=>{
       const t=ORAL_T.topics.find(x=>x.id===id), mine=M.maps[id]||[], long=mine.filter(k=>k.trim().split(/\s+/).length>3);
-      return '<article class="wcard"><div class="mmhead"><h3>'+esc(t.name)+'</h3><button class="btn go" data-oral1="'+id+'">Øv præsentationen</button></div>'+
+      const o=M.oral['o1:'+id];
+      return '<article class="wcard"><div class="mmhead"><h3>'+esc(t.name)+'</h3>'+
+        (o?'<span class="best ok">øvet '+o.n+'× · '+fmtD(o.d)+'</span>':'<span class="todo">Ikke øvet</span>')+
+        '<button class="btn go" data-oral1="'+id+'">Øv præsentationen</button></div>'+
         '<div class="mm">'+(mine.length?mine.map((k,i)=>'<span class="kw'+(k.trim().split(/\s+/).length>3?' long':'')+'">'+esc(k)+
           '<button type="button" data-kwdel="'+id+'" data-i="'+i+'" aria-label="Fjern '+attr(k)+'">×</button></span>').join('')
           :'<span class="dhint" style="margin:0">Your mindmap is empty. Add your own keywords, or start from the suggestions.</span>')+'</div>'+
@@ -2450,11 +2507,11 @@ function renderM(){
         '<div class="kwadd"><input type="text" data-kwin="'+id+'" placeholder="Tilføj et stikord og tryk Enter" aria-label="Nyt stikord til '+attr(t.name)+'" maxlength="40"></div>'+
         '<div class="sugg"><span class="lbl">Forslag</span>'+t.keys.filter(k=>!mine.includes(k)).map(k=>'<button type="button" data-kwsug="'+id+'">'+esc(k)+'</button>').join('')+'</div>'+
         '</article>'; }).join('')+'</div></div>'+
-    '<div class="mtype"><h3>Opgave 2 · Billeder</h3><p class="how">Four pictures on a theme. With a partner you say which you prefer and why, '+
+    '<div class="mtype"><h3>Opgave 2 · Billeder · '+ORAL_T.pics.filter(p=>M.oral['o2:'+p.id]).length+' af '+ORAL_T.pics.length+' øvet</h3><p class="how">Four pictures on a theme. With a partner you say which you prefer and why, '+
     'then the examiner asks you three questions of your own. The pictures are described here in words.</p><div class="mtlist">'+
     ORAL_T.pics.map(p=>{ const o=M.oral['o2:'+p.id];
-      return '<div class="mtrow"><div class="mtt"><h4>'+esc(p.emne)+'</h4><p>'+esc(p.scenes.map(s=>s.da).join(' · '))+'</p></div>'+
-        (o?'<span class="best ok">'+o.n+'×</span>':'')+'<button class="btn" data-oral2="'+p.id+'">Øv</button></div>'; }).join('')+
+      return '<div class="mtrow">'+DOT(!!o)+'<div class="mtt"><h4>'+esc(p.emne)+'</h4><p>'+esc(p.scenes.map(s=>s.da).join(' · '))+'</p></div>'+
+        (o?'<span class="best ok">'+o.n+'× · '+fmtD(o.d)+'</span>':'<span class="todo">Ikke øvet</span>')+'<button class="btn" data-oral2="'+p.id+'">Øv</button></div>'; }).join('')+
     '</div></div></section>';
   out.innerHTML=h;
 }
@@ -2481,6 +2538,7 @@ $('#mOut').addEventListener('click',e=>{
   }
   else if(d.kwdel){ const m=M.maps[d.kwdel]||[]; m.splice(+d.i,1); saveM(); renderM(); }
   else if(d.kwsug) addKw(d.kwsug, b.textContent);
+  else if('onlynew' in d){ M.onlyNew=!M.onlyNew; saveM(); renderM(); }
 });
 $('#mOut').addEventListener('keydown',e=>{
   const inp=e.target.closest('[data-kwin]');
@@ -2523,12 +2581,23 @@ function verdict(r){
   if(r>0)    return ['Lige begyndt.','Nothing wrong with that. Start with the ★ rules in Grammatik — they are the ones most likely to be tested.'];
   return ['Ikke begyndt endnu.','Mark a rule as known, tick a word, or score yourself on a drill, and this page starts keeping track.'];
 }
-function examDays(){
-  if(!P.exam) return null;
-  const d=new Date(P.exam+'T00:00:00');
+/* The test dates are fixed (TEST_DATES in modultest.js), so the page counts
+   down on its own. P.exam is no longer asked for; it only survives as a
+   fallback if the dates are ever removed from the data. */
+function daysTo(iso){
+  if(!iso) return null;
+  const d=new Date(iso+'T00:00:00');
   if(isNaN(d.getTime())) return null;
   const now=new Date(); now.setHours(0,0,0,0);
   return Math.round((d-now)/86400000);
+}
+function examDays(){ return daysTo((typeof TEST_DATES!=='undefined' && TEST_DATES.skriftlig) || P.exam); }
+function countdownHTML(){
+  const parts = typeof TEST_DATES!=='undefined'
+    ? [['Skriftlig',TEST_DATES.skriftlig],['Mundtlig',TEST_DATES.mundtlig]] : [['Prøven',P.exam]];
+  return parts.filter(x=>x[1]).map(([l,d])=>{ const n=daysTo(d);
+    return '<span><b>'+l+'</b> '+fmtD(d)+' · '+(n>0?'<span class="days">'+n+'</span> '+(n===1?'dag':'dage'):n===0?'<span class="days">i dag</span>':'overstået')+'</span>'; })
+    .join('<span aria-hidden="true">·</span>');
 }
 function renderStatus(){
   const t = stats(), out = $('#sOut');
@@ -2573,7 +2642,8 @@ function renderStatus(){
       ? 'Last mock '+esc(lastM.d)+': '+(lastM.rn?'reading '+lastM.r+'/'+lastM.rn:'')+(lastM.rn&&lastM.w.length?', ':'')+
         (lastM.w.length?'writing '+lastM.w.filter(Boolean).length+' of '+lastM.w.length+' complete':'')+'. '
       : 'The percentage above is what you have marked. The mock test is what you can do — reading in the real formats, marked by the page. ')+
-      (rsx.acc!==null?'Reading practice so far: <b>'+pc(rsx.acc)+' %</b> right across '+rsx.tried+' tasks.':'')+'</p>'+
+      'Done so far: <b>'+rsx.tried+' of '+rsx.total+'</b> reading tasks, <b>'+writeStats().done+' of '+WRITE_T.length+'</b> writing prompts'+
+      (rsx.acc!==null?', with your best reading scores at <b>'+pc(rsx.acc)+' %</b>':'')+'.</p>'+
     '<div class="trrow"><button class="pbtn" data-mock="full">Tag en prøveprøve</button>'+
     '<button class="pbtn ghost" data-go="test">Gå til modultest →</button></div></div>';
 
@@ -2594,12 +2664,7 @@ function renderStatus(){
     (scopedMiss().length?'<button class="pbtn ghost" data-train="miss">My mistakes ('+scopedMiss().length+')</button>':'')+
     '<button class="pbtn ghost" data-train="words">Words only</button>'+
     '<button class="pbtn ghost" data-train="verbs">Verbs only</button></div>'+
-    '<div class="exam"><label for="examDate">Eksamensdato</label>'+
-    '<input type="date" id="examDate" value="'+esc(P.exam||'')+'">'+
-    (examDays()===null ? '<span>Set the date and the page counts down to it.</span>'
-      : examDays()>=0 ? '<span><span class="days">'+examDays()+'</span> days to go</span>'
-      : '<span>That date has passed. Hope it went well.</span>')+
-    '</div></div></section>';
+    '<div class="exam">'+countdownHTML()+'</div></div></section>';
 
   /* ── the misses ── */
   const miss = scopedMiss();
@@ -2659,8 +2724,6 @@ function renderStatus(){
   out.innerHTML = h;
   out.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>showTab(b.dataset.go)));
   out.querySelectorAll('[data-mock]').forEach(b=>b.addEventListener('click',()=>startMock(b.dataset.mock)));
-  const ed = $('#examDate');
-  if(ed) ed.addEventListener('change',()=>{ P.exam = ed.value || null; saveH(); renderStatus(); });
   out.querySelectorAll('#scopeChips .chip').forEach(b=>b.addEventListener('click',()=>{
     const k=b.dataset.ch;
     if(k==='all') SCOPE=new Set(CHAPTERS);
@@ -2677,7 +2740,7 @@ function renderStatus(){
     P.rules.clear(); P.verbs.clear(); P.listen.clear(); P.drills={}; S.known.clear();
     P.miss=[]; P.hits={}; P.sess=[];
     R.cards={}; R.newDay={d:'',n:0}; saveR(); Q=null;
-    M={best:{}, mocks:[], drafts:{}, checks:{}, topics:[], maps:{}, oral:{}}; saveM();
+    M=M0(); saveM();
     saveH(); saveW(); renderG(); renderV(); renderW(); renderL(); renderP(); renderSrs(); renderM(); syncProgress();
   });
 }

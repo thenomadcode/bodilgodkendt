@@ -175,7 +175,7 @@ Progress lives in the viewer's browser only. Five keys:
 | `dtg3-hub-v1` | marked rules, verbs and oral questions, drill scores, active tab, last-marked date, plus `miss` `hits` `sess` `exam` (see Trainer) and `scope` (chosen chapters) |
 | `dtg3-theme-v1` | `auto`, `light` or `dark` — the theme switch only |
 | `dtg3-srs-v1` | the Dagens ord schedule: `cards` keyed by `da` (`ivl`, `ease`, `reps`, `lapses`, `due`), plus `dir`, `perDay`, `tiers` and today's new-word count |
-| `dtg3-test-v1` | Modultest: `best` reading score per task id (`s`, `n`, `k` tries, `d`), `mocks` (last 20 verdicts), `drafts` and `checks` per writing id, `topics` (the two chosen oral topics), `maps` (the mindmap keywords per topic), `oral` (practice counts) |
+| `dtg3-test-v1` | Modultest: `best` reading score per task id (`s` best, `last`, `n`, `k` tries, `d` last date), `wlog` writing attempts per prompt id (`k`, `d`, `ok`, `n` words — practice and mock alike), `mocks` (last 20, each with the `items` and `writes` it contained), `drafts` and `checks` per writing id, `topics` (the two chosen oral topics), `maps` (mindmap keywords per topic), `oral` (`o1:`/`o2:` + id → count and date), `onlyNew` (the not-done-yet filter) |
 
 **These are keyed by content strings, not ids:**
 
@@ -262,6 +262,12 @@ whole test are judged bestået / ikke bestået.
   match — least-practised first — under a 50-minute clock that hands reading in
   when it runs out, then one klage and one mail at 30 minutes each. It ends in
   a GODKENDT / IKKE ENDNU stamp.
+- **Done / not done is tracked for everything** — every reading task, every
+  writing prompt, every oral topic and picture theme shows a dot, its last
+  date and its count, and each section heading says *x af N lavet*. A task done
+  inside a mock counts exactly like one done on its own, and the mock rotates
+  by `tries()`, so it reaches the untouched tasks first. The *Kun dem, jeg ikke
+  har lavet* chip filters the lists.
 - **Oral questions are spoken**, not shown, when a Danish voice exists — in the
   room you hear them. Without a voice they are shown as text.
 - Data shapes are in the header of `modultest.js`. Every reading item carries
@@ -308,7 +314,9 @@ drill orphans its trainer history the same way it orphans a tick.
   reaches the existing four numbers through the same door as marking by hand.
   If you change that rule, the "Sådan tælles det" copy has to change with it.
 - `P.sess` — `[{d,n,ok}]`, last 20, for the Status card only.
-- `P.exam` — the exam date, `YYYY-MM-DD`, drives the countdown. Nothing else.
+- `P.exam` — a legacy exam date. The countdown now reads `TEST_DATES` in
+  `modultest.js` (written 19 Nov 2026, oral 24 Nov 2026) and shows both;
+  `P.exam` is only a fallback if those are removed.
 
 `grade()` is deliberately forgiving: case, spacing and punctuation are ignored,
 `ae`/`oe`/`aa` are accepted for `æøå` so a phone keyboard is never the reason an
