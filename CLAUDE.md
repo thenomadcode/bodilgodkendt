@@ -58,8 +58,9 @@ redistribute; keep it local. It holds:
   exercises wholesale into `src/`, which publishes.
 - `modultest/` — the official DU3 modul 3 test material from
   danskogproever.dk (information sheets and the `33-eksempel-*` samples for
-  reading, writing and both oral tasks), plus a real February 2026 written test
-  from modultest.dk (Gyldendal). This is what defines the formats in the
+  reading, writing and both oral tasks), plus three Gyldendal practice tests
+  from modultest.dk (`DU3_3A`/`3C` February 2026, `DU3_3B` March 2025 — the
+  writing parts only). This is what defines the formats in the
   Modultest tab. Format reference only: every text in `src/modultest.js` is
   written for this page, and none of these may be copied in.
 
@@ -247,8 +248,12 @@ The module 3 test in its own formats, from `source/modultest/`. Written part:
 four reading task types in 50 minutes with no aids — `cloze` (opgave 1, ten
 gaps), `chat` (2A/2B, pick the missing replies, three left over), `insert`
 (opgave 3, the missing sentence in each of five paragraphs) and `match`
-(opgave 4, three people, seven *Hvem …?* questions) — then a `klage` with four
-set points and a `mail` reply of at least 90 words. Oral part: an emneopgave
+(opgave 4, three people, seven *Hvem …?* questions) — then a formal text with
+four set points and a `mail` reply of at least 90 words. The formal text is a
+`klage`, an `ansoegning` or an `anbefaling` (a public review — test B asked for
+one of your doctor); `LETTER` in `hub.html` lists the kinds and `isLetter()`
+is the test every writing branch uses, so a fourth kind is one entry there plus
+a kit in `ORAL_T.kit`. Oral part: an emneopgave
 (two prepared topics, a keyword-only mindmap, 1–2 minutes, then follow-up
 questions) and a four-picture preference conversation. Both oral parts and the
 whole test are judged bestået / ikke bestået.
@@ -262,7 +267,9 @@ whole test are judged bestået / ikke bestået.
   detected (`writeAuto()`); the content points are ticked by the learner.
 - **The mock** (`startMock()`) draws one cloze, two chats, one insert and one
   match — least-practised first — under a 50-minute clock that hands reading in
-  when it runs out, then one klage and one mail at 30 minutes each. It ends in
+  when it runs out, then one formal text and one mail at 30 minutes each. The
+  formal text's kind is drawn first, a third each, then the least-practised
+  prompt of that kind. It ends in
   a GODKENDT / IKKE ENDNU stamp.
 - **Done / not done is tracked for everything** — every reading task, every
   writing prompt, every oral topic and picture theme shows a dot, its last

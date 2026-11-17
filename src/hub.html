@@ -2219,6 +2219,12 @@ const GRAM_CHECK = [
   '<i>sin / sit / sine</i> when it is the subject\'s own: <i>Naboen spiller sin musik højt.</i>',
 ];
 const OPEN_RE  = /^\s*(hej|hejsa|kære|til|goddag|dear|hi)\b/i;
+/* Opgave 1 is one formal text of three kinds, each with four set points;
+   opgave 2 is always the mail. An anbefaling is a public review, so it may
+   open straight in with "Jeg kan varmt anbefale …" instead of a greeting. */
+const LETTER = {klage:'Klage', ansoegning:'Ansøgning', anbefaling:'Anbefaling'};
+const isLetter = t => t.kind in LETTER;
+const ANBEF_RE = /^\s*jeg (kan|vil)\b.*\banbefale/i;
 const CLOSE_RE = /\b(hilsen|hilsner|venlig|knus|kh|vh|mvh)\b/i;
 const wordsIn = s => (String(s).trim().match(/\S+/g)||[]).length;
 function logWrite(t, text, ticks){
@@ -2230,14 +2236,15 @@ function logWrite(t, text, ticks){
 function writeAuto(t, text){
   const lines = String(text).split('\n').map(s=>s.trim()).filter(Boolean);
   const out = [
-    {k:'open',  label:'Opens properly', hint:'Kære … / Hej …', on: lines.length>0 && OPEN_RE.test(lines[0])},
-    {k:'close', label:'Signs off properly', hint:t.kind==='klage'?'Med venlig hilsen':'Kærlig hilsen / Mange hilsner',
+    {k:'open',  label:'Opens properly', hint: t.kind==='anbefaling' ? 'Jeg kan varmt anbefale …' : isLetter(t) ? 'Kære … / Til …' : 'Kære … / Hej …',
+     on: lines.length>0 && (OPEN_RE.test(lines[0]) || (t.kind==='anbefaling' && ANBEF_RE.test(lines[0])))},
+    {k:'close', label:'Signs off properly', hint:isLetter(t)?'Med venlig hilsen':'Kærlig hilsen / Mange hilsner',
      on: lines.length>1 && CLOSE_RE.test(lines.slice(-3).join(' '))},
   ];
   if(t.kind==='mail') out.push({k:'len', label:'At least 90 words', hint:wordsIn(text)+' so far', on: wordsIn(text)>=90});
   return out;
 }
-const writeItems = t => t.kind==='klage' ? t.points : t.qs;
+const writeItems = t => isLetter(t) ? t.points : t.qs;
 function writeComplete(t, text, ticks){
   return writeItems(t).every((_,i)=>ticks.includes(i)) && writeAuto(t,text).every(a=>a.on);
 }
@@ -2249,13 +2256,13 @@ function phraseKit(kit){
 }
 function writeHTML(t, text, ticks, opts){
   opts=opts||{};
-  const kind = t.kind==='klage' ? 'Klage' : 'E-mail';
+  const kind = LETTER[t.kind] || 'E-mail';
   let h='<p class="qkind">Skrivning · '+kind+(opts.mock?' · prøveprøve':'')+'</p><h2 class="mt-h">'+esc(t.title)+'</h2>'+
     '<p class="sit">'+esc(t.sit)+'</p>';
-  if(t.kind==='klage') h+='<p class="sit" style="color:var(--ink)">'+esc(t.task)+'</p>'+
+  if(isLetter(t)) h+='<p class="sit" style="color:var(--ink)">'+esc(t.task)+'</p>'+
     '<ul class="uses">'+t.points.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul>';
   else h+='<div class="mail">'+esc(t.mail)+'</div><p class="sit">Svar på alle spørgsmålene. Mindst 90 ord, og begynd og slut på en passende måde.</p>';
-  h+='<textarea class="wtxt" id="wTxt" spellcheck="false" placeholder="'+(t.kind==='klage'?'Kære …':'Hej …')+'">'+esc(text)+'</textarea>'+
+  h+='<textarea class="wtxt" id="wTxt" spellcheck="false" placeholder="'+(t.kind==='anbefaling'?'Jeg kan varmt anbefale …':isLetter(t)?'Kære …':'Hej …')+'">'+esc(text)+'</textarea>'+
     '<div class="wmeta"><span class="wc" id="wCnt"></span><span>'+(t.kind==='mail'?'mindst 90 ord':'no minimum, but cover all four points')+'</span></div>'+
     '<ul class="ck" id="wCk"></ul>'+
     phraseKit(ORAL_T.kit[t.kind])+
@@ -2269,7 +2276,7 @@ const BOX = '<span class="bx">'+TICK+'</span>';
 function drawChecks(t, text, ticks){
   const ul=$('#wCk'); if(!ul) return;
   const n=wordsIn(text);
-  const wc=$('#wCnt'); wc.textContent=n+' ord'; wc.classList.toggle('ok', t.kind==='klage' ? n>=60 : n>=90);
+  const wc=$('#wCnt'); wc.textContent=n+' ord'; wc.classList.toggle('ok', isLetter(t) ? n>=60 : n>=90);
   const auto=writeAuto(t,text);
   /* Built once, then updated in place on every keystroke and tick — re-rendering
      would throw keyboard focus off the box you just ticked. */
@@ -2323,10 +2330,12 @@ function openWrite(id){
 function pickLeast(list, n){
   return shuffle(list.slice()).sort((a,b)=>tries(a.id)-tries(b.id)).slice(0,n);
 }
+/* Opgave 1's kind is drawn first, a third each, so a mock is as likely to ask
+   for an ansøgning or an anbefaling as for a klage — whatever you have done most. */
 function startMock(mode){
   const Xs = mode==='write' ? [] :
     [...pickLeast(readOf('cloze'),1), ...pickLeast(readOf('chat'),2), ...pickLeast(readOf('insert'),1), ...pickLeast(readOf('match'),1)].map(newX);
-  const Ws = mode==='read' ? [] : [pickLeast(WRITE_T.filter(w=>w.kind==='klage'),1)[0], pickLeast(WRITE_T.filter(w=>w.kind==='mail'),1)[0]]
+  const Ws = mode==='read' ? [] : [pickLeast(WRITE_T.filter(w=>w.kind===shuffle(Object.keys(LETTER))[0]),1)[0], pickLeast(WRITE_T.filter(w=>w.kind==='mail'),1)[0]]
     .filter(Boolean).map(t=>({t, text:'', ticks:[], t0:0}));
   openMT({kind:'mock', mode, Xs, Ws, step:0, phase: Xs.length?'read':'write', armed:false});
   if(MT.phase==='read'){
@@ -2582,11 +2591,11 @@ function renderM(){
         '<p class="dhint"><b>'+rsx.tried+' af '+rsx.total+'</b> opgaver lavet. The number is your best score across them.</p></article>'+
       '<article class="dcard"><h3>Skrivning</h3><div class="dnum">'+wsx.done+'<small>af '+wsx.total+' skrevet</small></div>'+
         meter(wsx.done/wsx.total,'var(--t2)')+
-        '<p class="dhint">'+wsx.ok+' with every point covered. A complaint, and an e-mail of at least 90 words.</p></article>'+
+        '<p class="dhint">'+wsx.ok+' with every point covered. A klage, ansøgning or anbefaling, and an e-mail of at least 90 words.</p></article>'+
       '<article class="dcard"><h3>Mundtlig</h3><div class="dnum">'+M.topics.length+'<small>af 2 emner</small></div>'+
         '<p class="dhint">Two prepared topics, then a picture conversation. Judged bestået / ikke bestået.</p></article>'+
     '</div>'+
-    '<div class="trcard"><h3>Prøveprøve</h3><p>A full written test against the clock: five reading tasks in 50 minutes, then a complaint and an e-mail, '+
+    '<div class="trcard"><h3>Prøveprøve</h3><p>A full written test against the clock: five reading tasks in 50 minutes, then a formal letter (klage, ansøgning or anbefaling) and an e-mail, '+
       '30 minutes each. Reading is marked at the end; you get a verdict, with a stamp.</p>'+
       '<div class="trrow"><button class="pbtn" data-mock="full">Hele den skriftlige prøve</button>'+
       '<button class="pbtn ghost" data-mock="read">Kun læsning</button><button class="pbtn ghost" data-mock="write">Kun skrivning</button></div>'+
@@ -2609,9 +2618,11 @@ function renderM(){
   h+='</section>';
 
   h+='<section class="sec"><div class="sec-head"><h2>Skrivning</h2><span class="sec-count">'+wsx.done+' af '+WRITE_T.length+' skrevet</span></div>'+
-    '<p class="sec-sub">The two kinds of text the test asks for. Each has its checklist, the phrases to open and close with, '+
+    '<p class="sec-sub">Opgave 1 is a formal text — on the day it may be a klage, an ansøgning or an anbefaling, so practise all three. Opgave 2 is always an e-mail reply. Each has its checklist, the phrases to open and close with, '+
     'and a model answer to compare with once yours is written. Drafts are kept in this browser.</p>';
   [['klage','Opgave 1 · Klage','A formal complaint. The task lists four points; a text that skips one does not pass, however good the Danish.'],
+   ['ansoegning','Opgave 1 · Ansøgning','An application — for a job, a volunteer place, a course. Same rules as the klage: four set points, every one covered, opened and signed off formally.'],
+   ['anbefaling','Opgave 1 · Anbefaling','A recommendation, posted online — your doctor, a shop, a craftsman. Four set points again. It can open straight in with "Jeg kan varmt anbefale …".'],
    ['mail','Opgave 2 · Svar på en e-mail','A friendly reply. Answer every question in the e-mail, in at least 90 words, and open and close it properly.']].forEach(([k,name,how])=>{
     const all=WRITE_T.filter(t=>t.kind===k), list=filt(all);
     h+='<div class="mtype"><h3>'+name+' · '+all.filter(writeDone).length+' af '+all.length+' skrevet</h3><p class="how">'+how+'</p><div class="mtlist">'+

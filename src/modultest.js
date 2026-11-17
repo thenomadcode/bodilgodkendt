@@ -5,7 +5,8 @@
    never copied in.
 
    READ_T   reading tasks: cloze (opgave 1), chat (2A/2B), insert (3), match (4)
-   WRITE_T  writing prompts: klage (opgave 1) and mail (opgave 2), each with a model answer
+   WRITE_T  writing prompts: opgave 1 is a klage, ansøgning or anbefaling, opgave 2
+            a mail reply; each with a model answer
    ORAL_T   oral task 1 topics with keywords and follow-ups, task 2 picture
             topics, and the phrase kits used by both the writing editor and
             the oral practice
@@ -17,6 +18,7 @@
    insert {id, type, title, paras:[{t:"… ___ …", o:[4 sentences], a, w}]}
    match  {id, type, title, people:[{n, t}×3], qs:[{q:"Hvem …?", a:0–2, w}]}
    klage  {id, kind:"klage", title, sit, task, points:[4], model}
+          — ansøgning and anbefaling have the same shape, kind:"ansoegning" / "anbefaling"
    mail   {id, kind:"mail", title, sit, from, mail, qs:[questions to answer], model}
    `w` is English and names the clue in the text.
 
@@ -830,7 +832,70 @@ const WRITE_T = [
  from:"Signe",
  mail:"Hej!\n\nJeg kan se på dine billeder, at du var på Roskilde Festival i sidste uge. Hvor er jeg misundelig! Hvem tog du af sted med, og hvor længe var I der? Hvilke koncerter så du, og hvilken var den bedste? Hvordan var det at sove i telt? Og skal du med igen næste år?\n\nJeg var desværre nødt til at arbejde hele ugen.\n\nMange hilsner\nSigne",
  qs:["hvem du tog af sted med","hvor længe I var der","hvilke koncerter du så","hvilken koncert der var den bedste","hvordan det var at sove i telt","om du skal med igen næste år"],
- model:"Hej Signe\n\nTak for din mail! Det var en fantastisk oplevelse, og jeg er stadig lidt træt.\n\nJeg tog af sted sammen med tre venner fra mit arbejde, og vi var der fra onsdag til søndag.\n\nVi så mange koncerter, både med danske og udenlandske bands. Den bedste var en dansk rapper, som spillede lørdag aften. Selvom jeg ikke forstod alle ordene, sang jeg med på omkvædet sammen med tusindvis af mennesker.\n\nDet var ikke så godt at sove i telt. Torsdag regnede det hele dagen, og om natten blev vores telt vådt indvendigt. Desuden var der musik og larm til kl. 5 om morgenen.\n\nMen jeg vil helt sikkert med igen næste år! Har du lyst til at tage med?\n\nMange hilsner\nPavel"}
+ model:"Hej Signe\n\nTak for din mail! Det var en fantastisk oplevelse, og jeg er stadig lidt træt.\n\nJeg tog af sted sammen med tre venner fra mit arbejde, og vi var der fra onsdag til søndag.\n\nVi så mange koncerter, både med danske og udenlandske bands. Den bedste var en dansk rapper, som spillede lørdag aften. Selvom jeg ikke forstod alle ordene, sang jeg med på omkvædet sammen med tusindvis af mennesker.\n\nDet var ikke så godt at sove i telt. Torsdag regnede det hele dagen, og om natten blev vores telt vådt indvendigt. Desuden var der musik og larm til kl. 5 om morgenen.\n\nMen jeg vil helt sikkert med igen næste år! Har du lyst til at tage med?\n\nMange hilsner\nPavel"},
+
+/* Opgave 1 is not always a klage. Gyldendal's March 2025 test (B) asked for an
+   anbefaling of your doctor, posted online, and an ansøgning can come up too —
+   so opgave 1 is one formal text of three kinds, all with four set points. */
+{id:"as-cafe", kind:"ansoegning", title:"Ansøgning til Café Solsikken",
+ sit:"Café Solsikken i Odense søger en ny medarbejder til weekenderne. Du har set jobopslaget på caféens hjemmeside, og du vil gerne søge jobbet.",
+ task:"Skriv en ansøgning til Café Solsikken. Du skal fortælle:",
+ points:["hvem du er","hvorfor du gerne vil have jobbet","hvilken erfaring du har","hvornår du kan arbejde"],
+ model:"Til Café Solsikken\n\nJeg har set jeres jobopslag på jeres hjemmeside, og jeg vil gerne søge jobbet som medarbejder i weekenderne.\n\nJeg hedder Lucia, jeg er 29 år og kommer fra Chile. Jeg har boet i Odense i to år med min mand, og til daglig går jeg på sprogskole.\n\nJeg vil gerne have jobbet, fordi jeg kan lide at møde nye mennesker, og fordi jeg gerne vil tale mere dansk. Jeg kommer tit på jeres café, og jeg kan godt lide den hyggelige stemning.\n\nI Chile arbejdede jeg tre år på en café i Santiago. Jeg lavede kaffe, tog imod bestillinger og gjorde rent i køkkenet. Jeg er glad, ansvarlig og god til at arbejde hurtigt, når der er travlt.\n\nJeg kan arbejde både lørdag og søndag, og om sommeren kan jeg også arbejde om aftenen.\n\nJeg ser frem til at høre fra jer.\n\nMed venlig hilsen\nLucia Fernández"},
+
+{id:"as-lektiecafe", kind:"ansoegning", title:"Ansøgning om at blive frivillig i lektiecaféen",
+ sit:"Biblioteket i din by har en lektiecafé, hvor frivillige hjælper skolebørn med deres lektier. Biblioteket søger nye frivillige, og du vil gerne være med.",
+ task:"Skriv en ansøgning til biblioteket. Du skal fortælle:",
+ points:["hvem du er","hvorfor du gerne vil være frivillig","hvad du er god til","hvor meget tid du har"],
+ model:"Kære medarbejdere på Holstebro Bibliotek\n\nJeg har læst på jeres hjemmeside, at I søger frivillige til lektiecaféen, og jeg vil meget gerne være med.\n\nMit navn er Yusuf, og jeg er 35 år. Jeg kommer fra Tyrkiet, hvor jeg var matematiklærer i otte år. Nu bor jeg i Holstebro med min kone og vores to børn.\n\nJeg vil gerne være frivillig, fordi jeg savner at undervise. Jeg ved også, hvor svært det kan være at lave lektier på et nyt sprog, for det oplever mine egne børn hver dag.\n\nJeg er især god til matematik og fysik, og jeg er tålmodig. Jeg kan også hjælpe børn, der taler tyrkisk eller engelsk.\n\nJeg har tid tirsdag og torsdag eftermiddag, cirka fire timer om ugen.\n\nJeg håber at høre fra jer.\n\nMed venlig hilsen\nYusuf Demir"},
+
+{id:"as-kolonihave", kind:"ansoegning", title:"Ansøgning om en kolonihave",
+ sit:"Du og din familie bor i en lejlighed uden have. Haveforeningen Solbakken har en ledig kolonihave, og man skal skrive en ansøgning for at få den.",
+ task:"Skriv en ansøgning til Haveforeningen Solbakken. Du skal fortælle:",
+ points:["hvem du er, og hvem du bor sammen med","hvorfor I gerne vil have en kolonihave","hvad I vil bruge haven til","hvordan du kan hjælpe i haveforeningen"],
+ model:"Kære bestyrelse i Haveforeningen Solbakken\n\nJeg har set, at I har en ledig have, og jeg vil gerne søge om at få den.\n\nJeg hedder Anna, jeg er 41 år og arbejder som sygeplejerske. Jeg bor sammen med min mand, Piotr, og vores to drenge på 7 og 10 år i en lejlighed på fjerde sal.\n\nVi vil gerne have en kolonihave, fordi vi ikke har nogen have, og børnene sidder for meget foran en skærm. Vi drømmer om at være mere udenfor om sommeren.\n\nVi vil dyrke kartofler, gulerødder og jordbær, og drengene skal have deres eget lille bed. Om aftenen vil vi gerne grille og spise sammen med naboerne.\n\nMin mand er tømrer, så han kan hjælpe med at reparere ting i foreningen. Jeg vil gerne hjælpe med sommerfesten.\n\nJeg ser frem til jeres svar.\n\nMed venlig hilsen\nAnna Kowalska"},
+
+{id:"as-kursus", kind:"ansoegning", title:"Ansøgning om en plads på et iværksætterkursus",
+ sit:"Kommunen tilbyder et gratis kursus for folk, der drømmer om at starte deres egen virksomhed. Der er kun 15 pladser, så man skal skrive en ansøgning.",
+ task:"Skriv en ansøgning til kommunen. Du skal fortælle:",
+ points:["hvem du er","hvad din drøm er","hvorfor du skal have en plads på kurset","hvad du håber at lære"],
+ model:"Til Aarhus Kommune\n\nJeg vil gerne søge om en plads på jeres iværksætterkursus i foråret.\n\nJeg hedder Mei, jeg er 33 år og kommer fra Taiwan. Jeg har boet i Danmark i fire år, og jeg arbejder i køkkenet på en stor restaurant.\n\nMin drøm er at åbne en lille tebutik i Aarhus, hvor man kan købe te fra Taiwan og smage den i butikken. Mange af mine danske venner elsker den te, jeg laver til dem.\n\nJeg synes, at jeg skal have en plads, fordi jeg har en klar plan, og fordi jeg arbejder hårdt. Jeg har allerede sparet penge op til butikken.\n\nPå kurset håber jeg at lære, hvordan man laver et budget, og hvilke regler der er for en butik i Danmark. Jeg vil også gerne lære at lave reklame på de sociale medier.\n\nJeg håber at høre fra jer.\n\nMed venlig hilsen\nMei Lin"},
+
+{id:"as-praktik", kind:"ansoegning", title:"Ansøgning om praktik i en børnehave",
+ sit:"Du vil gerne arbejde med børn. Børnehaven Mælkebøtten søger en praktikant i tre måneder, og du vil gerne søge pladsen.",
+ task:"Skriv en ansøgning til Børnehaven Mælkebøtten. Du skal fortælle:",
+ points:["hvem du er, og hvad du har lavet før","hvorfor du gerne vil arbejde med børn","hvilke gode sider du har","hvornår du kan starte"],
+ model:"Kære Børnehaven Mælkebøtten\n\nJeg har set jeres opslag på kommunens hjemmeside, og jeg søger hermed praktikpladsen hos jer.\n\nJeg hedder Fatima, jeg er 27 år og kommer fra Somalia. Jeg har boet i Danmark i tre år. I mit hjemland arbejdede jeg som barnepige for en familie med fire børn.\n\nJeg vil gerne arbejde med børn, fordi det giver mig meget glæde. Børn er nysgerrige og ærlige, og jeg kan godt lide at lege, synge og læse højt for dem. Senere vil jeg gerne uddanne mig til pædagog.\n\nJeg er rolig, tålmodig og mødestabil, og jeg er god til at samarbejde med andre. Jeg taler somalisk, arabisk og dansk.\n\nJeg kan starte den 1. februar.\n\nJeg ser frem til at høre fra jer.\n\nMed venlig hilsen\nFatima Ali"},
+
+{id:"ab-frisoer", kind:"anbefaling", title:"Anbefaling af din frisør",
+ sit:"Du har fundet en rigtig god frisør. Du vil skrive en anbefaling på frisørens side på internettet.",
+ task:"Skriv en anbefaling af din frisør. Du skal fortælle:",
+ points:["hvad frisøren hedder, og hvor salonen ligger","hvor længe du har været kunde der","hvorfor du synes, frisøren er god","hvem du vil anbefale frisøren til"],
+ model:"Jeg kan varmt anbefale frisøren Louise i Salon Krøllen på Nørregade 8 i Randers.\n\nJeg har været kunde hos Louise i næsten to år. Før havde jeg prøvet mange frisører, men jeg var aldrig rigtig tilfreds.\n\nLouise er god, fordi hun lytter. Hun spørger altid, hvordan jeg vil have mit hår, og hun giver gode råd uden at bestemme over mig. Hun er også meget hyggelig at snakke med, og hun er tålmodig, når jeg taler dansk. Prisen er rimelig, og man skal ikke vente længe på en tid.\n\nJeg vil anbefale Louise til alle, der har krøllet hår ligesom mig. Hun ved præcis, hvordan man klipper krøller.\n\nJeg giver Salon Krøllen fem stjerner!\n\nMed venlig hilsen\nSara Haddad"},
+
+{id:"ab-svoemmeskole", kind:"anbefaling", title:"Anbefaling af en svømmeskole",
+ sit:"Dit barn har gået til svømning i et halvt år. Du er meget glad for svømmeskolen og vil skrive en anbefaling i en Facebook-gruppe for forældre i din by.",
+ task:"Skriv en anbefaling af svømmeskolen. Du skal fortælle:",
+ points:["hvad svømmeskolen hedder, og hvor den ligger","hvorfor dit barn begyndte at gå til svømning","hvad der er godt ved svømmeskolen","hvad svømning har betydet for dit barn"],
+ model:"Hej alle forældre\n\nJeg vil gerne anbefale Svømmeskolen Bølgen, som holder til i svømmehallen på Skolevej i Næstved.\n\nMin søn Omar på seks år begyndte at gå til svømning i foråret. Han var bange for vand, og jeg ville gerne have, at han lærte at svømme, før vi skulle på ferie ved stranden.\n\nTrænerne er søde og tålmodige, og der er kun otte børn på hvert hold. Børnene leger meget i vandet, så de glemmer, at de er bange. Efter hver time får vi forældre at vide, hvad børnene har lært.\n\nSvømning har betydet meget for Omar. I dag kan han svømme 25 meter, og han er blevet meget gladere og mere modig.\n\nMed venlig hilsen\nNadia, Omars mor"},
+
+{id:"ab-vvs", kind:"anbefaling", title:"Anbefaling af en VVS'er",
+ sit:"Dit toilet gik i stykker, og en VVS'er kom og reparerede det. Du var meget tilfreds og vil skrive en anbefaling på en hjemmeside, hvor man anmelder håndværkere.",
+ task:"Skriv en anbefaling af VVS'eren. Du skal fortælle:",
+ points:["hvad firmaet hedder, og hvad problemet var","hvordan VVS'eren løste problemet","hvorfor du er tilfreds","hvem du vil anbefale firmaet til"],
+ model:"Jeg kan varmt anbefale VVS-firmaet Rør & Co. i Esbjerg.\n\nEn søndag morgen gik mit toilet i stykker, og der løb vand ud over hele gulvet på badeværelset. Jeg ringede til Rør & Co., og de svarede med det samme, selvom det var weekend.\n\nVVS'eren, Morten, kom efter en time. Han fandt hurtigt problemet og skiftede et gammelt rør. Han forklarede også, hvad der var sket, så jeg forstod det, og han gjorde rent, før han gik.\n\nJeg er tilfreds, fordi han var hurtig, venlig og ærlig. Prisen var den samme, som han havde sagt i telefonen, og der kom ingen ekstra regninger bagefter.\n\nJeg vil anbefale firmaet til alle, der har brug for hjælp hurtigt – også i weekenden.\n\nMed venlig hilsen\nKarim Benali"},
+
+{id:"ab-restaurant", kind:"anbefaling", title:"Anbefaling af restaurant Olivenlunden",
+ sit:"Du har været på en lille restaurant, som du var meget glad for. Du vil skrive en anbefaling på en hjemmeside, hvor man anmelder restauranter.",
+ task:"Skriv en anbefaling af restauranten. Du skal fortælle:",
+ points:["hvor restauranten ligger","hvornår du var der, og hvem du var sammen med","hvad I spiste","hvorfor du vil anbefale restauranten"],
+ model:"Jeg vil gerne anbefale restaurant Olivenlunden på Algade i Aalborg.\n\nJeg var der fredag den 10. oktober sammen med min kone og to venner fra mit hold på sprogskolen. Vi havde bestilt bord til kl. 18.30.\n\nVi startede med en tallerken med oliven, brød og forskellige salater, som vi delte. Bagefter fik jeg lam med kartofler, og min kone fik fisk med grøntsager. Til dessert fik vi alle sammen græsk yoghurt med honning.\n\nMaden var frisk og smagte fantastisk, og portionerne var store. Tjenerne var smilende og hjælpsomme, og de forklarede os alle retterne. Det var heller ikke dyrt: Vi betalte 350 kr. pr. person med vin.\n\nJeg kan kun anbefale Olivenlunden – vi kommer helt sikkert igen!\n\nMed venlig hilsen\nTomás Silva"},
+
+{id:"ab-fysioterapeut", kind:"anbefaling", title:"Anbefaling af din fysioterapeut",
+ sit:"Du havde ondt i ryggen i lang tid, men en fysioterapeut hjalp dig. Du vil skrive en anbefaling på klinikkens hjemmeside.",
+ task:"Skriv en anbefaling af din fysioterapeut. Du skal fortælle:",
+ points:["hvad fysioterapeuten hedder, og hvor klinikken ligger","hvorfor du kom til fysioterapeuten","hvordan fysioterapeuten hjalp dig","hvad det betyder for dig at have det godt igen"],
+ model:"Jeg kan varmt anbefale fysioterapeut Mette Holm fra Fysioklinikken på Torvet i Viborg.\n\nI vinter fik jeg meget ondt i ryggen, fordi jeg sidder ved en computer hele dagen på mit arbejde. Jeg kunne næsten ikke sove, og min læge sendte mig til en fysioterapeut.\n\nMette tog sig god tid til at forstå mit problem. Hun gav mig massage og lærte mig nogle øvelser, som jeg kan lave derhjemme hver morgen. Hun viste mig også, hvordan jeg skal sidde rigtigt ved mit skrivebord.\n\nEfter to måneder havde jeg ikke ondt mere. Det betyder meget for mig, for nu kan jeg igen cykle til arbejde og lege med mine børn.\n\nTusind tak, Mette!\n\nMed venlig hilsen\nAhmed Rahimi"},
 ];
 
 const ORAL_T = {
@@ -917,6 +982,14 @@ const ORAL_T = {
    open:["Kære …","Til …","Jeg skriver til jer, fordi …","Jeg vil gerne klage over …","Jeg er meget utilfreds med …","Den … var jeg …"],
    close:["Jeg håber at høre fra jer snart.","Jeg ser frem til jeres svar.","På forhånd tak.","Med venlig hilsen","Venlig hilsen"],
    useful:["Desværre var …","Jeg havde forventet, at …","Det er ikke i orden, at …","Jeg har allerede prøvet at …","Jeg har ringet til jer, men …","Jeg håber, at I vil …","Jeg forventer at få pengene tilbage.","Hvis det ikke sker, vil jeg …"]},
+  ansoegning:{
+   open:["Kære …","Til …","Jeg har set jeres opslag på …","Jeg søger hermed …","Jeg vil gerne søge om …","Jeg hedder …, og jeg er … år."],
+   close:["Jeg håber at høre fra jer.","Jeg ser frem til at høre fra jer.","I er meget velkomne til at kontakte mig.","Med venlig hilsen","Venlig hilsen"],
+   useful:["Jeg er meget interesseret i …","Jeg har erfaring med …","Jeg er god til at …","Jeg er ansvarlig og mødestabil.","Jeg kan godt lide at samarbejde.","Jeg vil gerne lære …","Det betyder meget for mig, fordi …","Jeg har tid … timer om ugen.","Jeg kan starte den …"]},
+  anbefaling:{
+   open:["Jeg kan varmt anbefale …","Jeg vil gerne anbefale …","Jeg har været kunde hos … i … år.","Jeg har gået til … siden …"],
+   close:["Jeg kan kun anbefale …!","Jeg giver … fem stjerner.","Med venlig hilsen","Venlig hilsen"],
+   useful:["Det bedste ved … er, at …","… er altid venlig og hjælpsom.","… tager sig god tid.","Man føler sig velkommen.","Man skal ikke vente længe.","Prisen er rimelig.","Det betyder meget for mig, at …","Jeg vil anbefale … til alle, der …"]},
   mail:{
    open:["Hej …","Kære …","Tak for din mail!","Hvor var det dejligt at høre fra dig!","Undskyld, at jeg først svarer nu.","Det går godt her."],
    close:["Skriv snart igen!","Jeg glæder mig til at se dig.","Hils din familie fra mig.","Kærlig hilsen","Mange hilsner","Knus"],
